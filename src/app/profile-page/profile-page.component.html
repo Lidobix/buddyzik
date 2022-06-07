@@ -1,0 +1,18 @@
+<!-- <app-header></app-header> -->
+<app-nav></app-nav>
+<div id="main">
+  <!-- <div id="banner"></div> -->
+  <button (click)="logoutRequest()">Deconnexion</button>
+  <button (click)="fetch()">Fetch</button>
+  <div id="profileId">
+    <img id="bannierPic" [src]="bannierPicUrl" />
+    <img id="profilePic" [src]="profilePicUrl" />
+    <p id="profilePseudo">{{ user.login }}</p>
+  </div>
+  <div id="musicId">
+    <p>{{ user.instrument }}</p>
+    <p>
+      {{ user.bio }}
+    </p>
+  </div>
+</div>

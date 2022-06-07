@@ -1,0 +1,51 @@
+@import"../../styles/configs/variables";
+
+#main{
+    width:90%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* #banner{
+    width: 70%;
+    height:30vh;
+} */
+#bannierPic{
+    /* position: absolute; */
+    z-index: 1;
+    width: 100%;
+    margin-left: 0;
+    /* height:100%; */
+    border:2px solid white
+}
+#profileId{
+    
+    /* margin-left: 15%; */
+    /* display: flex; */
+    width:100%;
+    /* flex-wrap: wrap; */
+
+}
+#profilePic{
+    /* position: absolute; */
+    z-index: 2;
+    /* top:36%; */
+    margin-left: 5%;
+margin-top: -5%;
+    /* width: 20%; */
+    /* height: 20%; */
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border:2px solid white
+}
+#profilePseudo {
+    font-size: 3em;
+    color: $titleColor;
+    font-weight: 800;
+    margin:20px
+}
+

@@ -1,0 +1,139 @@
+<!-- <app-header></app-header> -->
+<div class="form-card">
+  <h2>CREATION DU PROFIL</h2>
+  <form [formGroup]="userProfileForm">
+    <label for="login">Pseudo</label>
+    <input type="text" id="loginInput" formControlName="login" />
+    <br />
+    <br />
+    <label for="password">Mot de passe</label>
+    <input type="text" id="passwordInput" formControlName="password" />
+    <br />
+    <br />
+    <label for="mailAddress">Adresse mail</label>
+    <input type="text" id="mailAddressInput" formControlName="mailAddress" />
+    <br />
+    <br />
+    <label for="firstName">Prénom</label>
+    <input type="text" id="firstNameInput" formControlName="firstName" />
+    <br />
+    <br />
+    <label for="lastName">Nom</label>
+    <input type="text" id="lastNameInput" formControlName="lastName" />
+    <br />
+    <br />
+    <label for="birthDate">Date de naissance</label>
+    <input type="date" id="birthDateInput" formControlName="birthDate" /><br />
+    <br />
+    <label for="location">Ville</label>
+    <input type="text" id="locationInput" formControlName="location" />
+    <br />
+
+    <br />
+    Photo de profil:
+    <input type="file" formControlName="profilePicture" />
+    <br />
+    Photo de bannière:
+    <input type="file" formControlName="bannerPicture" />
+    <br />
+    <p>Genre:</p>
+    <input
+      id="genderMaleInput"
+      type="radio"
+      name="gender"
+      formControlName="gender"
+      value="Homme"
+      checked
+    />
+    <label for="genderMale">Homme</label>
+    <input
+      id="genderFemaleInput"
+      type="radio"
+      name="gender"
+      formControlName="gender"
+      value="Femme"
+    />
+    <label for="genderFemale">Femme</label>
+    <input
+      id="genderOtherInput"
+      type="radio"
+      name="gender"
+      formControlName="gender"
+      value="Autre"
+    />
+    <label for="genderOther">Autre</label>
+
+    <br />
+    <br />
+    <p>Dis nous en plus....</p>
+
+    <label for="instrument">Instrument de prédilection :</label>
+    <select formControlName="instrument" id="instrumentSelect">
+      <option value="">Choix...</option>
+      <option *ngFor="let instrument of instrumentsList" [value]="instrument">
+        {{ instrument }}
+      </option>
+    </select>
+    <p>Tu chantes?</p>
+    <input
+      id="singerYesInput"
+      type="radio"
+      name="singer"
+      formControlName="singer"
+      value="Yes"
+    />
+    <label for="singerYes">Oui!</label>
+    <input
+      id="singerNoInput"
+      type="radio"
+      name="singer"
+      formControlName="singer"
+      value="No"
+    />
+    <label for="singerNo">Non</label>
+    <!-- <input
+      id="singerMaybeInput"
+      type="radio"
+      name="singer"
+      formControlName="singer"
+      value="Maybe"
+    />
+    <label for="singerMaybe">Si il le faut</label> -->
+    <br />
+    <br />
+    <p>Tu es un pro?</p>
+    <input
+      id="proYesInput"
+      type="radio"
+      name="pro"
+      formControlName="pro"
+      value="Yes"
+    />
+    <label for="proYes">Oui</label>
+    <input
+      id="proNoInput"
+      type="radio"
+      name="pro"
+      formControlName="pro"
+      value="No"
+    />
+    <label for="proNo">Non</label>
+
+    <br />
+    <br />
+    <p>
+      Un petit mot sur ce que tu recherches ou proposes et qui sera affiché sur
+      ton profil?
+    </p>
+    <textarea
+      name="bio"
+      id="bioInput"
+      formControlName="bio"
+      cols="30"
+      rows="10"
+    ></textarea>
+    <br />
+    <br />
+    <input type="submit" (click)="onSubmitProfileForm()" value="GO!" />
+  </form>
+</div>

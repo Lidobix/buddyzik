@@ -1,0 +1,10 @@
+@import "../../styles/configs/_variables.scss";
+
+header{
+    h1{
+        a{
+            color:$titleColor;
+        }
+    }
+    a{color:green}
+}

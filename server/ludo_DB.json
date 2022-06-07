@@ -1,0 +1,73 @@
+[
+  {
+    "_id": {
+      "$oid": "6282c7529cb3d7cc9bfa1f32"
+    },
+
+    "login": "Ludo",
+    "mailAddress": "pipoflutepouet@gmail.com",
+    "firstName": "Ludovic",
+    "password": "$2b$10$Z/vZzvVegxgzBuLbvNDZ..IGSIEKwpG2BeOaBBm9gPnY0.qTgi1oO",
+    "lastName": "Manet",
+    "gender": "Homme",
+    "birthDate": "1985-10-25",
+    "location": "Solesmes",
+    "profilePicture": "avatar.jpeg",
+    "bannerPicture": "avatar.jpeg",
+    "bio": "je tape je tape....",
+    "status": "user",
+    "connected": true,
+    "deletable": false,
+    "friends": [
+      { "uuId": "44958307-2b28-4f06-959f-f1d94e335350" },
+      { "uuId": "0d78fb14-76ec-4d75-99b3-0abcb1dede5a" }
+    ],
+    "friends_old": [
+      {
+        "uuId": 12,
+        "firstName": "JeanMI",
+        "login": "string",
+        "lastName": "la cloche",
+        "gender": "gros male",
+        "birthDate": "Date",
+        "location": "string",
+        "profilePicture": "string",
+        "bannerPicture": "string",
+        "bio": "string",
+        "status": "string",
+        "online": "boolean",
+        "deletable": true,
+        "instrument": "Harpe",
+        "singer": "string",
+        "group": "string",
+        "professionnal": "string"
+      },
+      {
+        "uuId": 2,
+        "firstName": "KIKI",
+        "login": "string",
+        "lastName": "laFouine",
+        "gender": "ToBeDefined",
+        "birthDate": "Date",
+        "location": "string",
+        "profilePicture": "string",
+        "bannerPicture": "string",
+        "bio": "string",
+        "status": "string",
+        "online": "boolean",
+        "deletable": true,
+        "instrument": "Tuba",
+        "singer": "string",
+        "group": "string",
+        "professionnal": "string"
+      }
+    ],
+    "wall": [],
+    "messager": {},
+    "token": "",
+    "instrument": "Batterie",
+    "singer": "No",
+    "professionnal": null,
+    "uuId": "df3a16bd-3831-4eec-b1fa-4addc70930ed"
+  }
+]

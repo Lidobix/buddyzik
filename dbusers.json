@@ -1,0 +1,72 @@
+[{
+  "_id": {
+    "$oid": "624df42d2f500dcd46d7e67e"
+  },
+  "ID": {
+    "pseudo": "",
+    "password": "",
+    "mail_address": "",
+    "firstname": "",
+    "lastname": "",
+    "gender": "",
+    "birth": "",
+    "contact_information": "",
+    "picture": "",
+    "bio": ""
+  },
+  "status": "user, admin",
+  "connected": true,
+  "friends": {
+    "pseudo_1": {
+      "status": "invited"
+    },
+    "pseudo_2": {
+      "status": "pending"
+    },
+    "pseudo_3": {
+      "status": "confirmed"
+    },
+    "pseudo_4": {
+      "status": "recommended",
+      "mentors": {
+        "0": "pseudo_1",
+        "1": "pseudo_2"
+      }
+    }
+  },
+  "wall": {
+    "0": {
+      "origin": "pseudo expediteur",
+      "date": "06/04/2022",
+      "heure": "10.38pm",
+      "content": "je suis un message gentil"
+    },
+    "1": {
+      "origin": "pseudo expediteur",
+      "date": "08/04/2022",
+      "time": "9.20am",
+      "content": "je suis un message encore plus gentil"
+    }
+  },
+  "messager": {
+    "pseudo_1": {
+      "0": "message_1",
+      "1": "message_2",
+      "2": "message_3",
+      "3": "message_4"
+    },
+    "pseudo_2": {
+      "0": "message_1",
+      "1": "message_2",
+      "2": "message_3",
+      "3": "message_4"
+    }
+  },
+  "music": {
+    "instrument": "batterie",
+    "level": "low mid hiegh",
+    "singer": false,
+    "group": "en recherche / membre / pas envie",
+    "professionnal": false
+  }
+}]

@@ -1,0 +1,24 @@
+<div>
+  <h2>CONNEXION</h2>
+  <form [formGroup]="userLoginForm">
+    <label for="mailAddress">mailAddress</label>
+    <br />
+    <br />
+    <input type="text" id="mailInput" formControlName="mailAddress" />
+    <br />
+    <br />
+    <label for="password">Mot de passe</label>
+    <br />
+    <br />
+    <input type="password" id="passwordInput" formControlName="password" />
+    <br />
+    <br />
+    <button type="submit" (click)="onSubmitLoginForm()">Connexion</button>
+    <br />
+    <br />
+    <label for="inscription">Ou bien</label>
+    <br />
+    <br />
+    <button (click)="goToInscription()">Inscrivez vous!</button>
+  </form>
+</div>
