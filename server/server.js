@@ -277,7 +277,7 @@ app.get("/allbuddies", (req, res, next) => {
           )
           .toArray();
 
-        console.log("buddy à exclure: ", buddiesToExclude);
+        // console.log("buddy à exclure: ", buddiesToExclude);
         const allBuddies = await collection
           .find(
             {
@@ -307,7 +307,7 @@ app.get("/allbuddies", (req, res, next) => {
         // for (let each of allBuddies) {
         //   each.addable = true;
         // }
-        console.log("les gens: ", allBuddies);
+        // console.log("les gens: ", allBuddies);
 
         if (allBuddies === null) {
         } else {
@@ -465,6 +465,7 @@ app.post("/confirmation", (req, res) => {
 
   if (authToken(req.headers.token)) {
     async function confirmationUpdateDataBase(uuid1, uuid2) {
+      console.log("confirmation d'acceptation");
       await mongoClient.connect();
       try {
         // On change les statuts des 2 amis à "confirmé" dans leurs listes respectives
@@ -522,37 +523,29 @@ app.post("/confirmation", (req, res) => {
     );
 
     async function addRecommendedBuddies(uuid1, uuid2) {
+      console.log("proposition des buddy recommandés");
       await mongoClient.connect();
       try {
         // On doit ajouter dasns la liste des 2 amis les amis qui leur sont recommandés:
 
         // Si je suis X, je dois aller lire le tableau de uuid recommandés de Y
-        // j'extrais la liste de gens recommandés par mon nouvel ami:
-        const extractBuddyRecommendedList = await collection
-          .find(
-            {
-              uuid: uuid2,
-            },
-            {
-              projection: {
-                _id: 0,
-                recommends: 1,
-              },
-            }
-          )
-          .toArray();
-        const buddyRecommendedList = extractBuddyRecommendedList[0].recommends;
+        const extractBuddiesRecommended = await fetchBuddy(
+          { uuid: uuid2 },
+          { projection: { _id: 0, recommends: 1 } }
+        );
+        const newBuddyRecommendationList = extractBuddiesRecommended.recommends;
 
-        console.log("buddyRecommendedList :", buddyRecommendedList);
+        // console.log("extractBuddiesRecommended ", extractBuddiesRecommended);
+        console.log("buddies à proposer: ", newBuddyRecommendationList);
 
         // J'extrais ma liste d'amis:
         const extractMyBuddiesList = await collection
           .find(
             { uuid: uuid1 },
-
             {
               projection: {
                 _id: 0,
+                login: 1,
                 friends_list: 1,
               },
             }
@@ -560,47 +553,68 @@ app.post("/confirmation", (req, res) => {
           .toArray();
 
         const myBuddiesList = extractMyBuddiesList[0].friends_list;
+        // console.log("myBuddiesList :", myBuddiesList);
+        console.log("extractMyBuddiesList :", extractMyBuddiesList);
 
         // Je dois extraire de cette liste tous mes amis communs avec lui
         for (let buddyToExclude of myBuddiesList) {
-          if (buddyRecommendedList.includes(buddyToExclude)) {
-            buddyRecommendedList.splice(
-              buddyRecommendedList.indexOf(buddyToExclude),
+          console.log("buddyToExclude :", buddyToExclude);
+          if (newBuddyRecommendationList.includes(buddyToExclude)) {
+            newBuddyRecommendationList.splice(
+              newBuddyRecommendationList.indexOf(buddyToExclude),
               1
             );
           }
         }
 
-        // on a la liste desbuddy à ajouter en statut recommandé.
+        console.log(
+          "après extraction des amis communs: ",
+          newBuddyRecommendationList
+        );
+        // // on a la liste desbuddy à ajouter en statut recommandé.
 
-        // Je dois ensuite ajouter chaque  uuid à ma liste d'amis en statut recommandé.
-
-        const buddiesRecommandedToAdd = collection
+        const buddyToRecommend = await collection
           .find(
-            { uuid: { $in: buddyRecommendedList } },
-            { projection: projectionBuddyCard }
+            { uuid: { $in: newBuddyRecommendationList } },
+            {
+              projection: projectionBuddyCard,
+            }
           )
           .toArray();
 
-        console.log("amis à ajouter: ", buddiesRecommandedToAdd);
+        console.log("new buddy to add and recommend: ", buddyToRecommend);
 
-        // await updateBuddy(
-        //   { uuid: uuid1, "friends.uuid": uuid2 },
-        //   {
-        //     $set: {
-        //       "friends.$.status": "confirmed",
-        //     },
-        //   }
-        // );
+        // Modification du statut:
+        for (const buddy of buddyToRecommend) {
+          buddy.status = "recommended";
+        }
+        console.log(
+          "new buddy to add après modif du statut: ",
+          buddyToRecommend
+        );
 
-        // await updateBuddy(
-        //   { uuid: uuid2, "friends.uuid": uuid1 },
-        //   {
-        //     $set: {
-        //       "friends.$.status": "confirmed",
-        //     },
-        //   }
-        // );
+        // buddyToRecommend.status = "recommended";
+
+        // // Je dois ensuite ajouter tous ces buddys à ma liste d'amis
+
+        updateBuddy(
+          { uuid: uuid1 },
+          {
+            $push: {
+              friends: { $each: buddyToRecommend },
+              friends_list: { $each: newBuddyRecommendationList },
+            },
+          }
+        );
+
+        // const buddiesRecommandedToAdd = collection
+        //   .find(
+        //     { uuid: { $in: buddyRecommendedList } },
+        //     { projection: projectionBuddyCard }
+        //   )
+        //   .toArray();
+
+        // console.log("amis à ajouter: ", buddiesRecommandedToAdd);
       } catch (error) {
         console.log(error);
       } finally {
@@ -608,7 +622,11 @@ app.post("/confirmation", (req, res) => {
       }
     }
 
-    const addRecommended = addRecommendedBuddies(
+    const addRecommendedToMe = addRecommendedBuddies(
+      req.body.guestBuddy,
+      req.headers.uuid
+    );
+    const addRecommendedToGuest = addRecommendedBuddies(
       req.headers.uuid,
       req.body.guestBuddy
     );
