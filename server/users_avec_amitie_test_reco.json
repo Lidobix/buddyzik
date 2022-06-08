@@ -18,7 +18,7 @@
   "connected": true,
   "wall": [],
   "messager": {},
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRaL3ZaenZWZWd4Z3pCdUxidk5EWi4uSUdTSUVLd3BHMkJlT2FCQm05Z1BuWTAucVRnaTFvTyIsImlhdCI6MTY1NDYxNjgyNiwic3ViIjoiZGYzYTE2YmQtMzgzMS00ZWVjLWIxZmEtNGFkZGM3MDkzMGVkIn0.b4JFIFKRFU8gR1BUPg8XU20I9_NBziLUz8HYKKqo208",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRaL3ZaenZWZWd4Z3pCdUxidk5EWi4uSUdTSUVLd3BHMkJlT2FCQm05Z1BuWTAucVRnaTFvTyIsImlhdCI6MTY1NDY5OTg0MSwic3ViIjoiZGYzYTE2YmQtMzgzMS00ZWVjLWIxZmEtNGFkZGM3MDkzMGVkIn0.-11vS_upDYPD19FprE9qaQZwLemQh-J4_Du34Qyw13w",
   "instrument": "Batterie",
   "singer": "No",
   "professionnal": null,
@@ -32,45 +32,16 @@
       "profilePicture": "avatar.jpeg",
       "status": "confirmed",
       "instrument": "Flûte traversière",
-      "singer": "Yes"
-    },
-    {
-      "uuid": "0d78fb14-76ec-4d75-99b3-0abcb1dede5a",
-      "login": "Le Barde",
-      "firstName": "Le",
-      "lastName": "Barde",
-      "profilePicture": "avatar.jpeg",
-      "status": "confirmed",
-      "instrument": "Basse",
-      "singer": "Yes"
-    },
-    {
-      "uuid": "54cba243-6e79-4d60-b7da-91b7376fd3ba",
-      "login": "popeye",
-      "firstName": "pop",
-      "lastName": "Eye",
-      "profilePicture": "avatar.jpeg",
-      "status": "confirmed",
-      "instrument": "Cajun",
-      "singer": "No"
-    },
-    {
-      "uuid": "e7c569f0-a480-4266-a67f-cd52f7f41e48",
-      "login": "Cowboy",
-      "firstName": "lucky",
-      "lastName": "luke",
-      "profilePicture": "avatar.jpeg",
-      "status": "confirmed",
-      "instrument": "Guitare",
-      "singer": "Yes"
+      "singer": "Yes",
+      "recommendedBy": [],
+      "recommends": []
     }
   ],
   "friends_list": [
-    "b827e9ca-b3dc-4645-909f-1791650f0036",
-    "0d78fb14-76ec-4d75-99b3-0abcb1dede5a",
-    "54cba243-6e79-4d60-b7da-91b7376fd3ba",
-    "e7c569f0-a480-4266-a67f-cd52f7f41e48"
-  ]
+    "b827e9ca-b3dc-4645-909f-1791650f0036"
+  ],
+  "recommends": [],
+  "recommendedBy": []
 },{
   "_id": {
     "$oid": "628b5d0353df015e97c270bf"
@@ -99,7 +70,9 @@
       "status": "confirmed",
       "instrument": "Batterie",
       "singer": "No",
-      "uuid": "df3a16bd-3831-4eec-b1fa-4addc70930ed"
+      "uuid": "df3a16bd-3831-4eec-b1fa-4addc70930ed",
+      "recommends": [],
+      "recommendedBy": []
     },
     {
       "uuid": "0d78fb14-76ec-4d75-99b3-0abcb1dede5a",
@@ -109,7 +82,21 @@
       "profilePicture": "avatar.jpeg",
       "status": "confirmed",
       "instrument": "Basse",
-      "singer": "Yes"
+      "singer": "Yes",
+      "recommends": [],
+      "recommendedBy": []
+    },
+    {
+      "uuid": "54cba243-6e79-4d60-b7da-91b7376fd3ba",
+      "login": "popeye",
+      "firstName": "pop",
+      "lastName": "Eye",
+      "profilePicture": "avatar.jpeg",
+      "status": "confirmed",
+      "instrument": "Cajun",
+      "singer": "No",
+      "recommends": [],
+      "recommendedBy": []
     }
   ],
   "wall": [],
@@ -117,11 +104,14 @@
   "instrument": "Flûte traversière",
   "singer": "Yes",
   "professionnal": null,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRkNmEwaU1vMVFSRjFWSXZRdEIvdmhlLzl0anM1NDJ6bWhtZkVnSWRSa1ZZZnk1aWpXQ2xzZSIsImlhdCI6MTY1NDYyOTQ0OCwic3ViIjoiYjgyN2U5Y2EtYjNkYy00NjQ1LTkwOWYtMTc5MTY1MGYwMDM2In0.GywDkcx8HYnk_8VrsKWwy3XUfqL7aNxqXBpFxKMvWWk",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRkNmEwaU1vMVFSRjFWSXZRdEIvdmhlLzl0anM1NDJ6bWhtZkVnSWRSa1ZZZnk1aWpXQ2xzZSIsImlhdCI6MTY1NDY5OTg1Mywic3ViIjoiYjgyN2U5Y2EtYjNkYy00NjQ1LTkwOWYtMTc5MTY1MGYwMDM2In0.3_--IwjCEZQSwWLL2s7bs0qMHcrtgYYrOSiQjopBKkE",
   "friends_list": [
     "df3a16bd-3831-4eec-b1fa-4addc70930ed",
-    "0d78fb14-76ec-4d75-99b3-0abcb1dede5a"
-  ]
+    "0d78fb14-76ec-4d75-99b3-0abcb1dede5a",
+    "54cba243-6e79-4d60-b7da-91b7376fd3ba"
+  ],
+  "recommendedBy": [],
+  "recommends": []
 },{
   "_id": {
     "$oid": "628b5ca953df015e97c270be"
@@ -148,7 +138,9 @@
   "singer": "No",
   "professionnal": null,
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCQ0THNua3FaMUFvUHVLZ0g2NzFWaHguUENqSzNCL3l1aWV3MnBlN3BLZGpnZ2FoTGJzSVpLUyIsImlhdCI6MTY1MzMwMTczMiwiZXhwIjoxNjUzMzA1MzMyLCJzdWIiOiI0NDk1ODMwNy0yYjI4LTRmMDYtOTU5Zi1mMWQ5NGUzMzUzNTAifQ.GewwSzMqrSDBCxVvyTvjBg1JuV0r0jNNHse0T0J4ZYU",
-  "friends_list": []
+  "friends_list": [],
+  "recommends": [],
+  "recommendedBy": []
 },{
   "_id": {
     "$oid": "628b5d7b53df015e97c270c0"
@@ -170,16 +162,6 @@
   "connected": true,
   "friends": [
     {
-      "login": "Ludo",
-      "firstName": "Ludovic",
-      "lastName": "Manet",
-      "profilePicture": "avatar.jpeg",
-      "status": "confirmed",
-      "instrument": "Batterie",
-      "singer": "No",
-      "uuid": "df3a16bd-3831-4eec-b1fa-4addc70930ed"
-    },
-    {
       "uuid": "b827e9ca-b3dc-4645-909f-1791650f0036",
       "login": "Casta",
       "firstName": "Bianca",
@@ -187,7 +169,9 @@
       "profilePicture": "avatar.jpeg",
       "status": "confirmed",
       "instrument": "Flûte traversière",
-      "singer": "Yes"
+      "singer": "Yes",
+      "recommendedBy": [],
+      "recommends": []
     }
   ],
   "wall": [],
@@ -195,11 +179,12 @@
   "instrument": "Basse",
   "singer": "Yes",
   "professionnal": null,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRVYUtoV2Jsem10ZDk0eGdLbHhMY3VlZ0RWZ2o5bmxybHB4N21TdkFWSG9uaEdSM1dLU0xVQyIsImlhdCI6MTY1NDYyOTE3MSwic3ViIjoiMGQ3OGZiMTQtNzZlYy00ZDc1LTk5YjMtMGFiY2IxZGVkZTVhIn0.2oZKS1bsazTqk36WeWug9soxN6YJwFNz0szoCSBqpsE",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRVYUtoV2Jsem10ZDk0eGdLbHhMY3VlZ0RWZ2o5bmxybHB4N21TdkFWSG9uaEdSM1dLU0xVQyIsImlhdCI6MTY1NDcwMzcxMywic3ViIjoiMGQ3OGZiMTQtNzZlYy00ZDc1LTk5YjMtMGFiY2IxZGVkZTVhIn0.sgnz48jqxUGRiLkHQ1PaQvR2A80NiJBoYyuIaiZfEI0",
   "friends_list": [
-    "df3a16bd-3831-4eec-b1fa-4addc70930ed",
     "b827e9ca-b3dc-4645-909f-1791650f0036"
-  ]
+  ],
+  "recommends": [],
+  "recommendedBy": []
 },{
   "_id": {
     "$oid": "62953147a9c9644224b08283"
@@ -219,14 +204,16 @@
   "connected": true,
   "friends": [
     {
-      "login": "Ludo",
-      "firstName": "Ludovic",
-      "lastName": "Manet",
+      "uuid": "b827e9ca-b3dc-4645-909f-1791650f0036",
+      "login": "Casta",
+      "firstName": "Bianca",
+      "lastName": "Castafiore",
       "profilePicture": "avatar.jpeg",
       "status": "confirmed",
-      "instrument": "Batterie",
-      "singer": "No",
-      "uuid": "df3a16bd-3831-4eec-b1fa-4addc70930ed"
+      "instrument": "Flûte traversière",
+      "singer": "Yes",
+      "recommendedBy": [],
+      "recommends": []
     }
   ],
   "role": "user",
@@ -236,10 +223,12 @@
   "instrument": "Cajun",
   "singer": "No",
   "professionnal": null,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRFNHJpQjdnR3picXpUZVp1MEdILjZPT3BsZ2JtbFlpTXhxMXEvZ2pQc1NYTmx2cFNEbzhOTyIsImlhdCI6MTY1NDYyOTMxOSwic3ViIjoiNTRjYmEyNDMtNmU3OS00ZDYwLWI3ZGEtOTFiNzM3NmZkM2JhIn0.Jk4CIaTYJc6gKYvgxX8OJ8jCakX-gFhwfyopL7gxzvE",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRFNHJpQjdnR3picXpUZVp1MEdILjZPT3BsZ2JtbFlpTXhxMXEvZ2pQc1NYTmx2cFNEbzhOTyIsImlhdCI6MTY1NDY5NDc4Miwic3ViIjoiNTRjYmEyNDMtNmU3OS00ZDYwLWI3ZGEtOTFiNzM3NmZkM2JhIn0.eRy8v1r-CRNwPEM4eUZHxsSQsbRR1iNLK-iHn5KrRNo",
   "friends_list": [
-    "df3a16bd-3831-4eec-b1fa-4addc70930ed"
-  ]
+    "b827e9ca-b3dc-4645-909f-1791650f0036"
+  ],
+  "recommends": [],
+  "recommendedBy": []
 },{
   "_id": {
     "$oid": "629531d04a036f2269b1695e"
@@ -266,7 +255,9 @@
   "singer": "Yes",
   "professionnal": null,
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IkJsdXAxLTFwdWxCIiwiaWF0IjoxNjUzOTQ0Nzg0LCJleHAiOjE2NTM5NDgzODR9.-9ao6Zy5tCM6TaOfAlmR-oKir_jwNsmYlru8vA10hIw",
-  "friends_list": []
+  "friends_list": [],
+  "recommends": [],
+  "recommendedBy": []
 },{
   "_id": {
     "$oid": "62953258c2e684ba06df97a1"
@@ -293,7 +284,9 @@
   "singer": "Yes",
   "professionnal": null,
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IkJsdXAxLTFwdWxCIiwiaWF0IjoxNjUzOTQ0OTIwLCJleHAiOjE2NTM5NDg1MjB9.djvQSMz5mPt-EvZswZFG949iSwXPT85Rs_GmA8uIoMM",
-  "friends_list": []
+  "friends_list": [],
+  "recommends": [],
+  "recommendedBy": []
 },{
   "_id": {
     "$oid": "629532c0fe1810f1194c9be6"
@@ -313,25 +306,14 @@
   "role": "user",
   "status": "unknown",
   "connected": true,
-  "friends": [
-    {
-      "login": "Ludo",
-      "firstName": "Ludovic",
-      "lastName": "Manet",
-      "profilePicture": "avatar.jpeg",
-      "status": "confirmed",
-      "instrument": "Batterie",
-      "singer": "No",
-      "uuid": "df3a16bd-3831-4eec-b1fa-4addc70930ed"
-    }
-  ],
+  "friends": [],
   "wall": [],
   "messager": {},
   "instrument": "Guitare",
   "singer": "Yes",
   "professionnal": null,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRTQTVvUmFjcERuN1k0VWQ4R3EuZHd1VEhJME9TQWxaWE0zbWgyWWFGS2lmMFR4bk1oS0IvQyIsImlhdCI6MTY1NDYyOTQyNSwic3ViIjoiZTdjNTY5ZjAtYTQ4MC00MjY2LWE2N2YtY2Q1MmY3ZjQxZTQ4In0.-8pJt-_GMGggcIKePmaL9z74tvFv_eHbvCjsuFRPD5A",
-  "friends_list": [
-    "df3a16bd-3831-4eec-b1fa-4addc70930ed"
-  ]
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRTQTVvUmFjcERuN1k0VWQ4R3EuZHd1VEhJME9TQWxaWE0zbWgyWWFGS2lmMFR4bk1oS0IvQyIsImlhdCI6MTY1Mzk0NTAyNCwiZXhwIjoxNjUzOTQ4NjI0LCJzdWIiOiJlN2M1NjlmMC1hNDgwLTQyNjYtYTY3Zi1jZDUyZjdmNDFlNDgifQ.2UKQOXEnU6z81CRu5a1qx3RTL84HJr2HoVeH6SwLeuw",
+  "friends_list": [],
+  "recommends": [],
+  "recommendedBy": []
 }]

@@ -12,6 +12,7 @@ export class SearchbuddyComponent implements OnInit {
   // recommendButton: boolean = false;
   // deleteButton: boolean = false;
   allBuddies!: Buddy[];
+  // unknownBuddies: boolean = true;
 
   constructor(private buddyService: BuddyService) {}
   ngOnInit(): void {

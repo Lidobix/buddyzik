@@ -3,6 +3,8 @@
   <p *ngIf="buddy.status == 'invited'">
     Invitation en attente d'une réponse...
   </p>
+  <p *ngIf="buddy.status == 'recommended'">On vous recommande chaudement:</p>
+  <p *ngIf="buddy.status == 'recommendedByMe'">Vous avez recommandé:</p>
   <p>Prénom: {{ buddy.firstName }}</p>
   <p>Nom: {{ buddy.lastName }}</p>
   <p>Instrument: {{ buddy.instrument }}</p>
@@ -10,6 +12,7 @@
   <button *ngIf="buddy.status == 'unknown'" (click)="inviteBuddy()">
     Inviter
   </button>
+
   <button
     *ngIf="buddy.status == 'confirmed' || buddy.status == 'recommendedByMe'"
     (click)="goToBuddyProfile()"
@@ -19,10 +22,16 @@
   <button *ngIf="buddy.status == 'confirmed'" (click)="recommendBuddy()">
     Recommander
   </button>
-  <button *ngIf="buddy.status == 'pending'" (click)="confirmBuddy()">
+  <button
+    *ngIf="buddy.status == 'pending' || buddy.status == 'recommended'"
+    (click)="confirmBuddy()"
+  >
     Accepter
   </button>
-  <button *ngIf="buddy.status == 'pending'" (click)="deleteBuddy()">
+  <button
+    *ngIf="buddy.status == 'pending' || buddy.status == 'recommended'"
+    (click)="deleteBuddy()"
+  >
     Refuser
   </button>
   <button

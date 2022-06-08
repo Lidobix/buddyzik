@@ -25,7 +25,9 @@
     "professionnal": null,
     "uuid": "df3a16bd-3831-4eec-b1fa-4addc70930ed",
     "friends": [],
-    "friends_list": []
+    "friends_list": [],
+    "recommends": [],
+    "recommendedBy": []
   },
 
   {
@@ -54,7 +56,9 @@
     "singer": "Yes",
     "professionnal": null,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRkNmEwaU1vMVFSRjFWSXZRdEIvdmhlLzl0anM1NDJ6bWhtZkVnSWRSa1ZZZnk1aWpXQ2xzZSIsImlhdCI6MTY1MzMwMDQ4MywiZXhwIjoxNjUzMzA0MDgzLCJzdWIiOiJiODI3ZTljYS1iM2RjLTQ2NDUtOTA5Zi0xNzkxNjUwZjAwMzYifQ.bSRM2bAkPExcRSHhi7rumRG-bR16YBmTfM8GmyaEHho",
-    "friends_list": []
+    "friends_list": [],
+    "recommends": [],
+    "recommendedBy": []
   },
   {
     "_id": {
@@ -82,7 +86,9 @@
     "singer": "No",
     "professionnal": null,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCQ0THNua3FaMUFvUHVLZ0g2NzFWaHguUENqSzNCL3l1aWV3MnBlN3BLZGpnZ2FoTGJzSVpLUyIsImlhdCI6MTY1MzMwMTczMiwiZXhwIjoxNjUzMzA1MzMyLCJzdWIiOiI0NDk1ODMwNy0yYjI4LTRmMDYtOTU5Zi1mMWQ5NGUzMzUzNTAifQ.GewwSzMqrSDBCxVvyTvjBg1JuV0r0jNNHse0T0J4ZYU",
-    "friends_list": []
+    "friends_list": [],
+    "recommends": [],
+    "recommendedBy": []
   },
   {
     "_id": {
@@ -110,7 +116,9 @@
     "singer": "Yes",
     "professionnal": null,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRVYUtoV2Jsem10ZDk0eGdLbHhMY3VlZ0RWZ2o5bmxybHB4N21TdkFWSG9uaEdSM1dLU0xVQyIsImlhdCI6MTY1MzMwMDYwMywiZXhwIjoxNjUzMzA0MjAzLCJzdWIiOiIwZDc4ZmIxNC03NmVjLTRkNzUtOTliMy0wYWJjYjFkZWRlNWEifQ.XDcukO0K0diBwsK4x1C3S0yjk9U8XFEoTR7VIdHhDgg",
-    "friends_list": []
+    "friends_list": [],
+    "recommends": [],
+    "recommendedBy": []
   },
 
   {
@@ -139,7 +147,9 @@
     "singer": "No",
     "professionnal": null,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IkJsdXAxLTFwdWxCIiwiaWF0IjoxNjUzOTQ0NjQ3LCJleHAiOjE2NTM5NDgyNDd9.WciEVR5rf5YgGxKysr9LWLKn7uUk2mNr2CjDz27Ic7w",
-    "friends_list": []
+    "friends_list": [],
+    "recommends": [],
+    "recommendedBy": []
   },
   {
     "_id": {
@@ -167,7 +177,9 @@
     "singer": "Yes",
     "professionnal": null,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IkJsdXAxLTFwdWxCIiwiaWF0IjoxNjUzOTQ0Nzg0LCJleHAiOjE2NTM5NDgzODR9.-9ao6Zy5tCM6TaOfAlmR-oKir_jwNsmYlru8vA10hIw",
-    "friends_list": []
+    "friends_list": [],
+    "recommends": [],
+    "recommendedBy": []
   },
   {
     "_id": {
@@ -195,7 +207,9 @@
     "singer": "Yes",
     "professionnal": null,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IkJsdXAxLTFwdWxCIiwiaWF0IjoxNjUzOTQ0OTIwLCJleHAiOjE2NTM5NDg1MjB9.djvQSMz5mPt-EvZswZFG949iSwXPT85Rs_GmA8uIoMM",
-    "friends_list": []
+    "friends_list": [],
+    "recommends": [],
+    "recommendedBy": []
   },
   {
     "_id": {
@@ -223,6 +237,8 @@
     "singer": "Yes",
     "professionnal": null,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRTQTVvUmFjcERuN1k0VWQ4R3EuZHd1VEhJME9TQWxaWE0zbWgyWWFGS2lmMFR4bk1oS0IvQyIsImlhdCI6MTY1Mzk0NTAyNCwiZXhwIjoxNjUzOTQ4NjI0LCJzdWIiOiJlN2M1NjlmMC1hNDgwLTQyNjYtYTY3Zi1jZDUyZjdmNDFlNDgifQ.2UKQOXEnU6z81CRu5a1qx3RTL84HJr2HoVeH6SwLeuw",
-    "friends_list": []
+    "friends_list": [],
+    "recommends": [],
+    "recommendedBy": []
   }
 ]

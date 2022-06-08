@@ -67,6 +67,7 @@ const projectionBuddyCard = {
   profilePicture: 1,
   status: 1,
   recommendedBy: 1,
+  recommends: 1,
 };
 // await mongoClient.connect();
 
@@ -185,7 +186,8 @@ app.post("/register", (req, res) => {
           instrument: newUser.instrument,
           singer: newUser.singer,
           professionnal: newUser.professionnal,
-          RecommendedBy: [],
+          recommendedBy: [],
+          recommends: [],
         };
 
         const newToken = createToken(newBuddy).toString();
@@ -295,14 +297,16 @@ app.get("/allbuddies", (req, res, next) => {
                 singer: 1,
                 profilePicture: 1,
                 status: 1,
+                recommends: 1,
+                recommendedBy: 1,
               },
             }
           )
           .toArray();
 
-        for (let each of allBuddies) {
-          each.addable = true;
-        }
+        // for (let each of allBuddies) {
+        //   each.addable = true;
+        // }
         console.log("les gens: ", allBuddies);
 
         if (allBuddies === null) {
@@ -430,12 +434,14 @@ app.post("/invitation", (req, res) => {
         // await mongoClient.close();
       }
     }
-
+    // On récupère l'invité et on le colle dans la liste d'amis de l'inviteur
     const updateHostDB = invitationUpdateDataBase(
       req.headers.uuid,
       req.body.guestBuddy,
       "invited"
     );
+
+    // On récupère l'inviteur et on le colle dans la liste d'amis de l'invité
     const updateGuestDB = invitationUpdateDataBase(
       req.body.guestBuddy,
       req.headers.uuid,
@@ -461,6 +467,7 @@ app.post("/confirmation", (req, res) => {
     async function confirmationUpdateDataBase(uuid1, uuid2) {
       await mongoClient.connect();
       try {
+        // On change les statuts des 2 amis à "confirmé" dans leurs listes respectives
         collection.updateMany(
           {
             $and: [
@@ -472,9 +479,18 @@ app.post("/confirmation", (req, res) => {
           {
             $set: {
               "friends.$.status": "confirmed",
+              // "friends.$.recommendedBy": [],
             },
           }
         );
+
+        // On doit ajouter dasns la liste des 2 amis les amis qui leur sont recommandés:
+
+        // Si je suis X, je dois aller lire le tableau de uuid recommandés de Y
+
+        // Je dois extraire de cette liste tous mes amis communs avec lui
+
+        // Je dois ensuite ajouter chaque restant uuid à ma liste d'amis en statut recommandé.
 
         // await updateBuddy(
         //   { uuid: uuid1, "friends.uuid": uuid2 },
@@ -494,6 +510,7 @@ app.post("/confirmation", (req, res) => {
         //   }
         // );
       } catch (error) {
+        console.log(error);
       } finally {
         // await mongoClient.close();
       }
@@ -503,6 +520,99 @@ app.post("/confirmation", (req, res) => {
       req.headers.uuid,
       req.body.guestBuddy
     );
+
+    async function addRecommendedBuddies(uuid1, uuid2) {
+      await mongoClient.connect();
+      try {
+        // On doit ajouter dasns la liste des 2 amis les amis qui leur sont recommandés:
+
+        // Si je suis X, je dois aller lire le tableau de uuid recommandés de Y
+        // j'extrais la liste de gens recommandés par mon nouvel ami:
+        const extractBuddyRecommendedList = await collection
+          .find(
+            {
+              uuid: uuid2,
+            },
+            {
+              projection: {
+                _id: 0,
+                recommends: 1,
+              },
+            }
+          )
+          .toArray();
+        const buddyRecommendedList = extractBuddyRecommendedList[0].recommends;
+
+        console.log("buddyRecommendedList :", buddyRecommendedList);
+
+        // J'extrais ma liste d'amis:
+        const extractMyBuddiesList = await collection
+          .find(
+            { uuid: uuid1 },
+
+            {
+              projection: {
+                _id: 0,
+                friends_list: 1,
+              },
+            }
+          )
+          .toArray();
+
+        const myBuddiesList = extractMyBuddiesList[0].friends_list;
+
+        // Je dois extraire de cette liste tous mes amis communs avec lui
+        for (let buddyToExclude of myBuddiesList) {
+          if (buddyRecommendedList.includes(buddyToExclude)) {
+            buddyRecommendedList.splice(
+              buddyRecommendedList.indexOf(buddyToExclude),
+              1
+            );
+          }
+        }
+
+        // on a la liste desbuddy à ajouter en statut recommandé.
+
+        // Je dois ensuite ajouter chaque  uuid à ma liste d'amis en statut recommandé.
+
+        const buddiesRecommandedToAdd = collection
+          .find(
+            { uuid: { $in: buddyRecommendedList } },
+            { projection: projectionBuddyCard }
+          )
+          .toArray();
+
+        console.log("amis à ajouter: ", buddiesRecommandedToAdd);
+
+        // await updateBuddy(
+        //   { uuid: uuid1, "friends.uuid": uuid2 },
+        //   {
+        //     $set: {
+        //       "friends.$.status": "confirmed",
+        //     },
+        //   }
+        // );
+
+        // await updateBuddy(
+        //   { uuid: uuid2, "friends.uuid": uuid1 },
+        //   {
+        //     $set: {
+        //       "friends.$.status": "confirmed",
+        //     },
+        //   }
+        // );
+      } catch (error) {
+        console.log(error);
+      } finally {
+        // await mongoClient.close();
+      }
+    }
+
+    const addRecommended = addRecommendedBuddies(
+      req.headers.uuid,
+      req.body.guestBuddy
+    );
+
     // const updateGuestDB = confirmationUpdateDataBase(
     //   req.body.guestBuddy,
     //   req.headers.uuid
@@ -573,6 +683,51 @@ app.post("/recommendation", (req, res) => {
     async function recommendationUpdateDataBase(uuid1, uuid2) {
       await mongoClient.connect();
       try {
+        // On met à jour le tableau remmendedBy chez le recommandé:
+        await collection.updateOne(
+          { uuid: uuid2 },
+          { $push: { recommendedBy: uuid1 } }
+        );
+        // On met à jour le tableau recommends chez le recommandeur:
+        await collection.updateOne(
+          { uuid: uuid1 },
+          { $push: { recommends: uuid2 } }
+        );
+
+        // On met à jour le statut du recommandé chez le recommandateur
+        collection.updateOne(
+          {
+            $and: [{ uuid: uuid1 }, { "friends.uuid": uuid2 }],
+          },
+          {
+            $set: {
+              "friends.$.status": "recommendedByMe",
+            },
+          }
+        );
+        // On met à jour le tableau recommendedBy chez tous les amis du recommandé
+        collection.updateMany(
+          {
+            $and: [{}, { "friends.uuid": uuid2 }],
+          },
+          {
+            $push: {
+              "friends.$.recommendedBy": uuid1,
+            },
+          }
+        );
+        // On met à jour le tableau recommends chez tous les amis du recommandeur
+        collection.updateMany(
+          {
+            $and: [{}, { "friends.uuid": uuid1 }],
+          },
+          {
+            $push: {
+              "friends.$.recommends": uuid2,
+            },
+          }
+        );
+
         // on extrait le buddy recommendé
         const buddyToRecommend = await fetchBuddy(
           { uuid: uuid2 },
@@ -581,6 +736,8 @@ app.post("/recommendation", (req, res) => {
           }
         );
         buddyToRecommend.status = "recommended";
+        // buddyToRecommend.recommendedBy.push(uuid1);
+
         console.log("buddyToRecommend", buddyToRecommend);
         // on extrait la liste d'amis du recommandeur:
 
@@ -626,6 +783,22 @@ app.post("/recommendation", (req, res) => {
 
         // on ajoute l'ami recommandé à tous les amis du recommandeur sauf le recommandé:
 
+        // collection.updateMany(
+        //   {
+        //     $and: [
+        //       { uuid: { $in: buddyListRecommendator, $ne: uuid2 } },
+        //       { "friends.uuid": uuid2 },
+        //     ],
+        //   },
+
+        //   {
+        //     $push: {
+        //       "friends.recommendedBy": uuid1,
+        //     },
+        //   }
+        // );
+
+        // On met à jour la liste des amis chez tous les amis sauf le recommandé
         collection.updateMany(
           {
             uuid: { $in: buddyListRecommendator, $ne: uuid2 },
@@ -635,17 +808,7 @@ app.post("/recommendation", (req, res) => {
             $push: {
               friends: buddyToRecommend,
               friends_list: buddyToRecommend.uuid,
-            },
-          }
-        );
-        // On met à jour le statut du recommandé chez le recommandateur
-        collection.updateOne(
-          {
-            $and: [{ uuid: uuid1 }, { "friends.uuid": uuid2 }],
-          },
-          {
-            $set: {
-              "friends.$.status": "recommendedByMe",
+              // "friends.recommendedBy": uuid1,
             },
           }
         );
