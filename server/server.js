@@ -383,7 +383,7 @@ app.get("/mongoff", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 
 app.post("/invitation", (req, res) => {
-  console.log("dans le middleware invitation, guest = ", req.body.guestBuddy);
+  console.log("dans le middleware invitation, guest = ", req.body.buddyTarget);
 
   if (authToken(req.headers.token)) {
     async function invitationUpdateDataBase(uuid1, uuid2, status) {
@@ -437,13 +437,13 @@ app.post("/invitation", (req, res) => {
     // On récupère l'invité et on le colle dans la liste d'amis de l'inviteur
     const updateHostDB = invitationUpdateDataBase(
       req.headers.uuid,
-      req.body.guestBuddy,
+      req.body.buddyTarget,
       "invited"
     );
 
     // On récupère l'inviteur et on le colle dans la liste d'amis de l'invité
     const updateGuestDB = invitationUpdateDataBase(
-      req.body.guestBuddy,
+      req.body.buddyTarget,
       req.headers.uuid,
       "pending"
     );
@@ -461,7 +461,10 @@ app.post("/invitation", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 
 app.post("/confirmation", (req, res) => {
-  console.log("dans le middleware confirmation, guest = ", req.body.guestBuddy);
+  console.log(
+    "dans le middleware confirmation, guest = ",
+    req.body.buddyTarget
+  );
 
   if (authToken(req.headers.token)) {
     async function confirmationUpdateDataBase(uuid1, uuid2) {
@@ -519,7 +522,7 @@ app.post("/confirmation", (req, res) => {
 
     const updateHostDB = confirmationUpdateDataBase(
       req.headers.uuid,
-      req.body.guestBuddy
+      req.body.buddyTarget
     );
 
     async function addRecommendedBuddies(uuid1, uuid2) {
@@ -623,16 +626,16 @@ app.post("/confirmation", (req, res) => {
     }
 
     const addRecommendedToMe = addRecommendedBuddies(
-      req.body.guestBuddy,
+      req.body.buddyTarget,
       req.headers.uuid
     );
     const addRecommendedToGuest = addRecommendedBuddies(
       req.headers.uuid,
-      req.body.guestBuddy
+      req.body.buddyTarget
     );
 
     // const updateGuestDB = confirmationUpdateDataBase(
-    //   req.body.guestBuddy,
+    //   req.body.buddyTarget,
     //   req.headers.uuid
     // );
 
@@ -649,14 +652,14 @@ app.post("/confirmation", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 
 app.post("/deletion", (req, res) => {
-  console.log("dans le middleware deletion, guest = ", req.body.guestBuddy);
+  console.log("dans le middleware deletion, guest = ", req.body.buddyTarget);
 
   if (authToken(req.headers.token)) {
     async function deletionUpdateDataBase(uuid1, uuid2) {
       try {
         await mongoClient.connect();
 
-        const deletiion = await collection.updateMany(
+        collection.updateMany(
           { uuid: { $in: [uuid1, uuid2] } },
           {
             $pull: {
@@ -672,10 +675,20 @@ app.post("/deletion", (req, res) => {
         // await mongoClient.close();
       }
     }
+    // supprimer les recommandations
+    // checker si le buddy supprimé est dans la mliste de recommandés
+
+    // si oui
+    // - l'enlever de cette liste
+    // - si il est recommendé par moi uniquement: on supprime sa présence dans chaque ami.
+    // - si il est recommandé par plusieurs personnes on ne supprime que ma recommandation dans recommendedBy
+
+    //    - le statut est recommandé et qu'il y a un seul recommended*by
+    // - le retirer de la friend_list de l'ami chez qui il était recommandé.
 
     const updateHostDB = deletionUpdateDataBase(
       req.headers.uuid,
-      req.body.guestBuddy
+      req.body.buddyTarget
     );
 
     res.json("Votre suppression a bien été effectuée!!");
@@ -695,7 +708,10 @@ app.post("/deletion", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 
 app.post("/recommendation", (req, res) => {
-  console.log("dans le middleware confirmation, guest = ", req.body.guestBuddy);
+  console.log(
+    "dans le middleware confirmation, guest = ",
+    req.body.buddyTarget
+  );
 
   if (authToken(req.headers.token)) {
     async function recommendationUpdateDataBase(uuid1, uuid2) {
@@ -839,10 +855,10 @@ app.post("/recommendation", (req, res) => {
 
     const updateHostDB = recommendationUpdateDataBase(
       req.headers.uuid,
-      req.body.guestBuddy
+      req.body.buddyTarget
     );
     // const updateGuestDB = confirmationUpdateDataBase(
-    //   req.body.guestBuddy,
+    //   req.body.buddyTarget,
     //   req.headers.uuid
     // );
 

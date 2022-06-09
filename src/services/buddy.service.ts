@@ -39,7 +39,7 @@ export class BuddyService implements OnInit {
   //   console.log(`envoi de l'invitation de ${uuidToInvite} au serveur...`);
   //   return this.http.post<string>(
   //     this.serverService.serverUrl + '/invitation',
-  //     { guestBuddy: uuidToInvite }
+  //     { buddyTarget: uuidToInvite }
   //   );
   // }
 
@@ -47,14 +47,14 @@ export class BuddyService implements OnInit {
   //   console.log(`envoi de l'acceptation de ${uuidToConfirm} au serveur...`);
   //   return this.http.post<string>(
   //     this.serverService.serverUrl + '/confirmation',
-  //     { guestBuddy: uuidToConfirm }
+  //     { buddyTarget: uuidToConfirm }
   //   );
   // }
 
   updateBuddy(uuidToUpdate: string, action: string): Observable<string> {
     // console.log(`envoi de l'acceptation de ${uuidToUpdate} au serveur...`);
     return this.http.post<string>(this.serverService.serverUrl + action, {
-      guestBuddy: uuidToUpdate,
+      buddyTarget: uuidToUpdate,
     });
   }
 
