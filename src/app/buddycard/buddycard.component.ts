@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BuddyCard } from '../models/buddycard-model';
 import { Buddy } from '../models/buddy-model';
 import { BuddyService } from 'src/services/buddy.service';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buddycard',
@@ -12,7 +14,7 @@ export class BuddycardComponent implements OnInit {
   // @Input() buddyCard!: BuddyCard;
   @Input() buddy!: Buddy;
 
-  constructor(private buddyService: BuddyService) {}
+  constructor(private buddyService: BuddyService, private router: Router) {}
 
   inviteBuddy() {
     console.log('this.buddy = ', this.buddy);
@@ -30,7 +32,9 @@ export class BuddycardComponent implements OnInit {
     // this.buddy.addable = false;
     this.buddy.status = 'invited';
   }
-  goToBuddyProfile() {}
+  goToBuddyProfile() {
+    this.router.navigateByUrl(`profile/${this.buddy.uuid}`);
+  }
   deleteBuddy() {
     this.buddy.status = 'deletion';
     this.buddyService.updateBuddy(this.buddy.uuid, '/deletion').subscribe();

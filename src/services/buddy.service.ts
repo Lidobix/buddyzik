@@ -34,6 +34,16 @@ export class BuddyService implements OnInit {
     // console.log('server....', this.serverService.serverUrl);
     return this.http.get<Buddy[]>(this.serverService.serverUrl + '/allbuddies');
   }
+  getBuddyByID(id: string): Observable<Buddy> {
+    return this.http.post<Buddy>(this.serverService.serverUrl + '/buddybyid', {
+      buddyTarget: id,
+    });
+  }
+
+  getMe(): Observable<Buddy> {
+    console.log('dans authservice, on va fetcher moi)');
+    return this.http.get<Buddy>(this.serverService.serverUrl + '/me');
+  }
 
   // inviteBuddy(uuidToInvite: string): Observable<string> {
   //   console.log(`envoi de l'invitation de ${uuidToInvite} au serveur...`);

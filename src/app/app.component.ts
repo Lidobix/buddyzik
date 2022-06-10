@@ -12,6 +12,7 @@ import { ServerService } from 'src/services/server.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'buddyzik';
+  showNav!: boolean;
 
   constructor(
     private router: Router,
@@ -22,6 +23,15 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // console.log(
+    //   "localStorage.getItem('token') : ",
+    //   localStorage.getItem('token')
+    // );
+    if (localStorage.getItem('token') != null) {
+      this.showNav = true;
+    } else {
+      this.showNav = false;
+    }
     // alert('ouverture!');
     // this.getAuth();
   }

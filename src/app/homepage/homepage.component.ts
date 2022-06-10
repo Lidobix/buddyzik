@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/services/auth.service';
 import { BuddyService } from 'src/services/buddy.service';
+import { Buddy } from '../models/buddy-model';
 
 @Component({
   selector: 'app-homepage',
@@ -10,7 +11,6 @@ import { BuddyService } from 'src/services/buddy.service';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
-  userLogin: string = 'Jean-Mi';
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -36,6 +36,7 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAuth();
+
     // this.setConnection();
   }
 
@@ -44,14 +45,14 @@ export class HomepageComponent implements OnInit {
   // }
 
   getAuth(): void {
-    console.log("check du token à l'ouverture : ");
+    // console.log("check du token à l'ouverture : ");
     this.authService.getAuth().subscribe((authorization) => {
-      console.log('authorization : ', authorization);
+      // console.log('authorization : ', authorization);
       if (!authorization) {
-        console.log('pas de token valide');
+        // console.log('pas de token valide');
         this.router.navigateByUrl('/login');
       } else {
-        console.log('token valide, on poursuit la nav');
+        // console.log('token valide, on poursuit la nav');
       }
     });
   }

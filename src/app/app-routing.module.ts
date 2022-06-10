@@ -23,7 +23,7 @@ const routes: Routes = [
     component: EditProfileComponent,
   },
   {
-    path: 'profile/:uuId',
+    path: 'profile/:uuid',
     component: ProfilePageComponent,
   },
   {

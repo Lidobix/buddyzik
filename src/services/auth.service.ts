@@ -28,7 +28,9 @@ export class AuthService implements OnInit {
   ) {}
 
   // newUser!: Buddy;
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('redémarrage AuthService');
+  }
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('expiresIn');
@@ -111,7 +113,7 @@ export class AuthService implements OnInit {
 
             if (authentication.success === true) {
               alert(authentication.message);
-              console.log(authentication);
+              // console.log(authentication);
 
               // console.log('token:', authentication.token);
 

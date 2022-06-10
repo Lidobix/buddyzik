@@ -249,6 +249,29 @@ app.post("/logout", (req, res, next) => {
   console.log("req.header", req);
 });
 
+/////////////////////////////////////////////////////////
+//////////////////////// SEND BY ID ////////////////////////
+/////////////////////////////////////////////////////////
+app.post("/buddybyid", (req, res, next) => {
+  if (authToken(req.headers.token)) {
+    async function sendBuddy(buddyTarget) {
+      try {
+        await mongoClient.connect();
+        const buddyToSend = await fetchBuddy(
+          { uuid: buddyTarget },
+          { projection: projectionBuddyCard }
+        );
+        console.log("buddyToSend = ", buddyToSend);
+        res.status(200).json(buddyToSend);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    sendBuddy(req.body.buddyTarget);
+  }
+});
+
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////////// ALL BUDDIES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////

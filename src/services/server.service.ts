@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -6,4 +6,8 @@ import { Injectable } from '@angular/core';
 export class ServerService {
   serverUrl: string = 'http://localhost:3100';
   constructor() {}
+
+  ngOnInit(): void {
+    console.log('redémarrage ServerService');
+  }
 }

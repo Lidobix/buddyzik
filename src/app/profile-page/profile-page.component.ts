@@ -5,6 +5,7 @@ import { AuthService } from 'src/services/auth.service';
 
 import { HttpClient } from '@angular/common/http';
 import { ServerService } from 'src/services/server.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile-page',
@@ -12,16 +13,19 @@ import { ServerService } from 'src/services/server.service';
   styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
+  buddy!: Buddy;
   bannierPicUrl!: string;
   profilePicUrl!: string;
   pseudo!: string;
+  // buddyID!: string;
   user!: Buddy;
   // url: string = 'http://localhost:3100';
   constructor(
     private buddyService: BuddyService,
     private serverService: ServerService,
     private authService: AuthService,
-    private http: HttpClient
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) {}
   logoutRequest(): void {
     this.authService.logout();
@@ -35,10 +39,29 @@ export class ProfilePageComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    this.bannierPicUrl = './assets/concert.jpeg';
-    this.profilePicUrl = './assets/profil.jpg';
-    this.pseudo = 'Jean-Mi la Gratte de la mort qui tue';
-    console.log('utilisateur connecté : ', this.buddyService.connectedUser);
-    this.user = this.buddyService.connectedUser;
+    // this.getMe();
+    const buddyID = this.route.snapshot.params['uuid'];
+
+    // console.log('this.route : ', this.route.snapshot.params['uuid']);
+    // console.log('buddyID : ', buddyID);
+    // console.log('buddyID : ', buddyID);
+    console.log('buddyID : ', buddyID);
+    this.buddyService.getBuddyByID(buddyID).subscribe((value) => {
+      this.buddy = value;
+      console.log('utilisateur connecté : ', this.buddy);
+    });
+    // this.bannierPicUrl = './assets/concert.jpeg';
+    // this.profilePicUrl = './assets/profil.jpg';
+    // this.pseudo = 'Jean-Mi la Gratte de la mort qui tue';
+    // this.user = this.buddyService.connectedUser;
+  }
+
+  getMe(): any {
+    console.log('dans homepage , on va fetcher moi)');
+    this.buddyService.getMe().subscribe((me) => {
+      // console.log("dans l'observable, buddies =  ", buddies);
+      this.user = me;
+      console.log("dans l'observable me = ", me);
+    });
   }
 }

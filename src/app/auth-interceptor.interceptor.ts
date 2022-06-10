@@ -18,8 +18,8 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     // console.log("dans l'interceptor", token);
 
     if (token && uuid) {
-      console.log('uuid = ', uuid);
-      console.log('token = ', token);
+      // console.log('uuid = ', uuid);
+      // console.log('token = ', token);
       // console.log("j'ajoute le token aux headers");
       const cloned = req.clone({
         headers: req.headers.set('token', token).set('uuid', uuid),
