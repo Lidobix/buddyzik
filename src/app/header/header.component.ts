@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BuddyService } from '../../services/buddy.service';
 import { AuthService } from 'src/services/auth.service';
+import { Buddy } from '../models/buddy-model';
 
 @Component({
   selector: 'app-header',

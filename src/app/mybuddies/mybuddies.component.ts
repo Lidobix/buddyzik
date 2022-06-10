@@ -18,7 +18,7 @@ export class MybuddiesComponent implements OnInit {
     this.getMyBuddies();
     this.updateMyBuddies = setInterval(() => {
       this.getMyBuddies();
-    }, 1000);
+    }, 3000);
   }
 
   getMyBuddies(): any {

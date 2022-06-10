@@ -18,7 +18,7 @@
   "connected": true,
   "wall": [],
   "messager": {},
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRaL3ZaenZWZWd4Z3pCdUxidk5EWi4uSUdTSUVLd3BHMkJlT2FCQm05Z1BuWTAucVRnaTFvTyIsImlhdCI6MTY1NDc2NzgwNywic3ViIjoiZGYzYTE2YmQtMzgzMS00ZWVjLWIxZmEtNGFkZGM3MDkzMGVkIn0.fbzhozB_pfbXZwjFdB3jRHCmnAblLJ1UzVKcAApT8p0",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRaL3ZaenZWZWd4Z3pCdUxidk5EWi4uSUdTSUVLd3BHMkJlT2FCQm05Z1BuWTAucVRnaTFvTyIsImlhdCI6MTY1NDc2NzQ5OSwic3ViIjoiZGYzYTE2YmQtMzgzMS00ZWVjLWIxZmEtNGFkZGM3MDkzMGVkIn0.EURvDYTny35BRkdd-h2SDSCSCU-HiIJhIlz8dVK_GHE",
   "instrument": "Batterie",
   "singer": "No",
   "professionnal": null,
@@ -35,6 +35,7 @@
       "singer": "Yes",
       "recommends": [],
       "recommendedBy": [
+        "b827e9ca-b3dc-4645-909f-1791650f0036",
         "df3a16bd-3831-4eec-b1fa-4addc70930ed"
       ]
     },
@@ -47,7 +48,9 @@
       "status": "confirmed",
       "instrument": "Flûte traversière",
       "singer": "Yes",
-      "recommends": [],
+      "recommends": [
+        "fd1b0afe-69e3-43b7-befe-272ded6ccc6f"
+      ],
       "recommendedBy": []
     }
   ],
@@ -128,6 +131,7 @@
       "singer": "Yes",
       "recommends": [],
       "recommendedBy": [
+        "b827e9ca-b3dc-4645-909f-1791650f0036",
         "df3a16bd-3831-4eec-b1fa-4addc70930ed"
       ]
     }
@@ -137,14 +141,16 @@
   "instrument": "Flûte traversière",
   "singer": "Yes",
   "professionnal": null,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRkNmEwaU1vMVFSRjFWSXZRdEIvdmhlLzl0anM1NDJ6bWhtZkVnSWRSa1ZZZnk1aWpXQ2xzZSIsImlhdCI6MTY1NDc2Nzc3NSwic3ViIjoiYjgyN2U5Y2EtYjNkYy00NjQ1LTkwOWYtMTc5MTY1MGYwMDM2In0.z_WlEEiXvK5E0KIHwmaG-4JHA2lscHbJZ_FJ4C0i5w8",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRkNmEwaU1vMVFSRjFWSXZRdEIvdmhlLzl0anM1NDJ6bWhtZkVnSWRSa1ZZZnk1aWpXQ2xzZSIsImlhdCI6MTY1NDc2NzUxNywic3ViIjoiYjgyN2U5Y2EtYjNkYy00NjQ1LTkwOWYtMTc5MTY1MGYwMDM2In0.IqR0uosp02wQ5mltrWQ7cNSm0zbCKHBcM7vj-P_p5Dc",
   "friends_list": [
     "0d78fb14-76ec-4d75-99b3-0abcb1dede5a",
     "54cba243-6e79-4d60-b7da-91b7376fd3ba",
     "df3a16bd-3831-4eec-b1fa-4addc70930ed",
     "fd1b0afe-69e3-43b7-befe-272ded6ccc6f"
   ],
-  "recommends": [],
+  "recommends": [
+    "fd1b0afe-69e3-43b7-befe-272ded6ccc6f"
+  ],
   "recommendedBy": []
 },{
   "_id": {
@@ -204,7 +210,9 @@
       "status": "confirmed",
       "instrument": "Flûte traversière",
       "singer": "Yes",
-      "recommends": [],
+      "recommends": [
+        "fd1b0afe-69e3-43b7-befe-272ded6ccc6f"
+      ],
       "recommendedBy": []
     }
   ],
@@ -213,7 +221,7 @@
   "instrument": "Basse",
   "singer": "Yes",
   "professionnal": null,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRVYUtoV2Jsem10ZDk0eGdLbHhMY3VlZ0RWZ2o5bmxybHB4N21TdkFWSG9uaEdSM1dLU0xVQyIsImlhdCI6MTY1NDc2Nzg1NCwic3ViIjoiMGQ3OGZiMTQtNzZlYy00ZDc1LTk5YjMtMGFiY2IxZGVkZTVhIn0.rB-nJsbYFAxVp6tJ-1osf_Ss2JATUdhbjYfrQ1EJw4Y",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRVYUtoV2Jsem10ZDk0eGdLbHhMY3VlZ0RWZ2o5bmxybHB4N21TdkFWSG9uaEdSM1dLU0xVQyIsImlhdCI6MTY1NDcxNzYxMSwic3ViIjoiMGQ3OGZiMTQtNzZlYy00ZDc1LTk5YjMtMGFiY2IxZGVkZTVhIn0.FmspvEgFp4N8QI46KP_lbP8qAXsIwLMJjJ2Vaq-BpK0",
   "friends_list": [
     "b827e9ca-b3dc-4645-909f-1791650f0036"
   ],
@@ -246,7 +254,9 @@
       "status": "confirmed",
       "instrument": "Flûte traversière",
       "singer": "Yes",
-      "recommends": [],
+      "recommends": [
+        "fd1b0afe-69e3-43b7-befe-272ded6ccc6f"
+      ],
       "recommendedBy": []
     }
   ],
@@ -257,7 +267,7 @@
   "instrument": "Cajun",
   "singer": "No",
   "professionnal": null,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRFNHJpQjdnR3picXpUZVp1MEdILjZPT3BsZ2JtbFlpTXhxMXEvZ2pQc1NYTmx2cFNEbzhOTyIsImlhdCI6MTY1NDc2Nzg3MCwic3ViIjoiNTRjYmEyNDMtNmU3OS00ZDYwLWI3ZGEtOTFiNzM3NmZkM2JhIn0.b2FbTJ-qMZ5wQ6M2ez5BAi6pFI6h1V4JZk3tW0I42Gc",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRFNHJpQjdnR3picXpUZVp1MEdILjZPT3BsZ2JtbFlpTXhxMXEvZ2pQc1NYTmx2cFNEbzhOTyIsImlhdCI6MTY1NDcxNzYyNiwic3ViIjoiNTRjYmEyNDMtNmU3OS00ZDYwLWI3ZGEtOTFiNzM3NmZkM2JhIn0.W5ja3ShLux3SzHPrGa35mNQ2Fm6wd9faI-ZYUo5-iIg",
   "friends_list": [
     "b827e9ca-b3dc-4645-909f-1791650f0036"
   ],
@@ -332,12 +342,13 @@
   "instrument": "Synthé",
   "singer": "Yes",
   "professionnal": null,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRDRnlFa2NTdUJuVWRmNGdYR1QybXdldS5HMk5Vc1RSWDNtTEdSTWJiY2o0VkFraU11L2ExbSIsImlhdCI6MTY1NDc2Nzg5Miwic3ViIjoiZmQxYjBhZmUtNjllMy00M2I3LWJlZmUtMjcyZGVkNmNjYzZmIn0.Rd4ozdB7MH67wCUsj10LqSnxlCu-WJHV-TcIa_FuRzw",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsQWRkcmVzcyI6IiQyYiQxMCRDRnlFa2NTdUJuVWRmNGdYR1QybXdldS5HMk5Vc1RSWDNtTEdSTWJiY2o0VkFraU11L2ExbSIsImlhdCI6MTY1NDc2NzUwOCwic3ViIjoiZmQxYjBhZmUtNjllMy00M2I3LWJlZmUtMjcyZGVkNmNjYzZmIn0.SBMHAGEGTfWsjhu1ww_ihtMLpv1BcE0tiwVXn4Tvc6o",
   "friends_list": [
     "df3a16bd-3831-4eec-b1fa-4addc70930ed"
   ],
   "recommends": [],
   "recommendedBy": [
+    "b827e9ca-b3dc-4645-909f-1791650f0036",
     "df3a16bd-3831-4eec-b1fa-4addc70930ed"
   ]
 },{

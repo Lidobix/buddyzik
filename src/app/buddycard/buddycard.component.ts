@@ -21,10 +21,19 @@ export class BuddycardComponent implements OnInit {
     // this.buddy.addable = false;
     this.buddy.status = 'invited';
   }
+  inviteBuddyFromReco() {
+    console.log('this.buddy = ', this.buddy);
+    // this.buddyService.inviteBuddy(this.buddy.uuid).subscribe();
+    this.buddyService
+      .updateBuddy(this.buddy.uuid, '/invitationfromreco')
+      .subscribe();
+    // this.buddy.addable = false;
+    this.buddy.status = 'invited';
+  }
   goToBuddyProfile() {}
   deleteBuddy() {
+    this.buddy.status = 'deletion';
     this.buddyService.updateBuddy(this.buddy.uuid, '/deletion').subscribe();
-    this.buddy.status = 'unknown';
   }
 
   confirmBuddy() {
@@ -41,5 +50,12 @@ export class BuddycardComponent implements OnInit {
       .subscribe();
     // this.buddy.status = 'recommended';
   }
+
+  // confirmBuddyReco() {
+  //   this.buddyService
+  //     .updateBuddy(this.buddy.uuid, '/confirmationr', true)
+  //     .subscribe();
+  //   this.buddy.status = 'confirmed';
+  // }
   ngOnInit(): void {}
 }

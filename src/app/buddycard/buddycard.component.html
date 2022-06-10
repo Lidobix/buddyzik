@@ -9,7 +9,11 @@
   <p>Nom: {{ buddy.lastName }}</p>
   <p>Instrument: {{ buddy.instrument }}</p>
 
+  <p *ngIf="buddy.status == 'deletion'">Suppression en cours...</p>
   <button *ngIf="buddy.status == 'unknown'" (click)="inviteBuddy()">
+    Inviter
+  </button>
+  <button *ngIf="buddy.status == 'recommended'" (click)="inviteBuddyFromReco()">
     Inviter
   </button>
 
@@ -22,10 +26,10 @@
   <button *ngIf="buddy.status == 'confirmed'" (click)="recommendBuddy()">
     Recommander
   </button>
-  <button
-    *ngIf="buddy.status == 'pending' || buddy.status == 'recommended'"
-    (click)="confirmBuddy()"
-  >
+  <!-- <button *ngIf="buddy.status == 'recommended'" (click)="confirmBuddyReco()">
+    Ajouter
+  </button> -->
+  <button *ngIf="buddy.status == 'pending'" (click)="confirmBuddy()">
     Accepter
   </button>
   <button
