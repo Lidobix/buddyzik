@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -7,6 +7,7 @@ import { AuthService } from 'src/services/auth.service';
 import { BuddyService } from '../../services/buddy.service';
 import { ageValidator } from 'src/shared/minimum-age.directive';
 import { pictureValidator } from 'src/shared/picture-format.directive';
+import { ImageService } from 'src/services/image.service';
 // import { EDEADLK } from 'constants';
 
 @Component({
@@ -17,6 +18,9 @@ import { pictureValidator } from 'src/shared/picture-format.directive';
 export class EditProfileComponent implements OnInit {
   userProfileForm!: FormGroup;
   instrumentsList!: string[];
+  previewProfilePic!: string;
+
+  // profilePicture: string = null;
   // messageError: string = ;
   newuser!: object;
 
@@ -28,7 +32,8 @@ export class EditProfileComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private buddyService: BuddyService
+    private buddyService: BuddyService,
+    private imageservice: ImageService
   ) {}
 
   ngOnInit(): void {
@@ -88,16 +93,14 @@ export class EditProfileComponent implements OnInit {
       singer: [null],
       pro: [null],
       bio: [null],
-      profilePicture: [
-        'avatar.jpeg',
-        // pictureValidator(this.authService.pictureExtension),
-      ],
+      profilePicture: ['', pictureValidator(this.authService.pictureExtension)],
       bannerPicture: [
-        'avatar.jpeg',
-        // pictureValidator(this.authService.pictureExtension),
+        '',
+
+        // pictureValidator(this.authService.pictureExtension)
       ],
     });
-
+    // this.onchanges();
     this.instrumentsList = [
       'Guitare',
       'Basse',
@@ -110,37 +113,18 @@ export class EditProfileComponent implements OnInit {
       'Flûte traversière',
     ];
   }
+  selectFile(event: any) {
+    const file = event.target.files[0];
+
+    this.imageservice.getBase64(file).subscribe((str) => {
+      this.previewProfilePic = str;
+    });
+  }
 
   onSubmitProfileForm() {
-    console.log(typeof this.userProfileForm);
-    this.authService.authUser(
-      this.userProfileForm,
-      '/register'
-      // this.messageValidation,
-      // this.messageError
-    );
+    this.userProfileForm.value.profilePicture = this.previewProfilePic;
+    console.log('soumission du formulaire: ', this.userProfileForm);
 
-    // console.log(this.userProfileForm.controls);
-    // console.log(this.userProfileForm.status);
-
-    // if (!this.userProfileForm.valid) {
-    //   alert('Formulaire non valide!');
-    // } else {
-    //   try {
-    //     this.authService
-    //       .submitEditProfileForm(this.userProfileForm.value)
-    //       .subscribe((authentication) => {
-    //         console.log('Le serveur a dit ', authentication);
-    //         if (authentication) {
-    //           alert('Vous êtes bien inscrit, bonne navigation!');
-    //           this.newuser = authentication;
-    //           this.buddyService.userIdBuilder(authentication);
-    //           this.router.navigateByUrl('/profile/:id');
-    //         } else {
-    //           alert('Pas possible de vous inscrire!');
-    //         }
-    //       });
-    //   } catch (error) {}
-    // }
+    this.authService.authUser(this.userProfileForm, '/register');
   }
 }

@@ -76,7 +76,10 @@ const projectionBuddyCard = {
 
 // const distDir = __dirname + "/dist";
 // app.use(express.static(distDir));
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+
 app.use(cors());
 // console.log(path.join(__dirname, "src"));
 // app.get("/favicon.ico", express.static(path.join(__dirname, "src")));
@@ -180,7 +183,8 @@ app.post("/register", (req, res) => {
           role: "user",
           connected: true,
           status: "unknown",
-          friends: [{}],
+          friends: [],
+          friends_list: [],
           wall: [],
           messager: {},
           instrument: newUser.instrument,
@@ -289,7 +293,7 @@ app.get("/allbuddies", (req, res, next) => {
         const buddiesToExclude = await collection
           .find(
             {
-              token: req.headers.token,
+              uuid: req.headers.uuid,
             },
             {
               projection: {
@@ -410,7 +414,7 @@ app.post("/invitationfromreco", (req, res) => {
     req.body.buddyTarget
   );
   if (authToken(req.headers.token)) {
-    async function invitationRecoUpdateDataBase(uuid1, uuid2, status) {
+    async function invitationRecoUpdateDataBase(uuid1, uuid2) {
       await mongoClient.connect();
       try {
         // On récupère ma carte:
@@ -433,33 +437,12 @@ app.post("/invitationfromreco", (req, res) => {
           }
         );
 
-        // await updateBuddy(
-        //   { uuid: uuid1 },
-        //   {
-        //     $push: {
-        //       friends: buddyToAdd,
-        //       friends_list: uuid2,
-        //     },
-        //   }
-        // );
-        // const up2 = await collection.updateOne(
-        //   { uuid: uuid2, "friends.uuid": uuid1 },
-        //   {
-        //     $set: { "friends.$.status": "pending" },
-        //   }
-        // );
         const up3 = await collection.updateOne(
           { uuid: uuid1, "friends.uuid": uuid2 },
           {
             $set: { "friends.$.status": "invited" },
           }
         );
-        // await updateBuddy(
-        //   { uuid: uuid1, "friends.uuid": uuid2 },
-        //   {
-        //     $set: { "friends.$.status": status },
-        //   }
-        // );
       } catch (error) {
       } finally {
         // await mongoClient.close();
@@ -471,13 +454,6 @@ app.post("/invitationfromreco", (req, res) => {
       req.body.buddyTarget,
       "invited"
     );
-
-    // On récupère l'inviteur et on le colle dans la liste d'amis de l'invité
-    // const updateGuestDB = invitationUpdateDataBase(
-    //   req.body.buddyTarget,
-    //   req.headers.uuid,
-    //   "pending"
-    // );
 
     res.json("Votre invitation a bien été envoyée!!");
   } else {
@@ -516,28 +492,6 @@ app.post("/invitation", (req, res) => {
             },
           }
         );
-
-        // await updateBuddy(
-        //   { uuid: uuid1 },
-        //   {
-        //     $push: {
-        //       friends: buddyToAdd,
-        //       friends_list: uuid2,
-        //     },
-        //   }
-        // );
-        // const up2 = await collection.updateOne(
-        //   { uuid: uuid1, "friends.uuid": uuid2 },
-        //   {
-        //     $set: { "friends.$.status": status },
-        //   }
-        // );
-        // await updateBuddy(
-        //   { uuid: uuid1, "friends.uuid": uuid2 },
-        //   {
-        //     $set: { "friends.$.status": status },
-        //   }
-        // );
       } catch (error) {
       } finally {
         // await mongoClient.close();

@@ -10,6 +10,7 @@ import { ServerService } from './server.service';
 })
 export class BuddyService implements OnInit {
   connectedUser!: Buddy;
+
   // serverURL!: string;
 
   constructor(private http: HttpClient, private serverService: ServerService) {}

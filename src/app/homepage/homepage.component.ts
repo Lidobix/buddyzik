@@ -11,6 +11,7 @@ import { Buddy } from '../models/buddy-model';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
+  profilePicture!: string;
   constructor(
     private router: Router,
     private authService: AuthService,

@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class BuddycardComponent implements OnInit {
   // @Input() buddyCard!: BuddyCard;
   @Input() buddy!: Buddy;
-
+  profilePicture!: string;
   constructor(private buddyService: BuddyService, private router: Router) {}
 
   inviteBuddy() {
@@ -61,5 +61,7 @@ export class BuddycardComponent implements OnInit {
   //     .subscribe();
   //   this.buddy.status = 'confirmed';
   // }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.profilePicture = this.buddy.profilePicture;
+  }
 }

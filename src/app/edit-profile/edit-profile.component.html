@@ -31,7 +31,15 @@
 
     <br />
     Photo de profil:
-    <input type="file" formControlName="profilePicture" />
+    <input
+      type="file"
+      formControlName="profilePicture"
+      (change)="selectFile($event)"
+    />
+    <br />
+    <!-- onchange="previewFile(event.target.files[0])" -->
+
+    <img [src]="previewProfilePic" alt="" />
     <br />
     Photo de bannière:
     <input type="file" formControlName="bannerPicture" />
