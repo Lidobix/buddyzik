@@ -1,6 +1,10 @@
 <!-- <app-nav></app-nav> -->
-
-<app-buddycard *ngFor="let buddy of myBuddies" [buddy]="buddy"></app-buddycard>
+<div class="buddyList">
+  <app-buddycard
+    *ngFor="let buddy of myBuddies"
+    [buddy]="buddy"
+  ></app-buddycard>
+</div>
 <!-- 
 <app-buddycard
   *ngFor="let buddy of myBuddies"

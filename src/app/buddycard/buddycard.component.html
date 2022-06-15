@@ -1,5 +1,7 @@
+<div id="main"></div>
+
 <div class="card">
-  <img [src]="profilePicture" alt="" />
+  <div id="imgCardContainer"><img [src]="profilePicture" alt="" /></div>
   <p *ngIf="buddy.status == 'pending'">Attend une réponse de votre part...</p>
   <p *ngIf="buddy.status == 'invited'">
     Invitation en attente d'une réponse...

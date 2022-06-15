@@ -1,7 +1,8 @@
-import express, { application } from "express";
+import express, { application, response } from "express";
 // import { Request, Response } from "express";
 import bodyParser from "body-parser";
 import { authToken, createToken } from "./security.js";
+import { main } from "./mailing.js";
 import cors from "cors";
 import { hash, checkHash } from "./security.js";
 import { v4 as uuidv4 } from "uuid";
@@ -24,6 +25,17 @@ import { rejects } from "assert";
 import { ConsoleLogger } from "@angular/compiler-cli";
 
 const app = express();
+
+const filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(filename);
+
+app.use(express.static(__dirname + "/../dist/buddyzik"));
+app.get("/*", (req, res) => {
+  // path.join(__dirname, "../dist/buddyzik/index.html");
+  console.log(path.join(__dirname, "../dist/buddyzik/index.html"));
+  res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
+  // res.send("coucou!!!");
+});
 app.use(cors());
 // app.use(cookieParser());
 
@@ -45,11 +57,18 @@ app.use(cors());
 // );
 
 const config = {
-  PORT: process.env.PORT,
-  DB_URL: process.env.DB_URL,
-  DB_NAME: process.env.DB_NAME,
-  DB_COL_USER: process.env.DB_COL_USER,
+  PORT: 3100,
+  DB_URL:
+    "mongodb+srv://Lidobix:blup11pulb@lidobixcluster.lvj1i.mongodb.net/test?authSource=admin&replicaSet=atlas-r98rki-shard-0&readPreference=primary&ssl=true",
+  DB_NAME: "buddyzik",
+  DB_COL_USER: "users",
 };
+// const config = {
+//   PORT: process.env.PORT,
+//   DB_URL: process.env.DB_URL,
+//   DB_NAME: process.env.DB_NAME,
+//   DB_COL_USER: process.env.DB_COL_USER,
+// };
 console.log("db url: ", config);
 const mongoClient = new MongoClient(config.DB_URL);
 const collection = mongoClient
@@ -80,12 +99,21 @@ const projectionBuddyCard = {
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
-app.use(cors());
 // console.log(path.join(__dirname, "src"));
 // app.get("/favicon.ico", express.static(path.join(__dirname, "src")));
-app.get("/", (req, res) => {
-  // res.send("coucou!!!");
+app.get("/favicon.ico", (req, res) => {
+  // Use actual relative path to your .ico file here
+  console.log("path : ", __dirname, "../favicon.ico");
+  res.sendFile(path.resolve(__dirname, "../favicon.ico"));
 });
+///////////////////////////////////////////////////////////
+/////////TEST///////////////////////////
+
+app.get("/mailtest", (req, res) => {
+  const mail = main().catch(console.error);
+  res.status(200).json("ok");
+});
+
 /////////////////////////////////////////////////////////
 ////////////////////// CHECK TOKEN //////////////////////
 /////////////////////////////////////////////////////////

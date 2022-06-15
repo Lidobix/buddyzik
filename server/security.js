@@ -22,7 +22,7 @@ export const createToken = (buddy) => {
     {
       mailAddress: buddy.password,
     },
-    process.env.JWT_PRIVATE_KEY,
+    "MIIFljCCBH6gAwIBAgIIIP7GMO9cWzYwDQYJKoZIhvcNAQELBQAwgZYxCzAJBgNVBAYTAlVTMRMwEQYDVQQKDApBcHBsZSBJbmMuMSwwKgYDVQQLDCNBcHBsZSBXb3JsZHdpZGUgRGV2ZWxvcGVyIFJlbGF0aW9uczFEMEIGA1UEAww7QXBwbGUgV29ybGR3aWRlIERldmVsb3BlciBSZWxhdGlvbnMgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTcwNDI5MDMzMDA4WhcNMTgwNDI5MDMzMDA4WjCBiTEaMBgGCgmSJomT8ixkAQEMCk1ENFA0UTg1WlExMzAxBgNVBAMMKmlQaG9uZSBEZXZlbG9wZXI6IGFtbW1pIGFtbW1pIChXM1BSS1JDVDRRKTETMBEGA1UECwwKVktRNTZVQ0c4ODEUMBIGA1UECgwLYW1tbWkgYW1tbWkxCzAJBgNVBAYTAlVTMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwudboPuPnImOssBCw9vISRnnivreVwOuDAu77u47zIU8uTagbzktX6pF54YToSLQHeOaNNQfZ7idccU2DKVBr3etz/++ca4HNadeUaEm2VWW4kEq3iKIo1wZZhJJR6bQl4q797U0+f7eEXLKD4fjfidEF+ceAxAsX5YIuokq3K/B+XW3tKk7D4nCaaCyJ9",
     {
       // expiresIn: 3600,
       subject: buddy.uuid,
@@ -35,7 +35,12 @@ export const authToken = (token) => {
   // console.log(token != undefined);
   if (token != undefined) {
     try {
-      if (jwt.verify(token, process.env.JWT_PRIVATE_KEY)) {
+      if (
+        jwt.verify(
+          token,
+          "MIIFljCCBH6gAwIBAgIIIP7GMO9cWzYwDQYJKoZIhvcNAQELBQAwgZYxCzAJBgNVBAYTAlVTMRMwEQYDVQQKDApBcHBsZSBJbmMuMSwwKgYDVQQLDCNBcHBsZSBXb3JsZHdpZGUgRGV2ZWxvcGVyIFJlbGF0aW9uczFEMEIGA1UEAww7QXBwbGUgV29ybGR3aWRlIERldmVsb3BlciBSZWxhdGlvbnMgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTcwNDI5MDMzMDA4WhcNMTgwNDI5MDMzMDA4WjCBiTEaMBgGCgmSJomT8ixkAQEMCk1ENFA0UTg1WlExMzAxBgNVBAMMKmlQaG9uZSBEZXZlbG9wZXI6IGFtbW1pIGFtbW1pIChXM1BSS1JDVDRRKTETMBEGA1UECwwKVktRNTZVQ0c4ODEUMBIGA1UECgwLYW1tbWkgYW1tbWkxCzAJBgNVBAYTAlVTMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwudboPuPnImOssBCw9vISRnnivreVwOuDAu77u47zIU8uTagbzktX6pF54YToSLQHeOaNNQfZ7idccU2DKVBr3etz/++ca4HNadeUaEm2VWW4kEq3iKIo1wZZhJJR6bQl4q797U0+f7eEXLKD4fjfidEF+ceAxAsX5YIuokq3K/B+XW3tKk7D4nCaaCyJ9"
+        )
+      ) {
         // console.log("le token est valide");
         return true;
       } else {

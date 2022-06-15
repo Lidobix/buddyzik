@@ -14,7 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AuthService implements OnInit {
   minimumAge: number = 18;
-  pictureExtension: string[] = ['jpg', 'jpeg', 'png', 'bmp', 'svg'];
+  pictureExtension: string[] = ['jpg', 'jpeg', 'png', 'bmp', 'svg', 'gif'];
   passwordPattern: string =
     '^[^<>](?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).*[^<>]$';
 

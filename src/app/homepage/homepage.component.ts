@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/services/auth.service';
 import { BuddyService } from 'src/services/buddy.service';
+import { ServerService } from 'src/services/server.service';
 import { Buddy } from '../models/buddy-model';
 
 @Component({
@@ -16,9 +18,18 @@ export class HomepageComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private buddyService: BuddyService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private serverService: ServerService,
+    private http: HttpClient
   ) {}
 
+  testmail(): void {
+    this.http
+      .get<any>(this.serverService.serverUrl + '/mailtest')
+      .subscribe((retour) => {
+        console.log(retour);
+      });
+  }
   goToProfile(): void {
     this.router.navigateByUrl('/profile/:id');
   }
