@@ -27,13 +27,16 @@ export class BuddyService implements OnInit {
   getMyBuddies(): Observable<Buddy[]> {
     // getMyBuddies(): Buddy[] {
     // console.log('recherche de tes buddies.....');
-    return this.http.get<Buddy[]>(this.serverService.serverUrl + '/mybuddies');
+    return this.http.get<Buddy[]>(this.serverService.serverUrl + '/mybuddies', {
+      responseType: 'json',
+    });
   }
 
   getAllBuddies(): Observable<Buddy[]> {
-    // console.log('recherche de tous les buddies.....');
+    console.log('recherche de tous les buddies.....');
     // console.log('server....', this.serverService.serverUrl);
     return this.http.get<Buddy[]>(this.serverService.serverUrl + '/allbuddies');
+    // return this.http.get<any>(this.serverService.serverUrl + '/allbuddies');
   }
   getBuddyByID(id: string): Observable<Buddy> {
     return this.http.post<Buddy>(this.serverService.serverUrl + '/buddybyid', {
@@ -43,7 +46,9 @@ export class BuddyService implements OnInit {
 
   getMe(): Observable<Buddy> {
     console.log('dans authservice, on va fetcher moi)');
-    return this.http.get<Buddy>(this.serverService.serverUrl + '/me');
+    return this.http.get<Buddy>(this.serverService.serverUrl + '/me', {
+      responseType: 'text' as 'json',
+    });
   }
 
   // inviteBuddy(uuidToInvite: string): Observable<string> {

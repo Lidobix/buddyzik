@@ -57,14 +57,14 @@ export class HomepageComponent implements OnInit {
   // }
 
   getAuth(): void {
-    // console.log("check du token à l'ouverture : ");
+    console.log("check du token à l'ouverture : ");
     this.authService.getAuth().subscribe((authorization) => {
-      // console.log('authorization : ', authorization);
+      console.log('authorization : ', authorization);
       if (!authorization) {
-        // console.log('pas de token valide');
+        console.log('pas de token valide');
         this.router.navigateByUrl('/login');
       } else {
-        // console.log('token valide, on poursuit la nav');
+        console.log('token valide, on poursuit la nav');
       }
     });
   }

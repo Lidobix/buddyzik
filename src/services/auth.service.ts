@@ -8,7 +8,7 @@ moment().format();
 
 import { BuddyService } from './buddy.service';
 import { ServerService } from './server.service';
-import { CookieService } from 'ngx-cookie-service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,8 +23,7 @@ export class AuthService implements OnInit {
     private http: HttpClient,
     private buddyService: BuddyService,
     private serverService: ServerService,
-    private router: Router,
-    private cookieService: CookieService
+    private router: Router
   ) {}
 
   // newUser!: Buddy;
@@ -66,7 +65,14 @@ export class AuthService implements OnInit {
   }
   getAuth() {
     console.log("Authentification à l'ouverture de l'appli...");
-    return this.http.get<boolean>(this.serverService.serverUrl + '/auth');
+    return this.http.post<object>(
+      this.serverService.serverUrl + '/auth',
+      'sdvqrfqr'
+      // );
+      // return this.http.get<any>(this.serverService.serverUrl + '/auth', {
+      //   responseType: 'json',
+      // });
+    );
   }
   getExpiration() {
     const expiration = localStorage.getItem('expires_at');
@@ -113,34 +119,12 @@ export class AuthService implements OnInit {
 
             if (authentication.success === true) {
               alert(authentication.message);
-              // console.log(authentication);
 
-              // console.log('token:', authentication.token);
-
-              // console.log('newBuddy', authentication.user);
-              // this.cookieService.set('token', authentication.token);
               localStorage.setItem('token', authentication.token);
               localStorage.setItem('uuid', authentication.user.uuid);
-              // localStorage.setItem('friends', authentication.user.friends_list);
-              // localStorage.setItem(
-              //   'friends',
-              //   JSON.stringify(authentication.user.friends_list)
-              // );
-              // localStorage.setItem('expiresIn', authentication.expiresIn);
-
-              // const expiresAt = moment().add(
-              //   authentication.expiresIn,
-              //   'second'
-              // );
-
-              // localStorage.setItem(
-              //   'expires_at',
-              //   JSON.stringify(expiresAt.valueOf())
-              // );
-              // console.log('moment : ', moment());
 
               this.buddyService.userIdBuilder(authentication.user);
-              // logoutCommand();
+
               this.router.navigateByUrl('/home');
             } else {
               alert(authentication.message);

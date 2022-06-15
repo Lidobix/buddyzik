@@ -32,7 +32,7 @@ const __dirname = path.dirname(filename);
 app.use(express.static(__dirname + "/../dist/buddyzik"));
 app.get("/*", (req, res) => {
   // path.join(__dirname, "../dist/buddyzik/index.html");
-  console.log(path.join(__dirname, "../dist/buddyzik/index.html"));
+  // console.log(path.join(__dirname, "../dist/buddyzik/index.html"));
   res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
   // res.send("coucou!!!");
 });
@@ -117,14 +117,14 @@ app.get("/mailtest", (req, res) => {
 /////////////////////////////////////////////////////////
 ////////////////////// CHECK TOKEN //////////////////////
 /////////////////////////////////////////////////////////
-app.get("/auth", (req, res) => {
+app.post("/auth", (req, res, next) => {
   // req.session.message = "neeeeeeeeeewww";
   // console.log("ma session : ", req.session);
 
   console.log("token: ", req.headers.token);
   console.log("authToken: ", authToken(req.headers.token));
   const bool = authToken(req.headers.token);
-  res.send(bool);
+  res.status(200).json(bool);
 });
 
 /////////////////////////////////////////////////////////
@@ -132,6 +132,7 @@ app.get("/auth", (req, res) => {
 /////////////////////////////////////////////////////////
 
 app.post("/login", (req, res) => {
+  console.log("login");
   const user = {
     mailAddress: req.body.mailAddress,
     password: req.body.password,
@@ -162,13 +163,20 @@ app.post("/login", (req, res) => {
         delete buddy.password;
         delete buddy.mailAddress;
         delete buddy.token;
-        res.status(200).cookie("token", newToken).json({
+        res.status(200).json({
           success: true,
           user: buddy,
           message: "Vous êtes connecté, bonne navigation!",
           token: newToken,
           // expiresIn: 3600,
         });
+        // res.status(200).cookie("token", newToken).json({
+        //   success: true,
+        //   user: buddy,
+        //   message: "Vous êtes connecté, bonne navigation!",
+        //   token: newToken,
+        //   // expiresIn: 3600,
+        // });
       }
     } catch (error) {
       console.log("Pas d'utilisateur trouvé, error: ", error);
@@ -366,7 +374,7 @@ app.get("/allbuddies", (req, res, next) => {
 
         if (allBuddies === null) {
         } else {
-          res.status(200).send(allBuddies);
+          res.status(200).json(allBuddies);
           // console.log("result:", result);
         }
       } catch (error) {
@@ -387,7 +395,7 @@ app.get("/allbuddies", (req, res, next) => {
 //////////////////////////////// MY BUDDIES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 app.get("/mybuddies", (req, res) => {
-  // console.log("dans le middleware mybuddies");
+  console.log("dans le middleware mybuddies");
 
   if (authToken(req.headers.token)) {
     async function fetchMyBuddies() {
