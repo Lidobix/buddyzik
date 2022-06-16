@@ -1,4 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaderResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -27,16 +31,19 @@ export class BuddyService implements OnInit {
   getMyBuddies(): Observable<Buddy[]> {
     // getMyBuddies(): Buddy[] {
     // console.log('recherche de tes buddies.....');
-    return this.http.get<Buddy[]>(this.serverService.serverUrl + '/mybuddies', {
-      responseType: 'json',
-    });
+    return this.http.post<Buddy[]>(
+      this.serverService.serverUrl + '/mybuddies',
+      ''
+    );
   }
 
   getAllBuddies(): Observable<Buddy[]> {
     console.log('recherche de tous les buddies.....');
-    // console.log('server....', this.serverService.serverUrl);
-    return this.http.get<Buddy[]>(this.serverService.serverUrl + '/allbuddies');
-    // return this.http.get<any>(this.serverService.serverUrl + '/allbuddies');
+
+    return this.http.post<Buddy[]>(
+      this.serverService.serverUrl + '/allbuddies',
+      ''
+    );
   }
   getBuddyByID(id: string): Observable<Buddy> {
     return this.http.post<Buddy>(this.serverService.serverUrl + '/buddybyid', {
@@ -46,9 +53,7 @@ export class BuddyService implements OnInit {
 
   getMe(): Observable<Buddy> {
     console.log('dans authservice, on va fetcher moi)');
-    return this.http.get<Buddy>(this.serverService.serverUrl + '/me', {
-      responseType: 'text' as 'json',
-    });
+    return this.http.post<Buddy>(this.serverService.serverUrl + '/me', '');
   }
 
   // inviteBuddy(uuidToInvite: string): Observable<string> {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
 import { BuddyService } from 'src/services/buddy.service';
 import { Buddy } from '../models/buddy-model';
@@ -13,12 +13,10 @@ export class MybuddiesComponent implements OnInit {
   myBuddies!: Buddy[];
   updateMyBuddies!: any;
 
-  constructor(private buddyService: BuddyService) {}
-  ngOnInit(): void {
-    this.getMyBuddies();
-    this.updateMyBuddies = setInterval(() => {
-      this.getMyBuddies();
-    }, 3000);
+  constructor(private buddyService: BuddyService) {
+    // this.updateMyBuddies = setInterval(() => {
+    //   this.getMyBuddies();
+    // }, 3000);
   }
 
   getMyBuddies(): any {
@@ -28,8 +26,7 @@ export class MybuddiesComponent implements OnInit {
       // console.log("dans l'observable ", this.myBuddies);
     });
   }
-
-  ngOnDestroy(): void {
-    clearInterval(this.updateMyBuddies);
+  ngOnInit(): void {
+    this.getMyBuddies();
   }
 }

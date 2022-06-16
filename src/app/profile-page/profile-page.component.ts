@@ -31,13 +31,13 @@ export class ProfilePageComponent implements OnInit {
     this.authService.logout();
   }
 
-  fetch(): void {
-    this.http
-      .get<any>(this.serverService.serverUrl + '/fetch')
-      .subscribe((retour) => {
-        console.log(retour);
-      });
-  }
+  // fetch(): void {
+  //   this.http
+  //     .get<any>(this.serverService.serverUrl + '/fetch')
+  //     .subscribe((retour) => {
+  //       console.log(retour);
+  //     });
+  // }
   ngOnInit(): void {
     // this.getMe();
     const buddyID = this.route.snapshot.params['uuid'];
@@ -58,10 +58,16 @@ export class ProfilePageComponent implements OnInit {
 
   getMe(): any {
     console.log('dans homepage , on va fetcher moi)');
-    this.buddyService.getMe().subscribe((me) => {
-      // console.log("dans l'observable, buddies =  ", buddies);
-      this.user = me;
-      console.log("dans l'observable me = ", me);
-    });
+    const idToFetch = localStorage.getItem('uuid');
+    if (idToFetch != null) {
+      this.buddyService.getBuddyByID(idToFetch).subscribe((me) => {
+        // console.log("dans l'observable, buddies =  ", buddies);
+        this.user = me;
+        console.log("dans l'observable me = ", me);
+      });
+    } else {
+      alert("problème d'identification");
+      this.authService.logout();
+    }
   }
 }

@@ -25,7 +25,15 @@ export class NavComponent implements OnInit {
   }
 
   goToProfile(): void {
-    this.router.navigateByUrl('/profile/:id');
+    // const me = localStorage.getItem('uuid');
+    // if (me != null) {
+    //   this.router.navigateByUrl(
+    //     `profile/${this.buddyService.connectedUser.uuid}`
+    //   );
+    // } else {
+    //   alert("problème d'identification");
+    //   this.authService.logout();
+    // }
   }
   goToMyBuddysList(): void {
     this.router.navigateByUrl('/mybuddies');

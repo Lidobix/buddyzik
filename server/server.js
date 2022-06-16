@@ -294,6 +294,7 @@ app.post("/logout", (req, res, next) => {
 /////////////////////////////////////////////////////////
 app.post("/buddybyid", (req, res, next) => {
   if (authToken(req.headers.token)) {
+    console.log("req.body.buddyTarget : ", req.body.buddyTarget);
     async function sendBuddy(buddyTarget) {
       try {
         await mongoClient.connect();
@@ -315,7 +316,7 @@ app.post("/buddybyid", (req, res, next) => {
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////////// ALL BUDDIES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
-app.get("/allbuddies", (req, res, next) => {
+app.post("/allbuddies", (req, res, next) => {
   console.log("dans le middleware allbuddies");
   // console.log("reqbody", req.body);
   if (authToken(req.headers.token)) {
@@ -394,7 +395,7 @@ app.get("/allbuddies", (req, res, next) => {
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////////// MY BUDDIES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
-app.get("/mybuddies", (req, res) => {
+app.post("/mybuddies", (req, res) => {
   console.log("dans le middleware mybuddies");
 
   if (authToken(req.headers.token)) {
