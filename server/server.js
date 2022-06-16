@@ -56,19 +56,19 @@ app.use(cors());
 //   })
 // );
 
-const config = {
-  PORT: 3100,
-  DB_URL:
-    "mongodb+srv://Lidobix:blup11pulb@lidobixcluster.lvj1i.mongodb.net/test?authSource=admin&replicaSet=atlas-r98rki-shard-0&readPreference=primary&ssl=true",
-  DB_NAME: "buddyzik",
-  DB_COL_USER: "users",
-};
 // const config = {
-//   PORT: process.env.PORT,
-//   DB_URL: process.env.DB_URL,
-//   DB_NAME: process.env.DB_NAME,
-//   DB_COL_USER: process.env.DB_COL_USER,
+//   PORT: 3100,
+//   DB_URL:
+//     "mongodb+srv://Lidobix:blup11pulb@lidobixcluster.lvj1i.mongodb.net/test?authSource=admin&replicaSet=atlas-r98rki-shard-0&readPreference=primary&ssl=true",
+//   DB_NAME: "buddyzik",
+//   DB_COL_USER: "users",
 // };
+const config = {
+  PORT: process.env.PORT,
+  DB_URL: process.env.DB_URL,
+  DB_NAME: process.env.DB_NAME,
+  DB_COL_USER: process.env.DB_COL_USER,
+};
 console.log("db url: ", config);
 const mongoClient = new MongoClient(config.DB_URL);
 const collection = mongoClient
