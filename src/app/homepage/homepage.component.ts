@@ -47,25 +47,24 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAuth();
-
-    // this.setConnection();
+    //   this.getAuth();
+    //   // this.setConnection();
   }
 
-  // setConnection(): void {
-  //   this.buddyService.setConnection(true).subscribe();
+  // // setConnection(): void {
+  // //   this.buddyService.setConnection(true).subscribe();
+  // // }
+
+  // getAuth(): void {
+  //   console.log("check du token à l'ouverture : ");
+  //   this.authService.getAuth().subscribe((authorization) => {
+  //     console.log('authorization : ', authorization);
+  //     if (!authorization) {
+  //       console.log('pas de token valide');
+  //       this.router.navigateByUrl('/login');
+  //     } else {
+  //       console.log('token valide, on poursuit la nav');
+  //     }
+  //   });
   // }
-
-  getAuth(): void {
-    console.log("check du token à l'ouverture : ");
-    this.authService.getAuth().subscribe((authorization) => {
-      console.log('authorization : ', authorization);
-      if (!authorization) {
-        console.log('pas de token valide');
-        this.router.navigateByUrl('/login');
-      } else {
-        console.log('token valide, on poursuit la nav');
-      }
-    });
-  }
 }

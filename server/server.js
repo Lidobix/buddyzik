@@ -20,27 +20,42 @@ import "dotenv/config";
 import { fileURLToPath } from "url";
 
 const app = express();
+app.use(cors());
 
 const filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(filename);
+
+/////////////////////////////////////////////////
+////////////////// POUR LA PROD //////////////////
+/////////////////////////////////////////////////
 app.use(express.static(path.join(__dirname, "/../dist/buddyzik")));
-app.get("/", (req, res) => {
-  // path.join(__dirname, "../dist/buddyzik/index.html");
-  res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
-  // res.send("coucou!!!");
-});
+
 app.use(
   "/images",
   express.static(
     path.join(__dirname, "..", "dist", "buddyzik", "assets", "images")
   )
-  // express.static(__dirname + "../dist/buddyzik/assets/img/")
 );
-console.log(path.join(__dirname, "..", "dist", "buddyzik", "assets"));
-// app.use(express.static(__dirname + "/../dist/buddyzik"));
-console.log(path.join(__dirname, "../dist/buddyzik/assets/img"));
 
-app.use(cors());
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
+});
+
+///////////////////////////////////////////////////
+///////////////// POUR LE DEV /////////////////////
+///////////////////////////////////////////////////
+// console.log(path.join(__dirname, "..", "src", "assets", "images"));
+// app.use(express.static(path.join(__dirname, "/../src/app/assets")));
+
+// app.use(
+//   "/images",
+//   express.static(path.join(__dirname, "..", "src", "assets", "images"))
+// );
+
+///////////////////////////////////////////////////
+///////////////////////////////////////////////////
+///////////////////////////////////////////////////
+
 // app.use(cookieParser());
 
 // const ExpressSessionFileStore = sessionFileStore(expressSession);
@@ -60,23 +75,10 @@ app.use(cors());
 //   })
 // );
 
-const config = {
-  DB_URL:
-    "mongodb+srv://Lidobix:blup11pulb@lidobixcluster.lvj1i.mongodb.net/test?authSource=admin&replicaSet=atlas-r98rki-shard-0&readPreference=primary&ssl=true",
-  DB_NAME: "buddyzik",
-  DB_COL_USER: "users",
-};
-// const config = {
-//   PORT: process.env.PORT,
-//   DB_URL: process.env.DB_URL,
-//   DB_NAME: process.env.DB_NAME,
-//   DB_COL_USER: process.env.DB_COL_USER,
-// };
-console.log("db url: ", config);
-const mongoClient = new MongoClient(process.env.DB_URL || config.DB_URL);
+const mongoClient = new MongoClient(process.env.DB_URL);
 const collection = mongoClient
-  .db(process.env.DB_NAME || config.DB_NAME)
-  .collection(process.env.DB_COL_USER || config.DB_COL_USER);
+  .db(process.env.DB_NAME)
+  .collection(process.env.DB_COL_USER);
 
 const projectionBuddyCard = {
   _id: 0,
@@ -124,10 +126,10 @@ app.post("/auth", (req, res, next) => {
   // req.session.message = "neeeeeeeeeewww";
   // console.log("ma session : ", req.session);
 
-  console.log("token: ", req.headers.token);
-  console.log("authToken: ", authToken(req.headers.token));
-  const bool = authToken(req.headers.token);
-  res.status(200).json(bool);
+  // console.log("token: ", req.headers.token);
+  // console.log("authToken: ", authToken(req.headers.token));
+  // const checked = ;
+  res.status(200).json(authToken(req.headers.token));
 });
 
 /////////////////////////////////////////////////////////
@@ -1020,6 +1022,6 @@ const updateBuddy = (query, update) => {
 /////////////////////////////////////////////////////////
 //////////////////// SERVER EXPRESS /////////////////////
 /////////////////////////////////////////////////////////
-const server = app.listen(process.env.PORT || 3100, () => {
+const server = app.listen(process.env.PORT, () => {
   console.log(`Le serveur est démarré sur le port ${server.address().port}`);
 });

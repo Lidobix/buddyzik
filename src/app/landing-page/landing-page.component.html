@@ -1,5 +1,5 @@
 <!-- Si il n'y a pas de token présent -->
 <!-- <app-header></app-header> -->
-<app-login-card></app-login-card>
+<app-login-card *ngIf="isLogged == false"></app-login-card>
 <div>Utilisateurs en ligne:</div>
 <div>Messages publiés:</div>

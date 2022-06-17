@@ -10,8 +10,8 @@ import { SearchbuddyComponent } from './searchbuddy/searchbuddy.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomepageComponent,
-    // component: LandingPageComponent
+    // component: HomepageComponent,
+    component: LandingPageComponent,
   },
   {
     path: 'login',

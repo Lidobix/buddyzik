@@ -4,6 +4,7 @@ import { FormGroup, NgForm } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
 moment().format();
 
 import { BuddyService } from './buddy.service';
@@ -63,16 +64,10 @@ export class AuthService implements OnInit {
   isLoggedOut() {
     return !this.isLoggedIn();
   }
-  getAuth() {
+  getAuth(): Observable<object> {
     console.log("Authentification à l'ouverture de l'appli...");
-    return this.http.post<object>(
-      this.serverService.serverUrl + '/auth',
-      'sdvqrfqr'
-      // );
-      // return this.http.get<any>(this.serverService.serverUrl + '/auth', {
-      //   responseType: 'json',
-      // });
-    );
+
+    return this.http.post<object>(this.serverService.serverUrl + '/auth', '');
   }
   getExpiration() {
     const expiration = localStorage.getItem('expires_at');
