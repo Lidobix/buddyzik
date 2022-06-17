@@ -24,7 +24,7 @@ export const createToken = (buddy) => {
     {
       mailAddress: buddy.password,
     },
-    key,
+    process.env.KEY || key,
     {
       // expiresIn: 3600,
       subject: buddy.uuid,
@@ -37,7 +37,7 @@ export const authToken = (token) => {
   // console.log(token != undefined);
   if (token != undefined) {
     try {
-      if (jwt.verify(token, key)) {
+      if (jwt.verify(token, process.env.KEY || key)) {
         // console.log("le token est valide");
         return true;
       } else {
