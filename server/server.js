@@ -31,10 +31,12 @@ const __dirname = path.dirname(filename);
 app.use(express.static(path.join(__dirname, "/../dist/buddyzik")));
 app.use(
   "/images",
-  express.static(path.join(__dirname, "../dist/buddyzik/assets/images/"))
+  express.static(
+    path.join(__dirname, "..", "dist", "buddyzik", "assets", "images")
+  )
   // express.static(__dirname + "../dist/buddyzik/assets/img/")
 );
-console.log(path.join(__dirname, "..", "dist", "buddyzik", "assets", "images"));
+console.log(path.join(__dirname, "..", "dist", "buddyzik", "assets"));
 app.get("/", (req, res) => {
   // path.join(__dirname, "../dist/buddyzik/index.html");
   res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
