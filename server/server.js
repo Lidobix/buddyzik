@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import { authToken, createToken } from "./security.js";
 import { main } from "./mailing.js";
 import cors from "cors";
-import { hash, checkHash } from "./security.js";
+import { hash, checkHash } from "../server/security.js";
 import { v4 as uuidv4 } from "uuid";
 import { MongoClient } from "mongodb";
 import path, { dirname } from "path";
@@ -28,19 +28,21 @@ const app = express();
 
 const filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(filename);
-
-app.use(express.static(__dirname + "/../dist/buddyzik"));
-console.log(path.join(__dirname, "../dist/buddyzik/assets/img"));
+app.use(express.static(path.join(__dirname, "/../dist/buddyzik")));
 app.use(
-  "/img",
-  express.static(path.join(__dirname, "../dist/buddyzik/assets/img"))
+  "/images",
+  express.static(path.join(__dirname, "../dist/buddyzik/assets/images/"))
+  // express.static(__dirname + "../dist/buddyzik/assets/img/")
 );
-app.get("/*", (req, res) => {
+console.log(path.join(__dirname, "..", "dist", "buddyzik", "assets", "images"));
+app.get("/", (req, res) => {
   // path.join(__dirname, "../dist/buddyzik/index.html");
-  // console.log(path.join(__dirname, "../dist/buddyzik/index.html"));
   res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
   // res.send("coucou!!!");
 });
+// app.use(express.static(__dirname + "/../dist/buddyzik"));
+console.log(path.join(__dirname, "../dist/buddyzik/assets/img"));
+
 app.use(cors());
 // app.use(cookieParser());
 
