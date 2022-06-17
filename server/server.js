@@ -1,4 +1,4 @@
-import express, { application, response } from "express";
+import express from "express";
 // import { Request, Response } from "express";
 import bodyParser from "body-parser";
 // import { authToken, createToken } from "./security.js";
@@ -18,11 +18,6 @@ import "dotenv/config";
 
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { resolve } from "dns";
-import { async, asyncScheduler } from "rxjs";
-import { resolveObjectURL } from "buffer";
-import { rejects } from "assert";
-import { ConsoleLogger } from "@angular/compiler-cli";
 
 const app = express();
 
