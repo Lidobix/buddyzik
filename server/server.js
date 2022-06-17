@@ -10,9 +10,9 @@ import { authToken, createToken, hash, checkHash } from "../server/security.js";
 import { v4 as uuidv4 } from "uuid";
 import { MongoClient } from "mongodb";
 import path, { dirname } from "path";
-import cookieParser from "cookie-parser";
-import expressSession from "express-session";
-import sessionFileStore from "session-file-store";
+// import cookieParser from "cookie-parser";
+// import expressSession from "express-session";
+// import sessionFileStore from "session-file-store";
 
 import "dotenv/config";
 
@@ -24,6 +24,11 @@ const app = express();
 const filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(filename);
 app.use(express.static(path.join(__dirname, "/../dist/buddyzik")));
+app.get("/", (req, res) => {
+  // path.join(__dirname, "../dist/buddyzik/index.html");
+  res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
+  // res.send("coucou!!!");
+});
 app.use(
   "/images",
   express.static(
@@ -32,11 +37,6 @@ app.use(
   // express.static(__dirname + "../dist/buddyzik/assets/img/")
 );
 console.log(path.join(__dirname, "..", "dist", "buddyzik", "assets"));
-app.get("/", (req, res) => {
-  // path.join(__dirname, "../dist/buddyzik/index.html");
-  res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
-  // res.send("coucou!!!");
-});
 // app.use(express.static(__dirname + "/../dist/buddyzik"));
 console.log(path.join(__dirname, "../dist/buddyzik/assets/img"));
 
