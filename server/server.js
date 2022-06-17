@@ -1,10 +1,12 @@
 import express, { application, response } from "express";
 // import { Request, Response } from "express";
 import bodyParser from "body-parser";
-import { authToken, createToken } from "./security.js";
-import { main } from "./mailing.js";
+// import { authToken, createToken } from "./security.js";
+
+import { mailing } from "./mailing.js";
 import cors from "cors";
-import { hash, checkHash } from "../server/security.js";
+import { authToken, createToken, hash, checkHash } from "../server/security.js";
+
 import { v4 as uuidv4 } from "uuid";
 import { MongoClient } from "mongodb";
 import path, { dirname } from "path";
@@ -13,8 +15,6 @@ import expressSession from "express-session";
 import sessionFileStore from "session-file-store";
 
 import "dotenv/config";
-// import jwt from "jsonwebtoken";
-import fs from "fs";
 
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -119,7 +119,7 @@ app.get("/favicon.ico", (req, res) => {
 /////////TEST///////////////////////////
 
 app.get("/mailtest", (req, res) => {
-  const mail = main().catch(console.error);
+  const mail = mailing().catch(console.error);
   res.status(200).json("ok");
 });
 
