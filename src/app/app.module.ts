@@ -18,6 +18,7 @@ import { SearchbuddyComponent } from './searchbuddy/searchbuddy.component';
 import { NavComponent } from './nav/nav.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
     SearchbuddyComponent,
     NavComponent,
     LoginPageComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

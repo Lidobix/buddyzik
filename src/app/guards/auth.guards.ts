@@ -17,13 +17,10 @@ export class AuthGuard implements CanActivate {
   //   obs$!: Observable<boolean>;
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
-    this.authService.getAuth();
-    console.log('dans le canactivate');
-    console.log('  this.authService.isLogged', this.authService.isLogged);
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    await this.authService.getAuth();
+    console.log('dans le canactivate, token:', this.authService.isLogged);
+    // console.log('  this.authService.isLogged', this.authService.isLogged);
     if (this.authService.isLogged) {
       return true;
     } else {

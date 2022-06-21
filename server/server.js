@@ -124,13 +124,13 @@ app.get("/mailtest", (req, res) => {
 /////////////////////////////////////////////////////////
 ////////////////////// CHECK TOKEN //////////////////////
 /////////////////////////////////////////////////////////
-app.post("/auth", (req, res, next) => {
+app.get("/auth", (req, res, next) => {
   console.log("dans le middleware auth");
   // req.session.message = "neeeeeeeeeewww";
   // console.log("ma session : ", req.session);
 
   // console.log("token: ", req.headers.token);
-  // console.log("authToken: ", authToken(req.headers.token));
+  console.log("authToken: ", authToken(req.headers.token));
   // const checked = ;
   res.status(200).json(authToken(req.headers.token));
 });
@@ -1002,6 +1002,9 @@ app.post("/recommendation", (req, res) => {
   }
 });
 
+app.get("/auth", (req, res) => {
+  res.status(404).sendFile("erreur 404");
+});
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////////// FONCTIONS ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////

@@ -7,16 +7,19 @@ import { MybuddiesComponent } from './mybuddies/mybuddies.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SearchbuddyComponent } from './searchbuddy/searchbuddy.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guards';
 
 const routes: Routes = [
   {
     path: '',
     component: HomepageComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'auth/login',
     component: LoginPageComponent,
+    // canActivate: [AuthGuard],
   },
   {
     path: 'registration',
@@ -42,6 +45,10 @@ const routes: Routes = [
     path: 'searchbuddy',
     component: SearchbuddyComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 

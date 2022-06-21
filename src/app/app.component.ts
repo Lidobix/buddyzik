@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { lastValueFrom, Observable } from 'rxjs';
 import { AuthService } from 'src/services/auth.service';
 import { BuddyService } from 'src/services/buddy.service';
 import { ServerService } from 'src/services/server.service';
@@ -12,7 +13,8 @@ import { ServerService } from 'src/services/server.service';
 })
 export class AppComponent implements OnInit {
   title = 'buddyzik';
-  showNav!: boolean;
+  showNav: boolean = true;
+  isLogged$!: Observable<boolean>;
   isLogged!: boolean;
 
   constructor(
@@ -23,24 +25,30 @@ export class AppComponent implements OnInit {
     private serverService: ServerService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // console.log(
     //   "localStorage.getItem('token') : ",
     //   localStorage.getItem('token')
     // );
     console.log("init de l'app");
-    if (localStorage.getItem('token') != null) {
-      this.showNav = true;
-    } else {
-      this.showNav = false;
-    }
-    this.getAuth();
+    // if (localStorage.getItem('token') != null) {
+    //   this.showNav = true;
+    // } else {
+    //   this.showNav = false;
+    // }
+    // await this.authService.getAuth();
+    // this.authService.getAuth().subscribe((value) => {
+    //   console.log(value);
+    // });
+    // return this.isLogged$;
+    // console.log('this.isLogged :', this.isLogged);
+    // this.getAuth();
     // alert('ouverture!');
     // this.getAuth();
   }
 
-  getAuth(): boolean {
-    console.log('presence token  = ', this.authService.isLogged);
+  getAuth() {
+    // console.log('presence token  = ', this.authService.isLogged);
     console.log(this.authService.getAuth());
     //   .subscribe((res: any) => (this.isLogged = res.check));
 
@@ -63,7 +71,7 @@ export class AppComponent implements OnInit {
     //   //   // ici.router.navigateByUrl('/home');
     //   // }
     // }
-    return true;
+    // return true;
 
     // const aa = checkConnection().then((value) => {
     //   console.log(value);
