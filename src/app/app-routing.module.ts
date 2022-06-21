@@ -12,12 +12,10 @@ import { AuthGuard } from './guards/auth.guards';
 const routes: Routes = [
   {
     path: '',
-    // component: HomepageComponent,
-    component: LoginPageComponent,
+    component: HomepageComponent,
   },
   {
     path: 'auth/login',
-    // component: HomepageComponent,
     component: LoginPageComponent,
   },
   {
@@ -27,23 +25,23 @@ const routes: Routes = [
   {
     path: 'profile/:uuid',
     component: ProfilePageComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'home',
     component: HomepageComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'mybuddies',
     component: MybuddiesComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'searchbuddy',
     component: SearchbuddyComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
 ];
 

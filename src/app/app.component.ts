@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   title = 'buddyzik';
   showNav!: boolean;
   isLogged!: boolean;
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     //   "localStorage.getItem('token') : ",
     //   localStorage.getItem('token')
     // );
+    console.log("init de l'app");
     if (localStorage.getItem('token') != null) {
       this.showNav = true;
     } else {
@@ -37,26 +39,37 @@ export class AppComponent implements OnInit {
     // this.getAuth();
   }
 
-  getAuth(): void {
-    console.log("check du token à l'ouverture de l'app");
-    if (localStorage.getItem('uuid') != null) {
-      this.authService.getAuth().subscribe((authorization) => {
-        // console.log('type : ', typeof authorization);
-        // // console.log('type : ');
-        console.log('authorization cuicui : ', authorization);
-        // this.isLogged = authorization.isLogged;
-        if (!authorization) {
-          console.log('pas de token valide');
-          // this.router.navigateByUrl('/login');
-          this.isLogged = false;
-        } else {
-          console.log('token valide, on poursuit la nav');
-          this.isLogged = true;
-          this.router.navigateByUrl('/home');
-        }
-      });
-    } else {
-      this.isLogged = false;
-    }
+  getAuth(): boolean {
+    console.log('presence token  = ', this.authService.isLogged);
+    console.log(this.authService.getAuth());
+    //   .subscribe((res: any) => (this.isLogged = res.check));
+
+    // console.log('', this.isLogged);
+    //   (authorization) => {
+    //   // console.log('type : ', typeof authorization);
+    //   // // console.log('type : ');
+    //   console.log('authorization cuicui : ', authorization);
+    //   return authorization;
+    //   // this.isLogged = authorization.isLogged;
+    //   // if (!authorization) {
+    //   //   console.log('pas de token valide');
+    //   //   // this.router.navigateByUrl('/login');
+    //   //   // ici.isLogged = false;
+    //   //   return false;
+    //   // } else {
+    //   //   console.log('token valide, on poursuit la nav');
+    //   //   return true;
+    //   //   // ici.isLogged = true;
+    //   //   // ici.router.navigateByUrl('/home');
+    //   // }
+    // }
+    return true;
+
+    // const aa = checkConnection().then((value) => {
+    //   console.log(value);
+    // });
+    // console.log('this.isLogged : ', this.isLogged);
+    // // console.log('aa : ', aa);
+    // return this.isLogged;
   }
 }

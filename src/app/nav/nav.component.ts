@@ -17,6 +17,7 @@ export class NavComponent implements OnInit {
   ) {}
   user!: Buddy;
   logout(): void {
+    console.log('deconnexion requise');
     this.authService.logout();
   }
 

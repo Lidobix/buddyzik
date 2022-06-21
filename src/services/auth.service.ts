@@ -14,6 +14,7 @@ import { ServerService } from './server.service';
   providedIn: 'root',
 })
 export class AuthService implements OnInit {
+  isLogged: boolean = false;
   minimumAge: number = 18;
   pictureExtension: string[] = ['jpg', 'jpeg', 'png', 'bmp', 'svg', 'gif'];
   passwordPattern: string =
@@ -65,10 +66,50 @@ export class AuthService implements OnInit {
     return !this.isLoggedIn();
   }
 
-  getAuth(): Observable<boolean> {
+  getAuth(): any {
+    console.log('dans le authservice_getauth...');
     console.log('Authentification en cours...');
+    // let b;
+    // const obs$ = this.http.post<boolean>(
+    //   this.serverService.serverUrl + '/auth',
+    //   ''
+    // );
 
+    // return new Promise((resolve) => {
     return this.http.post<boolean>(this.serverService.serverUrl + '/auth', '');
+    //     .subscribe((data: any) => {
+    //       console.log(data);
+    //       this.presenceToken = data;
+    //       resolve(data);
+    //     });
+    // });
+
+    // const aa = obs$.subscribe((value) => {
+    //   b = value;
+    //   console.log('value =', value);
+    //   return value;
+    // });
+
+    // //     async function checkToken {
+    // // try {
+
+    // console.log('aa = ', aa);
+    // console.log('b = ', b);
+    //   .subscribe((value) => {
+    //     console.log('value = ', value);
+    //     this.presenceToken = value;
+    //   });
+
+    // } catch (error) {
+
+    // }
+
+    //     }
+
+    // console.log('aa = ', aa);
+    // return this.presenceToken;
+
+    // return this.http.post<boolean>(this.serverService.serverUrl + '/auth', '');
   }
   getExpiration() {
     const expiration = localStorage.getItem('expires_at');
@@ -120,7 +161,8 @@ export class AuthService implements OnInit {
               localStorage.setItem('uuid', authentication.user.uuid);
 
               this.buddyService.userIdBuilder(authentication.user);
-
+              this.isLogged = true;
+              console.log('isLogged dans le service = ', this.isLogged);
               this.router.navigateByUrl('/home');
             } else {
               alert(authentication.message);

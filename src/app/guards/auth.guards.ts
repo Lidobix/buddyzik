@@ -21,9 +21,10 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
+    this.authService.getAuth();
     console.log('dans le canactivate');
-    console.log('  this.validationToken', this.validationToken);
-    if (this.validationToken) {
+    console.log('  this.authService.isLogged', this.authService.isLogged);
+    if (this.authService.isLogged) {
       return true;
     } else {
       console.log('go to /auth/login');

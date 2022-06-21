@@ -40,10 +40,7 @@ export class BuddyService implements OnInit {
   getAllBuddies(): Observable<Buddy[]> {
     console.log('recherche de tous les buddies.....');
 
-    return this.http.post<Buddy[]>(
-      this.serverService.serverUrl + '/allbuddies',
-      ''
-    );
+    return this.http.get<Buddy[]>(this.serverService.serverUrl + '/allbuddies');
   }
   getBuddyByID(id: string): Observable<Buddy> {
     return this.http.post<Buddy>(this.serverService.serverUrl + '/buddybyid', {

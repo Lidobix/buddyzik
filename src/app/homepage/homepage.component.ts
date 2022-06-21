@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+
 import { AuthService } from 'src/services/auth.service';
 import { BuddyService } from 'src/services/buddy.service';
 import { ServerService } from 'src/services/server.service';
@@ -18,7 +18,6 @@ export class HomepageComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private buddyService: BuddyService,
-    private cookieService: CookieService,
     private serverService: ServerService,
     private http: HttpClient
   ) {}
@@ -47,7 +46,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //   this.getAuth();
+    this.authService.getAuth();
     //   // this.setConnection();
   }
 
