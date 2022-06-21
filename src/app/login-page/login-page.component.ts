@@ -18,9 +18,6 @@ export class LoginPageComponent implements OnInit {
   userEmail!: string;
   userPassword!: string;
 
-  // cryptoKey!: string;
-  // login$!: Observable<boolean | Object>;
-
   ngOnInit(): void {
     this.userLoginForm = this.formBuilder.group({
       mailAddress: [null],
@@ -32,13 +29,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmitLoginForm() {
-    // this.authService.getPrivateCryptoKey().subscribe((key) => {
-    //   console.log(key);
-    //   this.cryptoKey = key;
-    // });
-
-    // console.log('p = ', crypto.SHA256('p').toString());
-
     this.authService.authUser(this.userLoginForm, '/login');
     console.log('form envoyé au serveur');
     this.router.navigateByUrl('/home');

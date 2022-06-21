@@ -2,12 +2,10 @@ import express from "express";
 // import { Request, Response } from "express";
 import bodyParser from "body-parser";
 // import { authToken, createToken } from "./security.js";
-import { privateCryptoKey } from "../server/security.js";
 
 import { mailing } from "./mailing.js";
 import cors from "cors";
 import { authToken, createToken, hash, checkHash } from "../server/security.js";
-import crypto from "crypto-js";
 
 import { v4 as uuidv4 } from "uuid";
 import { MongoClient } from "mongodb";
@@ -114,10 +112,7 @@ app.get("/favicon.ico", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../favicon.ico"));
 });
 //////////////////////////////////////////////////////////////
-app.post("/cryptokey", (req, res) => {
-  console.log("privateCryptoKey()", privateCryptoKey());
-  res.status(200).json(privateCryptoKey());
-});
+
 ///////////////////////////////////////////////////////////
 /////////TEST///////////////////////////
 

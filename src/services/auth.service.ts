@@ -65,15 +65,6 @@ export class AuthService implements OnInit {
     return !this.isLoggedIn();
   }
 
-  getPrivateCryptoKey(): Observable<string> {
-    console.log('requete de la clé secrète..');
-
-    return this.http.post<string>(
-      this.serverService.serverUrl + '/cryptokey',
-      ''
-    );
-  }
-
   getAuth(): Observable<boolean> {
     console.log('Authentification en cours...');
 

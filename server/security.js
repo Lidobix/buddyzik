@@ -1,17 +1,9 @@
 import bcrypt from "bcrypt";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import https from "https";
-import pkg from "crypto-js";
-// import { SHA256 } from "crypto-js";
-import crypto from "crypto-js";
+
 const key =
   "MIIFljCCBH6gAwIBAgIIIP7GMO9cWzYwDQYJKoZIhvcNAQELBQAwgZYxCzAJBgNVBAYTAlVTMRMwEQYDVQQKDApBcHBsZSBJbmMuMSwwKgYDVQQLDCNBcHBsZSBXb3JsZHdpZGUgRGV2ZWxvcGVyIFJlbGF0aW9uczFEMEIGA1UEAww7QXBwbGUgV29ybGR3aWRlIERldmVsb3BlciBSZWxhdGlvbnMgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTcwNDI5MDMzMDA4WhcNMTgwNDI5MDMzMDA4WjCBiTEaMBgGCgmSJomT8ixkAQEMCk1ENFA0UTg1WlExMzAxBgNVBAMMKmlQaG9uZSBEZXZlbG9wZXI6IGFtbW1pIGFtbW1pIChXM1BSS1JDVDRRKTETMBEGA1UECwwKVktRNTZVQ0c4ODEUMBIGA1UECgwLYW1tbWkgYW1tbWkxCzAJBgNVBAYTAlVTMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwudboPuPnImOssBCw9vISRnnivreVwOuDAu77u47zIU8uTagbzktX6pF54YToSLQHeOaNNQfZ7idccU2DKVBr3etz/++ca4HNadeUaEm2VWW4kEq3iKIo1wZZhJJR6bQl4q797U0+f7eEXLKD4fjfidEF+ceAxAsX5YIuokq3K/B+XW3tKk7D4nCaaCyJ9";
-
-export const privateCryptoKey = () => {
-  console.log(crypto.SHA256(process.env.CRYPTO_KEY).toString());
-  return crypto.SHA256(process.env.CRYPTO_KEY).toString();
-};
 
 export const hash = (toHash) => {
   // console.log("password à crypter: ", toHash);
@@ -25,9 +17,6 @@ export const checkHash = (toCheck, reference) => {
 };
 
 export const createToken = (buddy) => {
-  // Création du token CSRF
-  // const xsrfToken = crypto.randomBytes(64).toString("hex");
-  // console.log(xsrfToken);
   return jwt.sign(
     {
       mailAddress: buddy.password,
