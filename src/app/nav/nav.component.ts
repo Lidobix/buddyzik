@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
 import { BuddyService } from 'src/services/buddy.service';
+import { DisplayNavService } from 'src/services/display-nav.service';
 import { Buddy } from '../models/buddy-model';
 
 @Component({
@@ -13,16 +14,22 @@ export class NavComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private buddyService: BuddyService
+    private buddyService: BuddyService,
+    private displayNavService: DisplayNavService
   ) {}
   user!: Buddy;
+  displayNav!: boolean;
+
   logout(): void {
     console.log('deconnexion requise');
     this.authService.logout();
   }
 
   ngOnInit(): void {
-    this.getMe();
+    this.displayNavService.displayingNav.subscribe((updateClassNav) => {
+      this.displayNav = updateClassNav;
+    });
+    this.buddyService.getMe();
   }
 
   goToProfile(): void {
