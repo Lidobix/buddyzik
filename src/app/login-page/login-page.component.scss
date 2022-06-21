@@ -1,8 +1,13 @@
 form{
     border : 1px solid black;
-    
+    text-align: center;
     width: fit-content;
     padding: 15px;
     box-shadow: 2px 2px ;
     
+}
+*{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }

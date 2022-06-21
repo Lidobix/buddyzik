@@ -46,7 +46,7 @@ export class AuthService implements OnInit {
     //   )
     //   .subscribe((retour) => {});
 
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/auth/login');
     // this.buddyService.userIdBuilder(new Buddy());
   }
 
@@ -64,10 +64,20 @@ export class AuthService implements OnInit {
   isLoggedOut() {
     return !this.isLoggedIn();
   }
-  getAuth(): Observable<object> {
-    console.log("Authentification à l'ouverture de l'appli...");
 
-    return this.http.post<object>(this.serverService.serverUrl + '/auth', '');
+  getPrivateCryptoKey(): Observable<string> {
+    console.log('requete de la clé secrète..');
+
+    return this.http.post<string>(
+      this.serverService.serverUrl + '/cryptokey',
+      ''
+    );
+  }
+
+  getAuth(): Observable<boolean> {
+    console.log('Authentification en cours...');
+
+    return this.http.post<boolean>(this.serverService.serverUrl + '/auth', '');
   }
   getExpiration() {
     const expiration = localStorage.getItem('expires_at');

@@ -2,10 +2,12 @@ import express from "express";
 // import { Request, Response } from "express";
 import bodyParser from "body-parser";
 // import { authToken, createToken } from "./security.js";
+import { privateCryptoKey } from "../server/security.js";
 
 import { mailing } from "./mailing.js";
 import cors from "cors";
 import { authToken, createToken, hash, checkHash } from "../server/security.js";
+import crypto from "crypto-js";
 
 import { v4 as uuidv4 } from "uuid";
 import { MongoClient } from "mongodb";
@@ -110,6 +112,11 @@ app.get("/favicon.ico", (req, res) => {
   // Use actual relative path to your .ico file here
   console.log("path : ", __dirname, "../favicon.ico");
   res.sendFile(path.resolve(__dirname, "../favicon.ico"));
+});
+//////////////////////////////////////////////////////////////
+app.post("/cryptokey", (req, res) => {
+  console.log("privateCryptoKey()", privateCryptoKey());
+  res.status(200).json(privateCryptoKey());
 });
 ///////////////////////////////////////////////////////////
 /////////TEST///////////////////////////
@@ -1025,3 +1032,8 @@ const updateBuddy = (query, update) => {
 const server = app.listen(process.env.PORT, () => {
   console.log(`Le serveur est démarré sur le port ${server.address().port}`);
 });
+
+// const ht = https.createServer(app).listen(process.env.PORT, () => {
+//   console.log("server is runing at port 4000");
+
+// });

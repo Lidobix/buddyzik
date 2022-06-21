@@ -13,7 +13,7 @@ import { ServerService } from 'src/services/server.service';
 export class AppComponent implements OnInit {
   title = 'buddyzik';
   showNav!: boolean;
-
+  isLogged!: boolean;
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -32,20 +32,31 @@ export class AppComponent implements OnInit {
     } else {
       this.showNav = false;
     }
+    this.getAuth();
     // alert('ouverture!');
     // this.getAuth();
   }
 
-  // getAuth(): void {
-  //   console.log("check du token à l'ouverture : ");
-  //   this.authService.getAuth().subscribe((authorization) => {
-  //     console.log('authorization : ', authorization);
-  //     if (!authorization) {
-  //       console.log('pas de token valide');
-  //       this.router.navigateByUrl('/login');
-  //     } else {
-  //       console.log('token valide, on poursuit la nav');
-  //     }
-  //   });
-  // }
+  getAuth(): void {
+    console.log("check du token à l'ouverture de l'app");
+    if (localStorage.getItem('uuid') != null) {
+      this.authService.getAuth().subscribe((authorization) => {
+        // console.log('type : ', typeof authorization);
+        // // console.log('type : ');
+        console.log('authorization cuicui : ', authorization);
+        // this.isLogged = authorization.isLogged;
+        if (!authorization) {
+          console.log('pas de token valide');
+          // this.router.navigateByUrl('/login');
+          this.isLogged = false;
+        } else {
+          console.log('token valide, on poursuit la nav');
+          this.isLogged = true;
+          this.router.navigateByUrl('/home');
+        }
+      });
+    } else {
+      this.isLogged = false;
+    }
+  }
 }
