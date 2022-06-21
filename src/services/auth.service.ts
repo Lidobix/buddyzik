@@ -15,7 +15,6 @@ import { ServerService } from './server.service';
   providedIn: 'root',
 })
 export class AuthService implements OnInit {
-  isLogged$!: Observable<boolean>;
   isLogged!: boolean;
   minimumAge: number = 18;
   pictureExtension: string[] = ['jpg', 'jpeg', 'png', 'bmp', 'svg', 'gif'];
@@ -37,87 +36,41 @@ export class AuthService implements OnInit {
   }
   logout(): void {
     this.displayNavService.setDisplayNav(false);
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiresIn');
-    localStorage.removeItem('expires_at');
-    localStorage.removeItem('friends');
-    localStorage.removeItem('uuid');
-
-    // this.buddyService.connectedUser.connected = false;
-    // this.http
-    //   .post<any>(
-    //     this.serverService.serverUrl + '/logout',
-    //     this.buddyService.connectedUser.uuid
-    //   )
-    //   .subscribe((retour) => {});
-
+    localStorage.clear();
     this.router.navigateByUrl('/auth/login');
-    // this.buddyService.userIdBuilder(new Buddy());
   }
 
-  // private setSession(authResult) {
-  //   const expiresAt = moment().add(authResult.expiresIn, 'second');
-
-  //   localStorage.setItem('id_token', authResult.token);
-  //   localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+  // public isLoggedIn() {
+  //   return moment().isBefore(this.getExpiration());
   // }
 
-  public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
-  }
-
-  isLoggedOut() {
-    return !this.isLoggedIn();
-  }
+  // isLoggedOut() {
+  //   return !this.isLoggedIn();
+  // }
 
   async getAuth() {
     this.isLogged = await lastValueFrom(
       this.http.get<boolean>(this.serverService.serverUrl + '/auth')
     );
   }
-  getExpiration() {
-    const expiration = localStorage.getItem('expires_at');
-    console.log('expiration', expiration);
-    console.log('moment : ', moment());
-    // const expiresAt = JSON.parse(expiration);
-    // return moment(expiresAt);
-    return 12;
-  }
-  // fetchAutoStartAuth() {
-  //   console.log('dans la foncton fetchAutoStartAuth');
-  //   return this.http
-  //     .get<boolean>(this.serverService.serverUrl + '/auth')
-  //     .subscribe((retour) => {
-  //       console.log("retour du serveur du check token à l'ouverture: ", retour);
-
-  //       return retour;
-  //     });
+  // getExpiration() {
+  //   const expiration = localStorage.getItem('expires_at');
+  //   console.log('expiration', expiration);
+  //   console.log('moment : ', moment());
+  //   // const expiresAt = JSON.parse(expiration);
+  //   // return moment(expiresAt);
+  //   return 12;
   // }
 
-  authUser(
-    form: FormGroup,
-    route: string
-    // messageValidation: string,
-    // messageError: string
-  ): void {
-    // console.log('dans le service + submitForm');
-    // console.log('route : ', route);
-
-    // console.log(form);
-
+  authUser(form: FormGroup, route: string): void {
     if (!form.valid) {
       alert('Formulaire non valide!');
     } else {
       try {
-        // console.log('dans le try, le form; ', form.value);
-
         this.http
 
           .post<any>(this.serverService.serverUrl + route, form.value)
           .subscribe((authentication) => {
-            // console.log('Le serveur a dit ', authentication);
-            // console.log('friends_list ', authentication.user.friends_list);
-
             if (authentication.success === true) {
               alert(authentication.message);
 
@@ -125,8 +78,7 @@ export class AuthService implements OnInit {
               localStorage.setItem('uuid', authentication.user.uuid);
 
               this.buddyService.userIdBuilder(authentication.user);
-              // this.isLogged = true;
-              // console.log('isLogged dans le service = ', this.isLogged);
+
               this.router.navigateByUrl('/home');
             } else {
               alert(authentication.message);
