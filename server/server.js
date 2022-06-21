@@ -125,6 +125,7 @@ app.get("/mailtest", (req, res) => {
 ////////////////////// CHECK TOKEN //////////////////////
 /////////////////////////////////////////////////////////
 app.post("/auth", (req, res, next) => {
+  console.log("dans le middleware auth");
   // req.session.message = "neeeeeeeeeewww";
   // console.log("ma session : ", req.session);
 
@@ -323,7 +324,7 @@ app.post("/buddybyid", (req, res, next) => {
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////////// ALL BUDDIES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
-app.post("/allbuddies", (req, res, next) => {
+app.get("/allbuddies", (req, res, next) => {
   console.log("dans le middleware allbuddies");
   // console.log("reqbody", req.body);
   if (authToken(req.headers.token)) {
