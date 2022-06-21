@@ -1,8 +1,4 @@
-import {
-  HttpClient,
-  HttpHeaderResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -53,34 +49,10 @@ export class BuddyService implements OnInit {
     return this.http.post<Buddy>(this.serverService.serverUrl + '/me', '');
   }
 
-  // inviteBuddy(uuidToInvite: string): Observable<string> {
-  //   console.log(`envoi de l'invitation de ${uuidToInvite} au serveur...`);
-  //   return this.http.post<string>(
-  //     this.serverService.serverUrl + '/invitation',
-  //     { buddyTarget: uuidToInvite }
-  //   );
-  // }
-
-  // confirmBuddy(uuidToConfirm: string): Observable<string> {
-  //   console.log(`envoi de l'acceptation de ${uuidToConfirm} au serveur...`);
-  //   return this.http.post<string>(
-  //     this.serverService.serverUrl + '/confirmation',
-  //     { buddyTarget: uuidToConfirm }
-  //   );
-  // }
-
   updateBuddy(uuidToUpdate: string, action: string): Observable<string> {
     // console.log(`envoi de l'acceptation de ${uuidToUpdate} au serveur...`);
     return this.http.post<string>(this.serverService.serverUrl + action, {
       buddyTarget: uuidToUpdate,
     });
   }
-
-  // setConnection(connectedStatus: boolean): any {
-  //   console.log('setConnection : ', connectedStatus);
-  //   return this.http.post<any>(
-  //     this.serverService.serverUrl + '/setconnection',
-  //     { connected: connectedStatus }
-  //   );
-  // }
 }
