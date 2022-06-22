@@ -8,7 +8,8 @@ import { Observable, lastValueFrom } from 'rxjs';
 moment().format();
 
 import { BuddyService } from './buddy.service';
-import { DisplayNavService } from './display-nav.service';
+
+import { DisplayingElementsService } from './displaying-elements.service';
 import { ServerService } from './server.service';
 
 @Injectable({
@@ -35,7 +36,7 @@ export class AuthService implements OnInit {
     private buddyService: BuddyService,
     private serverService: ServerService,
     private router: Router,
-    private displayNavService: DisplayNavService
+    private displayingElementsService: DisplayingElementsService
   ) {}
 
   // newUser!: Buddy;
@@ -43,7 +44,8 @@ export class AuthService implements OnInit {
     console.log('redémarrage AuthService');
   }
   logout(): void {
-    this.displayNavService.setDisplayNav(false);
+    this.displayingElementsService.setDisplayNav(false);
+    this.displayingElementsService.setDisplayModif(false);
     localStorage.clear();
     this.router.navigateByUrl('/auth/login');
   }

@@ -7,7 +7,8 @@ import {
 } from '@angular/router';
 
 import { AuthService } from 'src/services/auth.service';
-import { DisplayNavService } from 'src/services/display-nav.service';
+
+import { DisplayingElementsService } from 'src/services/displaying-elements.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,8 @@ export class AuthGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private displayNavService: DisplayNavService
+
+    private displayingElementsService: DisplayingElementsService
   ) {}
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -24,11 +26,11 @@ export class AuthGuard implements CanActivate {
     console.log('dans le canactivate, token:', this.authService.isLogged);
 
     if (this.authService.isLogged) {
-      this.displayNavService.setDisplayNav(true);
+      this.displayingElementsService.setDisplayNav(true);
       return true;
     } else {
       console.log('go to /auth/login');
-      this.displayNavService.setDisplayNav(false);
+      this.displayingElementsService.setDisplayNav(false);
       this.router.navigateByUrl('/auth/login');
       return false;
     }

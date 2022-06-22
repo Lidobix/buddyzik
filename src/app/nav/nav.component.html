@@ -7,4 +7,10 @@
   <button (click)="goToMessaging()">Messagerie</button>
   <button (click)="goToTchat()">Tchat</button>
   <button (click)="logout()">DECONNEXION</button>
+  <button
+    [className]="displayModif ? 'visible' : 'hidden'"
+    (click)="goToEditProfile()"
+  >
+    MODIFIER LE PROFIL
+  </button>
 </div>

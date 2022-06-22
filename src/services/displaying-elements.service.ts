@@ -4,10 +4,14 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class DisplayNavService {
+export class DisplayingElementsService {
   displayingNav = new BehaviorSubject(false);
   setDisplayNav(display: boolean) {
     this.displayingNav.next(display);
+  }
+  displayingModifProfileButton = new BehaviorSubject(false);
+  setDisplayModif(display: boolean) {
+    this.displayingModifProfileButton.next(display);
   }
   constructor() {}
 }

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
 import { BuddyService } from 'src/services/buddy.service';
-import { DisplayNavService } from 'src/services/display-nav.service';
+
+import { DisplayingElementsService } from 'src/services/displaying-elements.service';
 import { ProfileService } from 'src/services/profile.service';
 import { Buddy } from '../models/buddy-model';
 
@@ -16,11 +17,12 @@ export class NavComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private buddyService: BuddyService,
-    private displayNavService: DisplayNavService,
-    private profileService: ProfileService
+
+    private displayingElementsService: DisplayingElementsService
   ) {}
   user!: Buddy;
   displayNav!: boolean;
+  displayModif!: boolean;
 
   logout(): void {
     console.log('deconnexion requise');
@@ -28,39 +30,41 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.displayNavService.displayingNav.subscribe((updateClassNav) => {
+    this.displayingElementsService.displayingNav.subscribe((updateClassNav) => {
       this.displayNav = updateClassNav;
     });
+    this.displayingElementsService.displayingModifProfileButton.subscribe(
+      (updateClassModif) => {
+        this.displayModif = updateClassModif;
+      }
+    );
     this.buddyService.getMe();
   }
 
   goToMyProfile(): void {
+    this.displayingElementsService.setDisplayModif(true);
     this.router.navigateByUrl('/blankprofile');
   }
 
-  goToProfile(): void {
-    console.log('coucou');
-    // const me = localStorage.getItem('uuid');
-    // if (me != null) {
-    //   this.router.navigateByUrl(
-    //     `profile/${this.buddyService.connectedUser.uuid}`
-    //   );
-    // } else {
-    //   alert("problème d'identification");
-    //   this.authService.logout();
-    // }
-  }
   goToMyBuddysList(): void {
+    this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/mybuddies');
   }
   goToAllBuddysList(): void {
+    this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/searchbuddy');
   }
   goToMessaging(): void {
+    this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/messaging');
   }
   goToTchat(): void {
+    this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/tchat');
+  }
+
+  goToEditProfile(): void {
+    this.displayingElementsService.setDisplayModif(false);
   }
 
   getMe(): any {
