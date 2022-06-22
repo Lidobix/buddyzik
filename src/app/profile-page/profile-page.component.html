@@ -3,11 +3,16 @@
     <img id="bannierPic" [src]="bannierPicUrl" />
     <img id="profilePic" [src]="profilePicUrl" />
     <div id="imgCardContainer"><img [src]="buddy.profilePicture" alt="" /></div>
-    <p id="profilePseudo">{{ buddy.firstName }}</p>
+    <p id="profilePseudo">{{ buddy.firstName }} {{ buddy.lastName }}</p>
+    <p id="">genre : {{ buddy.gender }}</p>
+    <p id="">age : à calculer</p>
+
+    <p id="">Chanteur : {{ buddy.singer }}</p>
   </div>
   <div id="musicId">
-    <p>{{ buddy.instrument }}</p>
+    <p>Instrument de prédilection : {{ buddy.instrument }}</p>
     <p>
+      Est ic pour:
       {{ buddy.bio }}
     </p>
   </div>

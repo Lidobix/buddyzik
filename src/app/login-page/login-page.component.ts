@@ -15,8 +15,8 @@ export class LoginPageComponent implements OnInit {
     private authService: AuthService
   ) {}
   userLoginForm!: FormGroup;
-  userEmail!: string;
-  userPassword!: string;
+  // userEmail!: string;
+  // userPassword!: string;
 
   ngOnInit(): void {
     this.userLoginForm = this.formBuilder.group({

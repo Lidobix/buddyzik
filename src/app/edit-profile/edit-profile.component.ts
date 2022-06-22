@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,6 @@ import { BuddyService } from '../../services/buddy.service';
 import { ageValidator } from 'src/shared/minimum-age.directive';
 import { pictureValidator } from 'src/shared/picture-format.directive';
 import { ImageService } from 'src/services/image.service';
-// import { EDEADLK } from 'constants';
 
 @Component({
   selector: 'app-edit-profile',
@@ -94,11 +93,7 @@ export class EditProfileComponent implements OnInit {
         null,
         pictureValidator(this.authService.pictureExtension),
       ],
-      bannerPicture: [
-        '',
-
-        // pictureValidator(this.authService.pictureExtension)
-      ],
+      bannerPicture: [null],
     });
 
     this.instrumentsList = [
