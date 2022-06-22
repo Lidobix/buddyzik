@@ -39,7 +39,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userProfileForm = this.formBuilder.group({
       login: [
-        '',
+        null,
         {
           validators: [Validators.required, Validators.minLength(3)],
         },
@@ -58,19 +58,19 @@ export class EditProfileComponent implements OnInit {
         { validators: [Validators.required, Validators.email] },
       ],
       firstName: [
-        '',
+        null,
         {
           validators: [Validators.required],
         },
       ],
       lastName: [
-        '',
+        null,
         {
           validators: [Validators.required],
         },
       ],
       birthDate: [
-        '5',
+        '',
         {
           validators: [
             Validators.required,
@@ -79,7 +79,7 @@ export class EditProfileComponent implements OnInit {
         },
       ],
       location: [
-        'skhflzflfhlf',
+        null,
         {
           validators: [Validators.required],
         },
@@ -90,7 +90,10 @@ export class EditProfileComponent implements OnInit {
       singer: [null, Validators.required],
       pro: [null, Validators.required],
       bio: [null],
-      profilePicture: ['', pictureValidator(this.authService.pictureExtension)],
+      profilePicture: [
+        null,
+        pictureValidator(this.authService.pictureExtension),
+      ],
       bannerPicture: [
         '',
 
