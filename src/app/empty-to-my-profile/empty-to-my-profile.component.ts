@@ -16,9 +16,8 @@ export class EmptyToMyProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const myId = localStorage.getItem('uuid');
-    if (myId != null) {
-      this.profileService.goToProfile(myId);
+    if (this.authService.getMyId()) {
+      this.profileService.goToProfile(this.authService.getMyId());
     } else {
       this.authService.logout();
     }

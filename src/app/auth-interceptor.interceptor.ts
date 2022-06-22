@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -6,21 +6,28 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/services/auth.service';
 
 @Injectable()
-export class AuthInterceptorInterceptor implements HttpInterceptor {
+export class AuthInterceptorInterceptor implements HttpInterceptor, OnInit {
+  uuid!: string;
+  token!: string;
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {}
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const token: string | null = localStorage.getItem('token');
-    const uuid: string | null = localStorage.getItem('uuid');
-    // console.log("dans l'interceptor", token);
 
+    const uuid: string | null = localStorage.getItem('uuid');
+    console.log("dans l'interceptor", uuid);
+    // this.uuid = this.authService.getMyId();
+    // console.log(this.uuid);
+    // this.token = this.authService.getMyToken();
     if (token && uuid) {
-      // console.log('uuid = ', uuid);
-      // console.log('token = ', token);
-      // console.log("j'ajoute le token aux headers");
       const cloned = req.clone({
         headers: req.headers.set('token', token).set('uuid', uuid),
       });
@@ -31,6 +38,4 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
   }
-
-  constructor() {}
 }

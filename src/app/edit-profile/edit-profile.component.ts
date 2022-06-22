@@ -9,6 +9,7 @@ import { ageValidator } from 'src/shared/minimum-age.directive';
 import { pictureValidator } from 'src/shared/picture-format.directive';
 import { ImageService } from 'src/services/image.service';
 import { DisplayingElementsService } from 'src/services/displaying-elements.service';
+import { Buddy } from '../models/buddy-model';
 
 @Component({
   selector: 'app-edit-profile',
@@ -17,13 +18,40 @@ import { DisplayingElementsService } from 'src/services/displaying-elements.serv
 })
 export class EditProfileComponent implements OnInit {
   userProfileForm!: FormGroup;
-  instrumentsList!: string[];
   previewProfilePic!: string;
   displayCreationMode!: boolean;
+  constrolsFormList: string[] = [
+    'login',
+    'password',
+    'mailAddress',
+    'firstName',
+    'lastName',
+    'birthDate',
+    'location',
+    'gender',
+    'instrument',
+    'singer',
+    'pro',
+    'bio',
+    'profilePicture',
+    'bannerPicture',
+  ];
 
-  // profilePicture: string = null;
-  // messageError: string = ;
+  instrumentsList: string[] = [
+    'Aucun',
+    'Guitare',
+    'Basse',
+    'Ukulélé',
+    'Batterie',
+    'Cajun',
+    'Trompette',
+    'Synthé',
+    'piano',
+    'Flûte traversière',
+  ];
+
   newuser!: object;
+  myDatas!: Buddy;
 
   // genericPattern: string = '^[^<].*[^>]$';
   // passwordPattern: string =
@@ -44,6 +72,8 @@ export class EditProfileComponent implements OnInit {
         this.displayCreationMode = updateClassCrea;
       }
     );
+
+    console.log('displayCreationMode : ', this.displayCreationMode);
 
     this.userProfileForm = this.formBuilder.group({
       login: [
@@ -105,18 +135,13 @@ export class EditProfileComponent implements OnInit {
       bannerPicture: [null],
     });
 
-    this.instrumentsList = [
-      'Aucun',
-      'Guitare',
-      'Basse',
-      'Ukulélé',
-      'Batterie',
-      'Cajun',
-      'Trompette',
-      'Synthé',
-      'piano',
-      'Flûte traversière',
-    ];
+    if (!this.displayCreationMode) {
+      // this.buddyService.getBuddyByID()
+
+      this.userProfileForm.controls['singer'].setValue('yes');
+      this.userProfileForm.controls['instrument'].setValue('Synthé');
+    } else {
+    }
   }
   selectFile(event: any) {
     const file = event.target.files[0];

@@ -38,7 +38,7 @@ export class NavComponent implements OnInit {
         this.displayModif = updateClassModif;
       }
     );
-    this.buddyService.getMe();
+    // this.buddyService.getMe();
   }
 
   goToMyProfile(): void {
@@ -69,16 +69,16 @@ export class NavComponent implements OnInit {
     this.router.navigateByUrl('/edition');
   }
 
-  getMe(): any {
-    const myId = localStorage.getItem('id');
+  // getMe(): any {
+  //   const myId = localStorage.getItem('id');
 
-    // console.log('dans homepage , on va fetcher moi)');
-    // this.buddyService
-    //   .getBuddyByID(localStorage.getItem('id'))
-    //   .subscribe((me) => {
-    //     // console.log("dans l'observable, buddies =  ", buddies);
-    //     this.user = me;
-    //     console.log("dans l'observable me = ", me);
-    //   });
-  }
+  //   // console.log('dans homepage , on va fetcher moi)');
+  //   // this.buddyService
+  //   //   .getBuddyByID(localStorage.getItem('id'))
+  //   //   .subscribe((me) => {
+  //   //     // console.log("dans l'observable, buddies =  ", buddies);
+  //   //     this.user = me;
+  //   //     console.log("dans l'observable me = ", me);
+  //   //   });
+  // }
 }

@@ -12,13 +12,14 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss'],
 })
-export class ProfilePageComponent implements OnInit, OnDestroy {
+export class ProfilePageComponent implements OnInit {
   buddy!: Buddy;
   bannierPicUrl!: string;
   profilePicUrl!: string;
   pseudo!: string;
   // buddyID!: string;
   user!: Buddy;
+  myID!: string;
   // url: string = 'http://localhost:3100';
   constructor(
     private buddyService: BuddyService,
@@ -57,23 +58,23 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     // this.user = this.buddyService.connectedUser;
   }
 
-  getMe(): any {
-    console.log('dans homepage , on va fetcher moi)');
-    const idToFetch = localStorage.getItem('uuid');
-    if (idToFetch != null) {
-      this.buddyService.getBuddyByID(idToFetch).subscribe((me) => {
-        // console.log("dans l'observable, buddies =  ", buddies);
-        this.user = me;
-        console.log("dans l'observable me = ", me);
-      });
-    } else {
-      alert("problème d'identification");
-      this.authService.logout();
-    }
-  }
+  // getMe(): any {
+  //   console.log('dans homepage , on va fetcher moi)');
+  //   const idToFetch = localStorage.getItem('uuid');
+  //   if (idToFetch != null) {
+  //     this.buddyService.getBuddyByID(idToFetch).subscribe((me) => {
+  //       // console.log("dans l'observable, buddies =  ", buddies);
+  //       this.user = me;
+  //       console.log("dans l'observable me = ", me);
+  //     });
+  //   } else {
+  //     alert("problème d'identification");
+  //     this.authService.logout();
+  //   }
+  // }
 
-  @HostListener('unload')
-  ngOnDestroy(): void {
-    console.log('destruction en cours');
-  }
+  // @HostListener('unload')
+  // ngOnDestroy(): void {
+  //   console.log('destruction en cours');
+  // }
 }

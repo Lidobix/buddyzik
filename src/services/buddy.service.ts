@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Buddy } from 'src/app/models/buddy-model';
+import { AuthService } from './auth.service';
 
 import { ServerService } from './server.service';
 @Injectable({
@@ -10,10 +11,16 @@ import { ServerService } from './server.service';
 })
 export class BuddyService implements OnInit {
   connectedUser!: Buddy;
+  myID!: string | null;
 
   // serverURL!: string;
 
-  constructor(private http: HttpClient, private serverService: ServerService) {}
+  constructor(
+    private http: HttpClient,
+    // private authService: AuthService,
+    private serverService: ServerService,
+    private authService: AuthService
+  ) {}
   ngOnInit(): void {
     //   this.serverURL = this.serverService.serverUrl;
     console.log("dans l'init");
@@ -39,6 +46,16 @@ export class BuddyService implements OnInit {
     return this.http.post<Buddy>(this.serverService.serverUrl + '/buddybyid', {
       buddyTarget: id,
     });
+  }
+
+  getMyId(): any {
+    this.myID = localStorage.getItem('uuid');
+    if (this.myID != null && this.myID != undefined) {
+      return this.myID;
+    } else {
+      alert("Problème d'identification, vous allez être déconnecté");
+      this.authService.logout();
+    }
   }
 
   getMe(): Observable<Buddy> {

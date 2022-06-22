@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { Observable, lastValueFrom } from 'rxjs';
 moment().format();
 
-import { BuddyService } from './buddy.service';
+// import { BuddyService } from './buddy.service';
 
 import { DisplayingElementsService } from './displaying-elements.service';
 import { ServerService } from './server.service';
@@ -16,6 +16,9 @@ import { ServerService } from './server.service';
   providedIn: 'root',
 })
 export class AuthService implements OnInit {
+  myID!: string | null;
+  myToken!: string | null;
+
   isLogged!: boolean;
   minimumAge: number = 18;
   pictureExtension: string[] = [
@@ -33,7 +36,7 @@ export class AuthService implements OnInit {
   authentication!: boolean;
   constructor(
     private http: HttpClient,
-    private buddyService: BuddyService,
+    // private buddyService: BuddyService,
     private serverService: ServerService,
     private router: Router,
     private displayingElementsService: DisplayingElementsService
@@ -57,6 +60,28 @@ export class AuthService implements OnInit {
   // isLoggedOut() {
   //   return !this.isLoggedIn();
   // }
+  getMyToken(): any {
+    console.log('fetch du token');
+    this.myToken = localStorage.getItem('token');
+    if (this.myToken != null && this.myToken != undefined) {
+      return this.myToken;
+    } else {
+      alert("Problème d'identification, vous allez être déconnecté");
+      this.logout();
+    }
+  }
+  getMyId(): any {
+    console.log('fetch du uuid');
+    this.myID = localStorage.getItem('uuid');
+    console.log(this.myID);
+    if (this.myID != null && this.myID != undefined) {
+      console.log(this.myID);
+      return this.myID;
+    } else {
+      alert("Problème d'identification, vous allez être déconnecté");
+      this.logout();
+    }
+  }
 
   async getAuth() {
     this.isLogged = await lastValueFrom(
@@ -87,7 +112,7 @@ export class AuthService implements OnInit {
               localStorage.setItem('token', authentication.token);
               localStorage.setItem('uuid', authentication.user.uuid);
 
-              this.buddyService.userIdBuilder(authentication.user);
+              // this.buddyService.userIdBuilder(authentication.user);
 
               this.router.navigateByUrl('/home');
             } else {
