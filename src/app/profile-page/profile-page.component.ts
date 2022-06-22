@@ -27,9 +27,9 @@ export class ProfilePageComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute
   ) {}
-  logoutRequest(): void {
-    this.authService.logout();
-  }
+  // logoutRequest(): void {
+  //   this.authService.logout();
+  // }
 
   // fetch(): void {
   //   this.http

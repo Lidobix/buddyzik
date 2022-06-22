@@ -29,9 +29,7 @@
   <button *ngIf="buddy.status == 'confirmed'" (click)="recommendBuddy()">
     Recommander
   </button>
-  <!-- <button *ngIf="buddy.status == 'recommended'" (click)="confirmBuddyReco()">
-    Ajouter
-  </button> -->
+
   <button *ngIf="buddy.status == 'pending'" (click)="confirmBuddy()">
     Accepter
   </button>
@@ -51,24 +49,4 @@
   >
     Supprimer
   </button>
-  <!-- <button *ngIf="buddy.deletable" (click)="deleteBuddy()">
-    Supprimer
-  </button> -->
-  <!-- </button>
-  <button *ngIf="buddy.addable" (click)="inviteBuddy()">Inviter</button> -->
-  <!-- <button *ngIf="buddy.rejectable" (click)="rejectBuddy()">
-    Refuser
-  </button> -->
-  <!-- <button *ngIf="buddy.acceptable" (click)="acceptBuddy()">
-    Accepter
-  </button> -->
-  <!-- <p>Prénom: {{ buddyCard.firstName }}</p>
-  <p>Nom: {{ buddyCard.lastName }}</p>
-  <p>Instrument: {{ buddyCard.instrument }}</p>
-
-  <button *ngIf="buddyCard.recommendable" (Click)="recommendBuddy()">
-    Recommander
-  </button>
-  <button *ngIf="buddyCard.deletable" (Click)="deleteBuddy()">Supprimer</button>
-  <button *ngIf="buddyCard.addable" (Click)="inviteBuddy()">Inviter</button> -->
 </div>

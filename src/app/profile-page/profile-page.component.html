@@ -1,12 +1,9 @@
-<!-- <app-header></app-header> -->
-<!-- <app-nav></app-nav> -->
-<div id="main">
-  <!-- <div id="banner"></div> -->
-
+<div id="main" *ngIf="buddy">
   <div id="profileId">
     <img id="bannierPic" [src]="bannierPicUrl" />
     <img id="profilePic" [src]="profilePicUrl" />
-    <p id="profilePseudo">{{ buddy.login }}</p>
+    <div id="imgCardContainer"><img [src]="buddy.profilePicture" alt="" /></div>
+    <p id="profilePseudo">{{ buddy.firstName }}</p>
   </div>
   <div id="musicId">
     <p>{{ buddy.instrument }}</p>

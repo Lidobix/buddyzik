@@ -17,7 +17,15 @@ import { ServerService } from './server.service';
 export class AuthService implements OnInit {
   isLogged!: boolean;
   minimumAge: number = 18;
-  pictureExtension: string[] = ['jpg', 'jpeg', 'png', 'bmp', 'svg', 'gif'];
+  pictureExtension: string[] = [
+    'jpg',
+    'jpeg',
+    'png',
+    'bmp',
+    'svg',
+    'gif',
+    'webp',
+  ];
   passwordPattern: string =
     '^[^<>](?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).*[^<>]$';
 

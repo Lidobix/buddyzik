@@ -39,7 +39,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userProfileForm = this.formBuilder.group({
       login: [
-        'ludo',
+        '',
         {
           validators: [Validators.required, Validators.minLength(3)],
         },
@@ -54,27 +54,27 @@ export class EditProfileComponent implements OnInit {
         },
       ],
       mailAddress: [
-        'zhzl@EDEADLK.com',
+        '@gmail.com',
         { validators: [Validators.required, Validators.email] },
       ],
       firstName: [
-        'sgsgergegr',
+        '',
         {
           validators: [Validators.required],
         },
       ],
       lastName: [
-        'sdgdgtgeteteh',
+        '',
         {
           validators: [Validators.required],
         },
       ],
       birthDate: [
-        '25/10/1985',
+        '5',
         {
           validators: [
-            // Validators.required,
-            // ageValidator(this.authService.minimumAge),
+            Validators.required,
+            ageValidator(this.authService.minimumAge),
           ],
         },
       ],
@@ -84,14 +84,11 @@ export class EditProfileComponent implements OnInit {
           validators: [Validators.required],
         },
       ],
-      gender: [
-        null,
-        // Validators.required
-      ],
+      gender: [null, Validators.required],
 
-      instrument: [null],
-      singer: [null],
-      pro: [null],
+      instrument: [null, Validators.required],
+      singer: [null, Validators.required],
+      pro: [null, Validators.required],
       bio: [null],
       profilePicture: ['', pictureValidator(this.authService.pictureExtension)],
       bannerPicture: [
@@ -100,8 +97,9 @@ export class EditProfileComponent implements OnInit {
         // pictureValidator(this.authService.pictureExtension)
       ],
     });
-    // this.onchanges();
+
     this.instrumentsList = [
+      'Aucun',
       'Guitare',
       'Basse',
       'Ukulélé',
