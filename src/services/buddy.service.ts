@@ -27,10 +27,7 @@ export class BuddyService implements OnInit {
   getMyBuddies(): Observable<Buddy[]> {
     // getMyBuddies(): Buddy[] {
     // console.log('recherche de tes buddies.....');
-    return this.http.post<Buddy[]>(
-      this.serverService.serverUrl + '/mybuddies',
-      ''
-    );
+    return this.http.get<Buddy[]>(this.serverService.serverUrl + '/mybuddies');
   }
 
   getAllBuddies(): Observable<Buddy[]> {
