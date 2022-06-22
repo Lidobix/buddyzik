@@ -25,6 +25,8 @@ export class Buddy {
     public uuid: string,
     public login: string,
     public firstName: string,
+    public password: string,
+    public mailAddress: string,
     public lastName: string,
     public gender: string,
     public birthDate: Date,
@@ -36,13 +38,10 @@ export class Buddy {
     public online: boolean,
     public instrument: string,
     public singer: string,
-    public professionnal: string,
+    public pro: string,
     public status: string,
-    public deletable: boolean
-  ) //     public config: {
-  //   addable: boolean;
-  //   acceptable: boolean;
-  //   rejectable: boolean;
+    public deletable: boolean //     public config: { //   addable: boolean; //   acceptable: boolean;
+  ) //   rejectable: boolean;
   //   recommendable: boolean;
   //   deletable: boolean;
   //   status: string;

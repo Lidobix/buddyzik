@@ -27,6 +27,7 @@ export class AuthGuard implements CanActivate {
 
     if (this.authService.isLogged) {
       this.displayingElementsService.setDisplayNav(true);
+      this.displayingElementsService.setDisplayCreation(false);
       return true;
     } else {
       console.log('go to /auth/login');

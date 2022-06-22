@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 
 import { Buddy } from 'src/app/models/buddy-model';
 import { AuthService } from './auth.service';
@@ -11,7 +11,6 @@ import { ServerService } from './server.service';
 })
 export class BuddyService implements OnInit {
   connectedUser!: Buddy;
-  myID!: string | null;
 
   // serverURL!: string;
 
@@ -48,19 +47,18 @@ export class BuddyService implements OnInit {
     });
   }
 
-  getMyId(): any {
-    this.myID = localStorage.getItem('uuid');
-    if (this.myID != null && this.myID != undefined) {
-      return this.myID;
-    } else {
-      alert("Problème d'identification, vous allez être déconnecté");
-      this.authService.logout();
-    }
-  }
-
-  getMe(): Observable<Buddy> {
+  // getMe(): Observable<Buddy> {
+  //   console.log('dans authservice, on va fetcher moi)');
+  //   return this.http.post<Buddy>(this.serverService.serverUrl + '/me', '');
+  // }
+  getMyInformations(): Observable<Buddy> {
     console.log('dans authservice, on va fetcher moi)');
-    return this.http.post<Buddy>(this.serverService.serverUrl + '/me', '');
+
+    return this.http.get<Buddy>(
+      this.serverService.serverUrl + '/myinformations'
+    );
+
+    // return this.http.post<Buddy>(this.serverService.serverUrl + '/me', '');
   }
 
   updateBuddy(uuidToUpdate: string, action: string): Observable<string> {

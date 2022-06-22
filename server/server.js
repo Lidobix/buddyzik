@@ -234,7 +234,7 @@ app.post("/register", (req, res) => {
           messager: {},
           instrument: newUser.instrument,
           singer: newUser.singer,
-          professionnal: newUser.professionnal,
+          pro: newUser.pro,
           recommendedBy: [],
           recommends: [],
         };
@@ -280,23 +280,62 @@ app.post("/register", (req, res) => {
   }
   userRegistration();
 });
-//////////////////////////////////////////////////////////
-///////////////////////// SET STATUS /////////////////////////
-//////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+//////////////////////////////// ALL BUDDIES ////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+app.get("/myinformations", (req, res, next) => {
+  console.log("dans le middleware myinformations");
+  // console.log("reqbody", req.body);
 
-app.post("/setconnection", (req, res) => {
-  // A DEFINIR AVEC LES WEBSOCKET
-  // NOTAMMENT POUR LA DECONNECTION
-  // AVEC LE DESTROY DU SOCKET.
+  if (authToken(req.headers.token)) {
+    console.log("token authentifié");
+    async function fetchMyInformations() {
+      try {
+        await mongoClient.connect();
+        console.log(req.headers.uuid);
+        // On créé le tableau de uuid d'amis à exclure
+        const informations = await collection.findOne(
+          {
+            uuid: req.headers.uuid,
+          },
+          {
+            projection: {
+              _id: 0,
+              login: 1,
+              mailAddress: 1,
+              firstName: 1,
+              lastName: 1,
+              birthDate: 1,
+              location: 1,
+              gender: 1,
+              instrument: 1,
+              singer: 1,
+              pro: 1,
+              bio: 1,
+              bannerPicture: 1,
+              profilePicture: 1,
+            },
+          }
+        );
+
+        if (informations === null) {
+        } else {
+          res.status(200).json(informations);
+          // console.log("result:", result);
+        }
+      } catch (error) {
+        console.log("Pas d'utilisateur trouvé", error);
+      } finally {
+        // Ensures that the client will close when you finish/error
+        // await mongoClient.close();
+      }
+    }
+
+    fetchMyInformations();
+  } else {
+    res.json("Impossible de vous authentifier!");
+  }
 });
-
-//////////////////////////////////////////////////////////
-///////////////////////// LOGOUT /////////////////////////
-//////////////////////////////////////////////////////////
-
-// app.post("/logout", (req, res, next) => {
-//   console.log("req.header", req);
-// });
 
 /////////////////////////////////////////////////////////
 //////////////////////// SEND BY ID ////////////////////////

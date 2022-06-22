@@ -61,7 +61,7 @@ export class AuthService implements OnInit {
   //   return !this.isLoggedIn();
   // }
   getMyToken(): any {
-    console.log('fetch du token');
+    // console.log('fetch du token');
     this.myToken = localStorage.getItem('token');
     if (this.myToken != null && this.myToken != undefined) {
       return this.myToken;
@@ -71,11 +71,11 @@ export class AuthService implements OnInit {
     }
   }
   getMyId(): any {
-    console.log('fetch du uuid');
+    // console.log('fetch du uuid');
     this.myID = localStorage.getItem('uuid');
-    console.log(this.myID);
+    // console.log(this.myID);
     if (this.myID != null && this.myID != undefined) {
-      console.log(this.myID);
+      // console.log(this.myID);
       return this.myID;
     } else {
       alert("Problème d'identification, vous allez être déconnecté");

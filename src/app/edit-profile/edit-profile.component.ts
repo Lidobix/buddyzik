@@ -20,22 +20,22 @@ export class EditProfileComponent implements OnInit {
   userProfileForm!: FormGroup;
   previewProfilePic!: string;
   displayCreationMode!: boolean;
-  constrolsFormList: string[] = [
-    'login',
-    'password',
-    'mailAddress',
-    'firstName',
-    'lastName',
-    'birthDate',
-    'location',
-    'gender',
-    'instrument',
-    'singer',
-    'pro',
-    'bio',
-    'profilePicture',
-    'bannerPicture',
-  ];
+  // controlsFormList: string[] = [
+  //   'login',
+  //   'password',
+  //   'mailAddress',
+  //   'firstName',
+  //   'lastName',
+  //   'birthDate',
+  //   'location',
+  //   'gender',
+  //   'instrument',
+  //   'singer',
+  //   'pro',
+  //   'bio',
+  //   'profilePicture',
+  //   'bannerPicture',
+  // ];
 
   instrumentsList: string[] = [
     'Aucun',
@@ -91,6 +91,12 @@ export class EditProfileComponent implements OnInit {
           ],
         },
       ],
+      passwordModif: [
+        '',
+        {
+          validators: [Validators.pattern(this.authService.passwordPattern)],
+        },
+      ],
       mailAddress: [
         '@gmail.com',
         { validators: [Validators.required, Validators.email] },
@@ -134,16 +140,34 @@ export class EditProfileComponent implements OnInit {
       ],
       bannerPicture: [null],
     });
-
+    console.log('this.displayCreationMode : ', this.displayCreationMode);
     if (!this.displayCreationMode) {
-      // this.buddyService.getBuddyByID()
-
-      this.userProfileForm.controls['singer'].setValue('yes');
-      this.userProfileForm.controls['instrument'].setValue('Synthé');
-    } else {
+      this.formFilling();
     }
   }
-  selectFile(event: any) {
+
+  formFilling(): void {
+    this.buddyService.getMyInformations().subscribe((value) => {
+      console.log('je suis : ', value);
+
+      this.userProfileForm.controls['login'].setValue(value['login']);
+
+      this.userProfileForm.controls['mailAddress'].setValue(
+        value['mailAddress']
+      );
+      this.userProfileForm.controls['firstName'].setValue(value['firstName']);
+      this.userProfileForm.controls['lastName'].setValue(value['lastName']);
+      this.userProfileForm.controls['birthDate'].setValue(value['birthDate']);
+      this.userProfileForm.controls['location'].setValue(value['location']);
+      this.userProfileForm.controls['gender'].setValue(value['gender']);
+      this.userProfileForm.controls['instrument'].setValue(value['instrument']);
+      this.userProfileForm.controls['singer'].setValue(value['singer']);
+      this.userProfileForm.controls['pro'].setValue(value['pro']);
+      this.userProfileForm.controls['bio'].setValue(value['bio']);
+    });
+  }
+
+  selectFile(event: any): void {
     const file = event.target.files[0];
 
     this.imageservice.getBase64(file).subscribe((str) => {
@@ -151,10 +175,20 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  onSubmitProfileForm() {
+  onSubmitProfileForm(): void {
     this.userProfileForm.value.profilePicture = this.previewProfilePic;
     console.log('soumission du formulaire: ', this.userProfileForm);
 
     this.authService.authUser(this.userProfileForm, '/register');
+  }
+
+  onSubmitModifProfileForm(): void {
+    if (this.userProfileForm.value.password === '') {
+      delete this.userProfileForm.value.password;
+    }
+
+    console.log('modification du formulaire: ', this.userProfileForm);
+
+    // this.authService.authUser(this.userProfileForm, '/register');
   }
 }

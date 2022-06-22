@@ -13,7 +13,7 @@ import { ServerService } from 'src/services/server.service';
 })
 export class AppComponent implements OnInit {
   title = 'buddyzik';
-  showNav: boolean = true;
+  // showNav: boolean = true;
 
   constructor(
     private router: Router,

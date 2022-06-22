@@ -7,8 +7,22 @@
     <input type="text" id="loginInput" formControlName="login" />
     <br />
     <br />
-    <label for="password">Mot de passe</label>
-    <input type="text" id="passwordInput" formControlName="password" />
+    <label *ngIf="displayCreationMode" for="password">Mot de passe</label>
+    <input
+      *ngIf="displayCreationMode"
+      type="text"
+      id="passwordInput"
+      formControlName="password"
+    />
+    <label *ngIf="!displayCreationMode" for="passwordModif"
+      >Mot de passe Modif</label
+    >
+    <input
+      *ngIf="!displayCreationMode"
+      type="text"
+      id="passwordModifInput"
+      formControlName="passwordModif"
+    />
     <br />
     <br />
     <label for="mailAddress">Adresse mail</label>
@@ -30,21 +44,20 @@
     <input type="text" id="locationInput" formControlName="location" />
     <br />
 
-    <br />
-    Photo de profil:
-    <input
-      type="file"
-      formControlName="profilePicture"
-      (change)="selectFile($event)"
-    />
-    <br />
-    <!-- onchange="previewFile(event.target.files[0])" -->
+    <div *ngIf="displayCreationMode">
+      <p>Photo de profil:</p>
+      <input
+        type="file"
+        formControlName="profilePicture"
+        (change)="selectFile($event)"
+      />
+      <img [src]="previewProfilePic" alt="" />
 
-    <img [src]="previewProfilePic" alt="" />
-    <br />
-    Photo de bannière:
-    <input type="file" formControlName="bannerPicture" />
-    <br />
+      <p>Photo de bannière:</p>
+
+      <input type="file" formControlName="bannerPicture" />
+      <br />
+    </div>
     <p>Genre:</p>
     <input
       id="genderMaleInput"
@@ -100,6 +113,7 @@
       value="no"
     />
     <label for="singerNo">Non</label>
+
     <!-- <input
       id="singerMaybeInput"
       type="radio"
@@ -152,7 +166,7 @@
     <input
       *ngIf="!displayCreationMode"
       type="submit"
-      (click)="onSubmitProfileForm()"
+      (click)="onSubmitModifProfileForm()"
       value="Enregistrer les modifications"
     />
   </form>
