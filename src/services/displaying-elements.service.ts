@@ -13,5 +13,9 @@ export class DisplayingElementsService {
   setDisplayModif(display: boolean) {
     this.displayingModifProfileButton.next(display);
   }
+  displayingProfileCreationMode = new BehaviorSubject(false);
+  setDisplayCreation(display: boolean) {
+    this.displayingProfileCreationMode.next(display);
+  }
   constructor() {}
 }

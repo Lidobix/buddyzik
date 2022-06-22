@@ -1,6 +1,7 @@
 <!-- <app-header></app-header> -->
 <div class="form-card">
-  <h2>CREATION DU PROFIL</h2>
+  <h2 *ngIf="displayCreationMode">CREATION DU PROFIL</h2>
+  <h2 *ngIf="!displayCreationMode">EDITION DU PROFIL</h2>
   <form [formGroup]="userProfileForm">
     <label for="login">Pseudo</label>
     <input type="text" id="loginInput" formControlName="login" />
@@ -142,6 +143,17 @@
     ></textarea>
     <br />
     <br />
-    <input type="submit" (click)="onSubmitProfileForm()" value="GO!" />
+    <input
+      *ngIf="displayCreationMode"
+      type="submit"
+      (click)="onSubmitProfileForm()"
+      value="Inscription !"
+    />
+    <input
+      *ngIf="!displayCreationMode"
+      type="submit"
+      (click)="onSubmitProfileForm()"
+      value="Enregistrer les modifications"
+    />
   </form>
 </div>

@@ -27,6 +27,12 @@ const routes: Routes = [
     path: 'registration',
     component: EditProfileComponent,
   },
+
+  {
+    path: 'edition',
+    component: EditProfileComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'profile/:uuid',
     component: ProfilePageComponent,

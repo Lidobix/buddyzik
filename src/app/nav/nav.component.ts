@@ -64,7 +64,9 @@ export class NavComponent implements OnInit {
   }
 
   goToEditProfile(): void {
+    this.displayingElementsService.setDisplayCreation(false);
     this.displayingElementsService.setDisplayModif(false);
+    this.router.navigateByUrl('/edition');
   }
 
   getMe(): any {

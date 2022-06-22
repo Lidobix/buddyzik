@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/services/auth.service';
+import { DisplayingElementsService } from 'src/services/displaying-elements.service';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +13,8 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private displayingElementsService: DisplayingElementsService
   ) {}
   userLoginForm!: FormGroup;
   // userEmail!: string;
@@ -35,6 +37,7 @@ export class LoginPageComponent implements OnInit {
     });
   }
   goToInscription(): void {
+    this.displayingElementsService.setDisplayCreation(true);
     this.router.navigateByUrl('/registration');
   }
 

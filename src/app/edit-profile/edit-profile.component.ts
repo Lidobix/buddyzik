@@ -8,6 +8,7 @@ import { BuddyService } from '../../services/buddy.service';
 import { ageValidator } from 'src/shared/minimum-age.directive';
 import { pictureValidator } from 'src/shared/picture-format.directive';
 import { ImageService } from 'src/services/image.service';
+import { DisplayingElementsService } from 'src/services/displaying-elements.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -18,6 +19,7 @@ export class EditProfileComponent implements OnInit {
   userProfileForm!: FormGroup;
   instrumentsList!: string[];
   previewProfilePic!: string;
+  displayCreationMode!: boolean;
 
   // profilePicture: string = null;
   // messageError: string = ;
@@ -32,10 +34,17 @@ export class EditProfileComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private buddyService: BuddyService,
-    private imageservice: ImageService
+    private imageservice: ImageService,
+    private displayingElementsService: DisplayingElementsService
   ) {}
 
   ngOnInit(): void {
+    this.displayingElementsService.displayingProfileCreationMode.subscribe(
+      (updateClassCrea) => {
+        this.displayCreationMode = updateClassCrea;
+      }
+    );
+
     this.userProfileForm = this.formBuilder.group({
       login: [
         null,
