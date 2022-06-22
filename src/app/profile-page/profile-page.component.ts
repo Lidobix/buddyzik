@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { BuddyService } from '../../services/buddy.service';
 import { Buddy } from '../models/buddy-model';
 import { AuthService } from 'src/services/auth.service';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss'],
 })
-export class ProfilePageComponent implements OnInit {
+export class ProfilePageComponent implements OnInit, OnDestroy {
   buddy!: Buddy;
   bannierPicUrl!: string;
   profilePicUrl!: string;
@@ -46,6 +46,7 @@ export class ProfilePageComponent implements OnInit {
     // console.log('buddyID : ', buddyID);
     // console.log('buddyID : ', buddyID);
     console.log('buddyID : ', buddyID);
+    console.log('buddy à charger: ', buddyID);
     this.buddyService.getBuddyByID(buddyID).subscribe((value) => {
       this.buddy = value;
       console.log('utilisateur connecté : ', this.buddy);
@@ -69,5 +70,10 @@ export class ProfilePageComponent implements OnInit {
       alert("problème d'identification");
       this.authService.logout();
     }
+  }
+
+  @HostListener('unload')
+  ngOnDestroy(): void {
+    console.log('destruction en cours');
   }
 }

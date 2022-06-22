@@ -20,6 +20,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     NavComponent,
     LoginPageComponent,
     PageNotFoundComponent,
+    EmptyToMyProfileComponent,
   ],
   imports: [
     BrowserModule,

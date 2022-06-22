@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
 import { BuddyService } from 'src/services/buddy.service';
 import { DisplayNavService } from 'src/services/display-nav.service';
+import { ProfileService } from 'src/services/profile.service';
 import { Buddy } from '../models/buddy-model';
 
 @Component({
@@ -15,7 +16,8 @@ export class NavComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private buddyService: BuddyService,
-    private displayNavService: DisplayNavService
+    private displayNavService: DisplayNavService,
+    private profileService: ProfileService
   ) {}
   user!: Buddy;
   displayNav!: boolean;
@@ -32,7 +34,12 @@ export class NavComponent implements OnInit {
     this.buddyService.getMe();
   }
 
+  goToMyProfile(): void {
+    this.router.navigateByUrl('/blankprofile');
+  }
+
   goToProfile(): void {
+    console.log('coucou');
     // const me = localStorage.getItem('uuid');
     // if (me != null) {
     //   this.router.navigateByUrl(

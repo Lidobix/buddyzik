@@ -6,7 +6,6 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/services/auth.service';
 import { DisplayNavService } from 'src/services/display-nav.service';
 
