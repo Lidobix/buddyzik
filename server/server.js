@@ -18,6 +18,7 @@ import "dotenv/config";
 
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
+import { find, throwError } from "rxjs";
 
 const app = express();
 app.use(cors());
@@ -111,7 +112,7 @@ app.get("/favicon.ico", (req, res) => {
   // Use actual relative path to your .ico file here
   console.log("path : ", __dirname, "../favicon.ico");
   res
-    .header("Access-Control-Allow-Origin' 'http://localhost:3100' always;")
+    // .header("Access-Control-Allow-Origin' 'http://localhost:3100' always;")
     .sendFile(path.resolve(__dirname, "../favicon.ico"));
 });
 //////////////////////////////////////////////////////////////
@@ -210,7 +211,7 @@ app.post("/register", (req, res) => {
   async function userRegistration() {
     try {
       await mongoClient.connect();
-
+      // On checke si le mail n'est pas déjà existant dans la base:
       const result = await collection.findOne({
         mailAddress: newUser.mailAddress,
       });
@@ -285,8 +286,161 @@ app.post("/register", (req, res) => {
   }
   userRegistration();
 });
+////////////////////////////////////////////////////////////////////////
+//////////////////////////// UPDATE PROFILE ////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+app.post("/updateprofile", (req, res, next) => {
+  // console.log("dans le middleware updateprofile");
+  // console.log("new profile:", req.body);
+  const myNewInfos = req.body;
+  console.log("newInformations:", myNewInfos);
+  if (authToken(req.headers.token)) {
+    async function checkInformations() {
+      try {
+        console.log("check des infos...");
+        await mongoClient.connect();
+        const myPreviousInfos = await collection.findOne(
+          {
+            uuid: req.headers.uuid,
+          },
+          {
+            projection: {
+              _id: 0,
+              uuid: 1,
+              password: 1,
+              mailAddress: 1,
+              friends_list: 1,
+            },
+          }
+        );
+        // console.log("myPreviousInfos: ", myPreviousInfos);
+
+        const isMailValid = await checkMailAddress(
+          myNewInfos.mailAddress,
+          myPreviousInfos.mailAddress
+        );
+
+        console.log("isMailValid: ", isMailValid);
+
+        const isPasswordValid = checkPassword(
+          myNewInfos.password,
+          myPreviousInfos.password
+        );
+        console.log("isPasswordValid: ", isPasswordValid);
+
+        if (isMailValid && isPasswordValid) {
+          console.log("c'est tout bon!!!! on peut soumettre");
+          // si le nouveau mdp est présent, on le crypte, on récupère la dats et on l'envoie en base
+          if (myNewInfos.passwordModif != "") {
+            myNewInfos.password = myNewInfos.passwordModif;
+            // console.log("new pwd : ", myNewInfos);
+          }
+          myNewInfos.password = hash(myNewInfos.password);
+
+          collection.updateOne(
+            {
+              uuid: req.headers.uuid,
+            },
+            {
+              $set: {
+                login: myNewInfos.login,
+                password: myNewInfos.password,
+                mailAddress: myNewInfos.mailAddress,
+                firstName: myNewInfos.firstName,
+                lastName: myNewInfos.lastName,
+                birthDate: myNewInfos.birthDate,
+                location: myNewInfos.location,
+                gender: myNewInfos.gender,
+                instrument: myNewInfos.instrument,
+                singer: myNewInfos.singer,
+                pro: myNewInfos.pro,
+                bio: myNewInfos.bio,
+              },
+            }
+          );
+
+          collection.updateMany(
+            { $and: [{}, { "friends.uuid": myPreviousInfos.uuid }] },
+            {
+              $set: {
+                "friends.$.login": myNewInfos.login,
+                "friends.$.firstName": myNewInfos.firstName,
+                "friends.$.lastName": myNewInfos.lastName,
+                "friends.$.instrument": myNewInfos.instrument,
+                "friends.$.singer": myNewInfos.singer,
+              },
+            }
+          );
+          res.status(200).json("Modifications enregistrées!");
+          // console.log("infos à jour : ", myNewInfos);
+          //
+
+          //
+        }
+      } catch (error) {
+        console.log("Pas d'utilisateur trouvé", error);
+      }
+    }
+
+    // const checkPassword = function () {
+    const checkPassword = function (toCheck, reference) {
+      console.log("test pwd");
+
+      if (!checkHash(toCheck, reference)) {
+        res.json("Mot de passe incorrect");
+        return false;
+      } else {
+        console.log("pasword ok");
+        return true;
+      }
+    };
+
+    const checkMailAddress = async function (toCheck, reference) {
+      console.log("dans le check address");
+      await mongoClient.connect();
+      const check = await collection.count({
+        mailAddress: toCheck,
+      });
+      console.log("check", check);
+      if (toCheck != reference && check >= 1) {
+        res.json("adresse dejà utilisée sur un autre compte");
+        console.log("mail nok");
+        return false;
+      } else {
+        console.log("mail ok");
+        return true;
+      }
+    };
+
+    async function updateProfile() {
+      try {
+        await mongoClient.connect();
+        await collection.findOne(
+          {
+            uuid: req.headers.uuid,
+          },
+          {
+            projection: {
+              _id: 0,
+              password: 1,
+              mailAddress: 1,
+            },
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      } finally {
+      }
+    }
+    checkInformations();
+  } else {
+    res.json("Impossible de vous authentifier!");
+  }
+});
+
 ///////////////////////////////////////////////////////////////////////////
-//////////////////////////////// ALL BUDDIES ////////////////////////////////
+//////////////////////////////// FETCH INFOS ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 app.get("/myinformations", (req, res, next) => {
   console.log("dans le middleware myinformations");
@@ -450,8 +604,8 @@ app.get("/allbuddies", (req, res, next) => {
 //////////////////////////////// MY BUDDIES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 app.get("/fetchmybuddies", (req, res) => {
-  console.log("dans le middleware mybuddies");
-  console.log("req.headers.token = ", req.headers.token);
+  console.log("dans le middleware fetchmybuddies");
+  // console.log("req.headers.token = ", req.headers.token);
 
   if (authToken(req.headers.token)) {
     async function fetchMyBuddies() {

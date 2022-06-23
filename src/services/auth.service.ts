@@ -124,4 +124,31 @@ export class AuthService implements OnInit {
       }
     }
   }
+
+  updatehUser(form: FormGroup, route: string): void {
+    if (!form.valid) {
+      alert('Formulaire non valide!');
+    } else {
+      try {
+        this.http
+
+          .post<any>(this.serverService.serverUrl + route, form.value)
+          .subscribe((res) => {
+            console.log(res);
+            alert(res);
+            // if (authentication.success === true) {
+            //   alert(authentication.message);
+            //   localStorage.setItem('token', authentication.token);
+            //   localStorage.setItem('uuid', authentication.user.uuid);
+            //   // this.buddyService.userIdBuilder(authentication.user);
+            //   this.router.navigateByUrl('/home');
+            // } else {
+            //   alert(authentication.message);
+            // }
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 }
