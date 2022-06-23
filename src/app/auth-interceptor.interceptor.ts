@@ -23,7 +23,8 @@ export class AuthInterceptorInterceptor implements HttpInterceptor, OnInit {
     const token: string | null = localStorage.getItem('token');
 
     const uuid: string | null = localStorage.getItem('uuid');
-    // console.log("dans l'interceptor", uuid);
+    console.log("dans l'interceptor, uuid:", uuid);
+    console.log("dans l'interceptor, token:", token);
     // this.uuid = this.authService.getMyId();
     // console.log(this.uuid);
     // this.token = this.authService.getMyToken();

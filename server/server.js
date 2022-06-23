@@ -37,9 +37,9 @@ app.use(
   )
 );
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
+// });
 
 ///////////////////////////////////////////////////
 ///////////////// POUR LE DEV /////////////////////
@@ -110,7 +110,9 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.get("/favicon.ico", (req, res) => {
   // Use actual relative path to your .ico file here
   console.log("path : ", __dirname, "../favicon.ico");
-  res.sendFile(path.resolve(__dirname, "../favicon.ico"));
+  res
+    .header("Access-Control-Allow-Origin' 'http://localhost:3100' always;")
+    .sendFile(path.resolve(__dirname, "../favicon.ico"));
 });
 //////////////////////////////////////////////////////////////
 
@@ -139,6 +141,9 @@ app.get("/auth", (req, res, next) => {
 /////////////////////////////////////////////////////////
 ///////////////////////// LOGIN /////////////////////////
 /////////////////////////////////////////////////////////
+// app.get("/auth/login", (req, res) => {
+//   // res.json("coucou");
+// });
 
 app.post("/login", (req, res) => {
   console.log("login");
@@ -444,8 +449,9 @@ app.get("/allbuddies", (req, res, next) => {
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////////// MY BUDDIES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
-app.get("/mybuddies", (req, res) => {
+app.get("/fetchmybuddies", (req, res) => {
   console.log("dans le middleware mybuddies");
+  console.log("req.headers.token = ", req.headers.token);
 
   if (authToken(req.headers.token)) {
     async function fetchMyBuddies() {
@@ -471,6 +477,7 @@ app.get("/mybuddies", (req, res) => {
       } catch (error) {
         console.log(error);
       } finally {
+        console.log("ok");
         // Ensures that the client will close when you finish/error
         // await mongoClient.close();
       }
@@ -1043,9 +1050,15 @@ app.post("/recommendation", (req, res) => {
   }
 });
 
-app.get("/auth", (req, res) => {
-  res.status(404).sendFile("erreur 404");
+/* ANGULAR MAIN ROUTE */
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
 });
+
+// app.get("/*", (req, res) => {
+//   res.status(404).sendFile("erreur 404");
+// });
+
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////////// FONCTIONS ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////

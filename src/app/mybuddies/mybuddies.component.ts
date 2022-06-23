@@ -20,6 +20,10 @@ export class MybuddiesComponent implements OnInit {
   }
 
   getMyBuddies(): any {
+    console.log('recherche de mybuddies...');
+    console.log('uuid...', localStorage.getItem('uuid'));
+    console.log('token...', localStorage.getItem('token'));
+
     this.buddyService.getMyBuddies().subscribe((buddies) => {
       // console.log("dans l'observable, buddies =  ", buddies);
       this.myBuddies = buddies;
