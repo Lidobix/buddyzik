@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Buddy } from '../models/buddy-model';
 import { BuddyService } from 'src/services/buddy.service';
 import { ProfileService } from 'src/services/profile.service';
+import { DisplayingElementsService } from 'src/services/displaying-elements.service';
 
 @Component({
   selector: 'app-buddycard',
@@ -11,9 +12,11 @@ import { ProfileService } from 'src/services/profile.service';
 export class BuddycardComponent implements OnInit {
   @Input() buddy!: Buddy;
   profilePicture!: string;
+  isRecommended!: boolean;
   constructor(
     private buddyService: BuddyService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private displayingElementsService: DisplayingElementsService
   ) {}
 
   inviteBuddy() {
@@ -49,9 +52,20 @@ export class BuddycardComponent implements OnInit {
       .updateBuddy(this.buddy.uuid, '/recommendation')
       .subscribe();
     this.buddy.status = 'recommendedByMe';
+    this.displayingElementsService.setRecommendedClassCard(true);
   }
 
   ngOnInit(): void {
     this.profilePicture = this.buddy.profilePicture;
+
+    this.displayingElementsService.recommendedClassCard.subscribe(
+      (addRecommendationClass) => {
+        this.isRecommended = addRecommendationClass;
+      }
+    );
+
+    if (this.buddy.status === 'recommendedByMe') {
+      this.isRecommended = true;
+    }
   }
 }

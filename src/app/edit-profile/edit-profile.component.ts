@@ -83,7 +83,7 @@ export class EditProfileComponent implements OnInit {
         },
       ],
       password: [
-        'Blup1-1pulB',
+        '',
         {
           validators: [
             Validators.required,
@@ -98,7 +98,7 @@ export class EditProfileComponent implements OnInit {
         },
       ],
       mailAddress: [
-        '@gmail.com',
+        '',
         { validators: [Validators.required, Validators.email] },
       ],
       firstName: [

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DisplayingElementsService } from './displaying-elements.service';
+import { DisplayingElementsService } from '../services/displaying-elements.service';
 
 describe('DisplayingElementsService', () => {
   let service: DisplayingElementsService;

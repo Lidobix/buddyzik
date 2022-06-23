@@ -1,7 +1,12 @@
 <div id="main"></div>
 
 <div class="card">
-  <div id="imgCardContainer"><img [src]="profilePicture" alt="" /></div>
+  <div
+    id="imgCardContainer"
+    [className]="isRecommended ? 'recommended' : 'notRecommended'"
+  >
+    <img [src]="profilePicture" alt="" />
+  </div>
   <p *ngIf="buddy.status == 'pending'">Attend une réponse de votre part...</p>
   <p *ngIf="buddy.status == 'invited'">
     Invitation en attente d'une réponse...

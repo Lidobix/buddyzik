@@ -17,5 +17,9 @@ export class DisplayingElementsService {
   setDisplayCreation(display: boolean) {
     this.displayingProfileCreationMode.next(display);
   }
+  recommendedClassCard = new BehaviorSubject(false);
+  setRecommendedClassCard(display: boolean) {
+    this.recommendedClassCard.next(display);
+  }
   constructor() {}
 }
