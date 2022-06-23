@@ -48,7 +48,7 @@ export class AuthService implements OnInit {
   }
   logout(): void {
     this.displayingElementsService.setDisplayNav(false);
-    this.displayingElementsService.setDisplayModif(false);
+    // this.displayingElementsService.setDisplayModif(false);
     localStorage.clear();
     this.router.navigateByUrl('/auth/login');
   }

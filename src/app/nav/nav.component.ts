@@ -33,39 +33,39 @@ export class NavComponent implements OnInit {
     this.displayingElementsService.displayingNav.subscribe((updateClassNav) => {
       this.displayNav = updateClassNav;
     });
-    this.displayingElementsService.displayingModifProfileButton.subscribe(
-      (updateClassModif) => {
-        this.displayModif = updateClassModif;
-      }
-    );
+    // this.displayingElementsService.displayingModifProfileButton.subscribe(
+    //   (updateClassModif) => {
+    //     this.displayModif = updateClassModif;
+    //   }
+    // );
     // this.buddyService.getMe();
   }
 
   goToMyProfile(): void {
-    this.displayingElementsService.setDisplayModif(true);
+    // this.displayingElementsService.setDisplayModif(true);
     this.router.navigateByUrl('/blankprofile');
   }
 
   goToMyBuddysList(): void {
-    this.displayingElementsService.setDisplayModif(false);
+    // this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/mybuddies');
   }
   goToAllBuddysList(): void {
-    this.displayingElementsService.setDisplayModif(false);
+    // this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/searchbuddy');
   }
   goToMessaging(): void {
-    this.displayingElementsService.setDisplayModif(false);
+    // this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/messaging');
   }
   goToTchat(): void {
-    this.displayingElementsService.setDisplayModif(false);
+    // this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/tchat');
   }
 
   goToEditProfile(): void {
     this.displayingElementsService.setDisplayCreation(false);
-    this.displayingElementsService.setDisplayModif(false);
+    // this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/edition');
   }
 
