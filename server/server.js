@@ -3,7 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 // import { authToken, createToken } from "./security.js";
 
-import { mailing } from "./mailing.js";
+import { registerMail, invitationMail, recommendationMail } from "./mailing.js";
 import cors from "cors";
 import { authToken, createToken, hash, checkHash } from "../server/security.js";
 
@@ -247,6 +247,7 @@ app.post("/register", (req, res) => {
 
         const newToken = createToken(newBuddy).toString();
         newBuddy.token = newToken;
+        const thankYou = registerMail(newBuddy.mailAddress, newBuddy.firstName);
 
         // console.log("newBuddy: ", newBuddy);
         // console.log("newBuddyToClient: ", newBuddyToClient);
@@ -440,7 +441,7 @@ app.post("/updateprofile", (req, res, next) => {
 });
 
 ///////////////////////////////////////////////////////////////////////////
-//////////////////////////////// FETCH INFOS ////////////////////////////////
+////////////////////// FETCH INFOS POUR MODIF PROFIL//////////////////////
 ///////////////////////////////////////////////////////////////////////////
 app.get("/myinformations", (req, res, next) => {
   console.log("dans le middleware myinformations");

@@ -11,7 +11,9 @@
     <input type="text" id="passwordInput" formControlName="password" />
     <br />
     <br />
-    <label for="passwordModif">Nouveau mot de passe</label>
+    <label *ngIf="!displayCreationMode" for="passwordModif"
+      >Nouveau mot de passe</label
+    >
     <input
       *ngIf="!displayCreationMode"
       type="text"
