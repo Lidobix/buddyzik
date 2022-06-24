@@ -5,25 +5,25 @@ export function registerMail(recipient, firstName) {
   const content =
     "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour {{params.name}} !</p></ br><p>Merci pour votre inscription, nous sommes heureux de vous compter dans notre bande ! </p></ br><p>Bonne découverte! A bientôt!</p></body></html>";
 
-  sendMail(recipient, subject, firstName, content);
+  sendMail(recipient, subject, content, firstName);
 }
 
-export function lostPasswordMail(recipient, firstName) {
+export function lostPasswordMail(recipient) {
   const subject = "Réinitialisation de votre mot de passe";
   const content =
-    "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour {{params.name}} !</p></ br><p>MVeuillez suivre ce lien pour réinitialiser votre mot de passe:</p></ br><p>A bientôt!</p></body></html>";
-  sendMail(recipient, subject, firstName, content);
+    "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour,</p></ br><p>Veuillez suivre ce lien pour réinitialiser votre mot de passe:</p></ br><p>A bientôt!</p></body></html>";
+  sendMail(recipient, subject, content);
 }
 export function invitationMail(recipient, firstName) {
-  sendMail(recipient, subject, firstName, content);
+  sendMail(recipient, subject, content, firstName);
 }
 
 export function recommendationMail(recipient, firstName) {
-  sendMail(recipient, subject, firstName, content);
+  sendMail(recipient, subject, content, firstName);
 }
 
-export function sendMail(recipient, subject, firstName, content) {
-  console.log("mail requis");
+export function sendMail(recipient, subject, content, firstName) {
+  // console.log("mail requis");
 
   console.log(
     "recipient : ",

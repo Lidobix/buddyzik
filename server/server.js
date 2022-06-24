@@ -3,7 +3,12 @@ import express from "express";
 import bodyParser from "body-parser";
 // import { authToken, createToken } from "./security.js";
 
-import { registerMail, invitationMail, recommendationMail } from "./mailing.js";
+import {
+  registerMail,
+  invitationMail,
+  recommendationMail,
+  lostPasswordMail,
+} from "./mailing.js";
 import cors from "cors";
 import { authToken, createToken, hash, checkHash } from "../server/security.js";
 
@@ -1205,7 +1210,23 @@ app.post("/recommendation", (req, res) => {
   }
 });
 
-/* ANGULAR MAIN ROUTE */
+//////////////////////////////////////////////
+/////////////// RESET PASSWORD ///////////////
+//////////////////////////////////////////////
+
+app.post("/resetpassword", (req, res) => {
+  console.log("dans le middleware reste password");
+  // console.log(req.body);
+
+  // console.log("buddy à aider: ", buddy);
+  const nevermind = lostPasswordMail(req.body.mailAddress);
+  res.status(200).json("Un mail vous a été envoyé.");
+});
+
+//////////////////////////////////////////////
+////////////* ANGULAR MAIN ROUTE *////////////
+//////////////////////////////////////////////
+
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
 });

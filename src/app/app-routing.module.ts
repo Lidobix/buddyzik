@@ -10,6 +10,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guards';
 import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,11 @@ const routes: Routes = [
     component: HomepageComponent,
     canActivate: [AuthGuard],
   },
-
+  {
+    path: 'lostpassword',
+    component: ResetPasswordComponent,
+    // canActivate: [AuthGuard],
+  },
   {
     path: 'auth/login',
     component: LoginPageComponent,

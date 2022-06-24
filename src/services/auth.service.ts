@@ -151,4 +151,11 @@ export class AuthService implements OnInit {
       }
     }
   }
+
+  // setResetPassword(form: FormGroup): void {
+  //   console.log('dans le service, demande de reste pwd');
+  //   this.http
+  //     .post<any>(this.serverService.serverUrl + '/resetpassword', form)
+  //     .subscribe();
+  // }
 }
