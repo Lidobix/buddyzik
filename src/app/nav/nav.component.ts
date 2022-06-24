@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
 import { BuddyService } from 'src/services/buddy.service';
-
+import { HttpClient } from '@angular/common/http';
 import { DisplayingElementsService } from 'src/services/displaying-elements.service';
 import { ProfileService } from 'src/services/profile.service';
+import { ServerService } from 'src/services/server.service';
 import { Buddy } from '../models/buddy-model';
 
 @Component({
@@ -17,7 +18,9 @@ export class NavComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private buddyService: BuddyService,
+    private serverService: ServerService,
 
+    private http: HttpClient,
     private displayingElementsService: DisplayingElementsService
   ) {}
   user!: Buddy;
@@ -40,7 +43,13 @@ export class NavComponent implements OnInit {
     // );
     // this.buddyService.getMe();
   }
-
+  testmail(): void {
+    this.http
+      .get<any>(this.serverService.serverUrl + '/mailtest')
+      .subscribe((retour) => {
+        console.log(retour);
+      });
+  }
   goToMyProfile(): void {
     // this.displayingElementsService.setDisplayModif(true);
     this.router.navigateByUrl('/blankprofile');

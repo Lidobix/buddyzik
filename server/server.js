@@ -18,7 +18,6 @@ import "dotenv/config";
 
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { find, throwError } from "rxjs";
 
 const app = express();
 app.use(cors());
@@ -121,7 +120,8 @@ app.get("/favicon.ico", (req, res) => {
 /////////TEST///////////////////////////
 
 app.get("/mailtest", (req, res) => {
-  const mail = mailing().catch(console.error);
+  console.log("dans le middleware mail test");
+  const mail = mailing();
   res.status(200).json("ok");
 });
 

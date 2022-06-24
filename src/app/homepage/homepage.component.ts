@@ -22,13 +22,6 @@ export class HomepageComponent implements OnInit {
     private http: HttpClient
   ) {}
 
-  testmail(): void {
-    this.http
-      .get<any>(this.serverService.serverUrl + '/mailtest')
-      .subscribe((retour) => {
-        console.log(retour);
-      });
-  }
   goToProfile(): void {
     this.router.navigateByUrl('/profile/:id');
   }
