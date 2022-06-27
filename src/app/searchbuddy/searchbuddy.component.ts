@@ -12,6 +12,7 @@ export class SearchbuddyComponent implements OnInit {
   // recommendButton: boolean = false;
   // deleteButton: boolean = false;
   allBuddies!: Buddy[];
+
   // unknownBuddies: boolean = true;
 
   constructor(private buddyService: BuddyService) {}
@@ -19,12 +20,10 @@ export class SearchbuddyComponent implements OnInit {
     this.getAllBuddies();
   }
   onInvitation(invitation: boolean) {
-    alert('invitation envoyée');
-
-    if (invitation) {
-      console.log('invitation détectée');
+    setTimeout(() => {
       this.getAllBuddies();
-    }
+    }, 500);
+    console.log('invitation détectée');
   }
 
   getAllBuddies(): void {

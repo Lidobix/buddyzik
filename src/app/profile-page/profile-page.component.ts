@@ -20,6 +20,7 @@ export class ProfilePageComponent implements OnInit {
   // buddyID!: string;
   user!: Buddy;
   myID!: string;
+  showSpinner!: boolean;
   // url: string = 'http://localhost:3100';
   constructor(
     private buddyService: BuddyService,
@@ -41,6 +42,7 @@ export class ProfilePageComponent implements OnInit {
   // }
   ngOnInit(): void {
     // this.getMe();
+    this.showSpinner = true;
     const buddyID = this.route.snapshot.params['uuid'];
 
     // console.log('this.route : ', this.route.snapshot.params['uuid']);
@@ -51,6 +53,7 @@ export class ProfilePageComponent implements OnInit {
     this.buddyService.getBuddyByID(buddyID).subscribe((value) => {
       this.buddy = value;
       console.log('utilisateur connecté : ', this.buddy);
+      this.showSpinner = false;
     });
     // this.bannierPicUrl = './assets/concert.jpeg';
     // this.profilePicUrl = './assets/profil.jpg';

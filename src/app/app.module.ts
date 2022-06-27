@@ -24,6 +24,10 @@ import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-pro
 
 import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerInterceptor } from './spinner.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PageNotFoundComponent,
     EmptyToMyProfileComponent,
     ResetPwdComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,13 +53,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
       multi: true,
     },
   ],

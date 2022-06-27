@@ -14,6 +14,7 @@ export class BuddycardComponent implements OnInit {
   @Output() invited = new EventEmitter<boolean>();
   profilePicture!: string;
   isRecommended!: boolean;
+
   constructor(
     private buddyService: BuddyService,
     private profileService: ProfileService,

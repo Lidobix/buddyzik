@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BuddyService } from '../../services/buddy.service';
 import { AuthService } from 'src/services/auth.service';
 import { Buddy } from '../models/buddy-model';
+import { ProfileService } from 'src/services/profile.service';
 
 @Component({
   selector: 'app-header',
@@ -12,14 +13,21 @@ export class HeaderComponent implements OnInit {
   logoutButton!: boolean;
   constructor(
     private buddyService: BuddyService,
-    private authService: AuthService
+    private authService: AuthService,
+    private profileService: ProfileService
   ) {}
 
   // logoutRequest(): void {
   //   this.authService.logout();
   // }
-  public logoutCommand(status: boolean): void {
-    this.logoutButton = this.buddyService.connectedUser.online;
+  // public logoutCommand(status: boolean): void {
+  //   this.logoutButton = this.buddyService.connectedUser.online;
+  // }
+
+  goToMyProfile(): void {
+    // this.displayingElementsService.setDisplayModif(true);
+    this.profileService.goToProfile(this.authService.getMyId());
+    // this.router.navigateByUrl('/blankprofile');
   }
 
   ngOnInit(): void {
