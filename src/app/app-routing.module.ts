@@ -59,11 +59,11 @@ const routes: Routes = [
     component: SearchbuddyComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'blankprofile',
-    component: EmptyToMyProfileComponent,
-    canActivate: [AuthGuard],
-  },
+  // {
+  //   path: 'blankprofile',
+  //   component: EmptyToMyProfileComponent,
+  //   canActivate: [AuthGuard],
+  // },
   {
     path: '**',
     component: PageNotFoundComponent,

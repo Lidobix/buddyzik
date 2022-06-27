@@ -10,6 +10,7 @@ moment().format();
 // import { BuddyService } from './buddy.service';
 
 import { DisplayingElementsService } from './displaying-elements.service';
+import { ProfileService } from './profile.service';
 import { ServerService } from './server.service';
 
 @Injectable({
@@ -39,7 +40,8 @@ export class AuthService implements OnInit {
     // private buddyService: BuddyService,
     private serverService: ServerService,
     private router: Router,
-    private displayingElementsService: DisplayingElementsService
+    private displayingElementsService: DisplayingElementsService,
+    private profileService: ProfileService
   ) {}
 
   // newUser!: Buddy;
@@ -113,8 +115,8 @@ export class AuthService implements OnInit {
               localStorage.setItem('uuid', authentication.user.uuid);
 
               // this.buddyService.userIdBuilder(authentication.user);
-
-              this.router.navigateByUrl('/home');
+              this.profileService.goToProfile(authentication.user.uuid);
+              // this.router.navigateByUrl('/home');
             } else {
               alert(authentication.message);
             }
@@ -152,7 +154,8 @@ export class AuthService implements OnInit {
           });
 
         if (route === '/updateprofile') {
-          this.router.navigateByUrl('/blankprofile');
+          this.profileService.goToProfile(this.getMyId());
+          // this.router.navigateByUrl('/blankprofile');
         }
         if (route === '/resetpassword') {
           this.router.navigateByUrl('/auth/login');
