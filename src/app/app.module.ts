@@ -23,7 +23,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
 
 import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +48,7 @@ import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     CookieService,
