@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 // import { authToken, createToken } from "./security.js";
 // import { passwordGenerator } from "./auth-gen.js";
 import { resetPasswordProcess } from "./auth-reset.js";
-import { updateOne } from "./manageDatas.js";
+import { fetchOne, fetchSome, updateOne } from "./manageDatas.js";
 // import { fetchDatas } from "./fetchDatas.js";
 import { invitationUpdateDataBase } from "./invitationBuddy.js";
 import { invitationRecoUpdateDataBase } from "./invitationBuddyReco.js";
@@ -736,9 +736,16 @@ app.post("/invitation", (req, res) => {
         projectionBuddyCard,
         "pending"
       );
+
+      // const contactInformation = await fetchSome(
+      return await fetchSome(
+        { uuid: { $in: [req.headers.uuid, req.body.buddyTarget] } },
+        { projection: { _id: 0, mailAddress: 1, firstName: 1, lastName: 1 } }
+      );
     }
 
-    invitationProcess().then(() => {
+    invitationProcess().then((contacts) => {
+      invitationMail(contacts);
       res.json("Votre invitation a bien été envoyée!!");
     });
   } else {

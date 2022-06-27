@@ -1,4 +1,4 @@
-import { fetchOne, updateOne } from "./manageDatas.js";
+import { fetchOne, fetchSome, updateOne } from "./manageDatas.js";
 
 export async function invitationUpdateDataBase(
   uuid1,
@@ -6,7 +6,6 @@ export async function invitationUpdateDataBase(
   projection,
   status
 ) {
-  //   await mongoClient.connect();
   try {
     const buddyToAdd = await fetchOne(
       { uuid: uuid2 },
