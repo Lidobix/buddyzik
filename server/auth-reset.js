@@ -1,4 +1,4 @@
-import { fetchOne, updateOne } from "./manageDatas.js";
+import { fetchOne, updateUno } from "./manageDatas.js";
 import { passwordGenerator } from "./auth-gen.js";
 import { lostPasswordMail } from "./mailing.js";
 import { hash, createToken } from "./security.js";
@@ -28,7 +28,7 @@ export async function resetPasswordProcess(mailAddress) {
       // On génère un nouveau token
       const newToken = createToken(uuid, newPwd);
       // On update la sécu en base:
-      await updateOne(
+      await updateUno(
         { mailAddress: mailAddress },
         {
           $set: {

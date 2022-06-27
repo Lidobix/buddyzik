@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import "dotenv/config";
-import { fetchOne } from "./manageDatas.js";
+// import { fetchOne } from "./manageDatas.js";
 import jwt from "jsonwebtoken";
 
 export const hash = (toHash) => {

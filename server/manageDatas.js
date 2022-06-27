@@ -7,7 +7,7 @@ const collection = mongoClient
   .collection(process.env.DB_COL_USER);
 
 export async function fetchOne(query, projection) {
-  console.log("on va chercher les infos....");
+  console.log("fetchOne on va chercher les infos....");
   try {
     await mongoClient.connect();
     return new Promise((resolve, reject) => {
@@ -28,8 +28,6 @@ export async function fetchSome(query, projection) {
         .find(query, projection)
         .toArray()
         .then((datas) => {
-          // datas = { host: datas[0].mailAddress, guest: datas[1].mailAddress };
-          // console.log("dans le toarray, les datas sont:", datas);
           resolve(datas);
         });
     });
@@ -38,12 +36,26 @@ export async function fetchSome(query, projection) {
   }
 }
 
-export async function updateOne(query, update) {
-  console.log("ça va promettre un update....");
+export async function updateUno(query, update) {
+  console.log("ça va promettre un updateUno....");
   try {
     await mongoClient.connect();
     return new Promise((resolve, reject) => {
       collection.updateOne(query, update).then((datas) => {
+        resolve(datas);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateSome(query, update) {
+  console.log("ça va promettre un updateSome....");
+  try {
+    await mongoClient.connect();
+    return new Promise((resolve, reject) => {
+      collection.updateMany(query, update).then((datas) => {
         resolve(datas);
       });
     });

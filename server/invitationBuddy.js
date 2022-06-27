@@ -1,4 +1,4 @@
-import { fetchOne, fetchSome, updateOne } from "./manageDatas.js";
+import { fetchOne, fetchSome, updateUno } from "./manageDatas.js";
 
 export async function invitationUpdateDataBase(
   uuid1,
@@ -15,8 +15,7 @@ export async function invitationUpdateDataBase(
     );
 
     buddyToAdd.status = status;
-
-    await updateOne(
+    await await updateUno(
       { uuid: uuid1 },
       {
         $push: {

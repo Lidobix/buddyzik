@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 // import { authToken, createToken } from "./security.js";
 // import { passwordGenerator } from "./auth-gen.js";
 import { resetPasswordProcess } from "./auth-reset.js";
-import { fetchOne, fetchSome, updateOne } from "./manageDatas.js";
+import { fetchSome } from "./manageDatas.js";
 // import { fetchDatas } from "./fetchDatas.js";
 import { invitationUpdateDataBase } from "./invitationBuddy.js";
 import { invitationRecoUpdateDataBase } from "./invitationBuddyReco.js";
@@ -19,7 +19,7 @@ import { authToken, createToken, hash, checkHash } from "../server/security.js";
 
 import { v4 as uuidv4 } from "uuid";
 import { MongoClient } from "mongodb";
-import path, { dirname } from "path";
+import path from "path";
 // import cookieParser from "cookie-parser";
 // import expressSession from "express-session";
 // import sessionFileStore from "session-file-store";
@@ -28,6 +28,7 @@ import "dotenv/config";
 
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
+import { recommendationUpdateDataBase } from "./recommendationBuddy.js";
 
 const app = express();
 app.use(cors());
@@ -1039,7 +1040,7 @@ app.post("/deletion", (req, res) => {
 });
 
 ///////////////////////////////////////////////////////////////////////////
-///////////////////////////// RECOMMENDAYION //////////////////////////////
+///////////////////////////// RECOMMENDATION //////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
 app.post("/recommendation", (req, res) => {
@@ -1049,133 +1050,137 @@ app.post("/recommendation", (req, res) => {
   );
 
   if (authToken(req.headers.token, req.headers.uuid)) {
-    async function recommendationUpdateDataBase(uuid1, uuid2) {
-      await mongoClient.connect();
-      try {
-        // On met à jour le tableau remmendedBy chez le recommandé:
-        await collection.updateOne(
-          { uuid: uuid2 },
-          { $push: { recommendedBy: uuid1 } }
-        );
-        // On met à jour le tableau recommends chez le recommandeur:
-        await collection.updateOne(
-          { uuid: uuid1 },
-          { $push: { recommends: uuid2 } }
-        );
+    async function recommendationProcess() {
+      recommendationUpdateDataBase(
+        req.headers.uuid,
+        req.body.buddyTarget,
+        projectionBuddyCard
+      );
 
-        // On met à jour le statut du recommandé chez le recommandateur
-        collection.updateOne(
-          {
-            $and: [{ uuid: uuid1 }, { "friends.uuid": uuid2 }],
-          },
-          {
-            $set: {
-              "friends.$.status": "recommendedByMe",
-            },
-          }
-        );
-        // On met à jour le tableau recommendedBy chez tous les amis du recommandé
-        collection.updateMany(
-          {
-            $and: [{}, { "friends.uuid": uuid2 }],
-          },
-          {
-            $push: {
-              "friends.$.recommendedBy": uuid1,
-            },
-          }
-        );
-        // On met à jour le tableau recommends chez tous les amis du recommandeur
-        collection.updateMany(
-          {
-            $and: [{}, { "friends.uuid": uuid1 }],
-          },
-          {
-            $push: {
-              "friends.$.recommends": uuid2,
-            },
-          }
-        );
-
-        // on extrait le buddy recommendé
-        const buddyToRecommend = await fetchBuddy(
-          { uuid: uuid2 },
-          {
-            projection: projectionBuddyCard,
-          }
-        );
-        buddyToRecommend.status = "recommended";
-        // buddyToRecommend.recommendedBy.push(uuid1);
-
-        console.log("buddyToRecommend", buddyToRecommend);
-        // on extrait la liste d'amis du recommandeur:
-
-        const extractListRecommended = await collection
-          .find(
-            {
-              uuid: uuid2,
-            },
-            {
-              projection: { _id: 0, friends_list: 1 },
-            }
-          )
-          .toArray();
-
-        const buddyListRecommended = extractListRecommended[0].friends_list;
-
-        console.log("buddyListRecommended: ", buddyListRecommended);
-        const extractListRecommendator = await collection
-          .find(
-            { uuid: uuid1 },
-
-            {
-              projection: { _id: 0, friends_list: 1 },
-            }
-          )
-          .toArray();
-
-        const buddyListRecommendator = extractListRecommendator[0].friends_list;
-
-        console.log("buddyListRecommendator: ", buddyListRecommendator);
-        // on enlève les amis communs:
-        for (let buddyToExclude of buddyListRecommended) {
-          if (buddyListRecommendator.includes(buddyToExclude)) {
-            buddyListRecommendator.splice(
-              buddyListRecommendator.indexOf(buddyToExclude),
-              1
-            );
-          }
-        }
-
-        console.log("buddyListRecommended finale: ", buddyListRecommended);
-
-        // On met à jour la liste des amis chez tous les amis sauf le recommandé
-        collection.updateMany(
-          {
-            uuid: { $in: buddyListRecommendator, $ne: uuid2 },
-          },
-
-          {
-            $push: {
-              friends: buddyToRecommend,
-              friends_list: buddyToRecommend.uuid,
-              // "friends.recommendedBy": uuid1,
-            },
-          }
-        );
-      } catch (error) {
-        console.log(error);
-      } finally {
-        // await mongoClient.close();
-      }
+      return await fetchSome(
+        { uuid: { $in: [req.headers.uuid, req.body.buddyTarget] } },
+        { projection: { _id: 0, mailAddress: 1, firstName: 1, lastName: 1 } }
+      );
     }
 
-    const updateHostDB = recommendationUpdateDataBase(
-      req.headers.uuid,
-      req.body.buddyTarget
-    );
+    recommendationProcess().then((contacts) => {
+      recommendationMail(contacts);
+      res.json("Votre recommandation a bien été envoyée!!");
+    });
 
-    res.json("Votre invitation a bien été envoyée!!");
+    // async function recommendationUpdateDataBase(uuid1, uuid2) {
+    //   await mongoClient.connect();
+    //   try {
+    //     // On met à jour le tableau remmendedBy chez le recommandé:
+    //     await collection.updateOne(
+    //       { uuid: uuid2 },
+    //       { $push: { recommendedBy: uuid1 } }
+    //     );
+    //     // On met à jour le tableau recommends chez le recommandeur:
+    //     await collection.updateOne(
+    //       { uuid: uuid1 },
+    //       { $push: { recommends: uuid2 } }
+    //     );
+    //     // On met à jour le statut du recommandé chez le recommandateur
+    //     collection.updateOne(
+    //       {
+    //         $and: [{ uuid: uuid1 }, { "friends.uuid": uuid2 }],
+    //       },
+    //       {
+    //         $set: {
+    //           "friends.$.status": "recommendedByMe",
+    //         },
+    //       }
+    //     );
+    //     // On met à jour le tableau recommendedBy chez tous les amis du recommandé
+    //     collection.updateMany(
+    //       {
+    //         $and: [{}, { "friends.uuid": uuid2 }],
+    //       },
+    //       {
+    //         $push: {
+    //           "friends.$.recommendedBy": uuid1,
+    //         },
+    //       }
+    //     );
+    //     // On met à jour le tableau recommends chez tous les amis du recommandeur
+    //     collection.updateMany(
+    //       {
+    //         $and: [{}, { "friends.uuid": uuid1 }],
+    //       },
+    //       {
+    //         $push: {
+    //           "friends.$.recommends": uuid2,
+    //         },
+    //       }
+    //     );
+    //     // on extrait le buddy recommendé
+    //     const buddyToRecommend = await fetchBuddy(
+    //       { uuid: uuid2 },
+    //       {
+    //         projection: projectionBuddyCard,
+    //       }
+    //     );
+    //     buddyToRecommend.status = "recommended";
+    //     // buddyToRecommend.recommendedBy.push(uuid1);
+    //     console.log("buddyToRecommend", buddyToRecommend);
+    //     // on extrait la liste d'amis du recommandeur:
+    //     const extractListRecommended = await collection
+    //       .find(
+    //         {
+    //           uuid: uuid2,
+    //         },
+    //         {
+    //           projection: { _id: 0, friends_list: 1 },
+    //         }
+    //       )
+    //       .toArray();
+    //     const buddyListRecommended = extractListRecommended[0].friends_list;
+    //     console.log("buddyListRecommended: ", buddyListRecommended);
+    //     const extractListRecommendator = await collection
+    //       .find(
+    //         { uuid: uuid1 },
+    //         {
+    //           projection: { _id: 0, friends_list: 1 },
+    //         }
+    //       )
+    //       .toArray();
+    //     const buddyListRecommendator = extractListRecommendator[0].friends_list;
+    //     console.log("buddyListRecommendator: ", buddyListRecommendator);
+    //     // on enlève les amis communs:
+    //     for (let buddyToExclude of buddyListRecommended) {
+    //       if (buddyListRecommendator.includes(buddyToExclude)) {
+    //         buddyListRecommendator.splice(
+    //           buddyListRecommendator.indexOf(buddyToExclude),
+    //           1
+    //         );
+    //       }
+    //     }
+    //     console.log("buddyListRecommended finale: ", buddyListRecommended);
+    //     // On met à jour la liste des amis chez tous les amis sauf le recommandé
+    //     collection.updateMany(
+    //       {
+    //         uuid: { $in: buddyListRecommendator, $ne: uuid2 },
+    //       },
+    //       {
+    //         $push: {
+    //           friends: buddyToRecommend,
+    //           friends_list: buddyToRecommend.uuid,
+    //           // "friends.recommendedBy": uuid1,
+    //         },
+    //       }
+    //     );
+    //   } catch (error) {
+    //     console.log(error);
+    //   } finally {
+    //     // await mongoClient.close();
+    //   }
+    // }
+    // const updateHostDB = recommendationUpdateDataBase(
+    //   req.headers.uuid,
+    //   req.body.buddyTarget
+    // );
+    // res.json("Votre invitation a bien été envoyée!!");
   } else {
     res.json(
       "une erreur est survenue, impossible d'effectuer cette action, contactez le service support."

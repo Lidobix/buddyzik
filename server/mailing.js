@@ -38,8 +38,18 @@ export function invitationMail(contacts) {
   sendMail(params);
 }
 
-export function recommendationMail(recipient, firstName) {
-  sendMail(recipient, subject, content, firstName);
+export function recommendationMail(contacts) {
+  const params = {
+    recipient: contacts[1].mailAddress,
+    name: contacts[1].firstName,
+    subject: "Vous avez reçu une recommendation!",
+    recommenderFirstName: contacts[0].firstName,
+    recommenderLastName: contacts[0].lastName,
+    content:
+      "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour {{params.name}} !</p></ br><p>{{params.recommenderFirstName}} {{params.recommenderLastName}} vous a recommandé auprès de ses amis!</p></ br><p>A bientôt!</p></body></html>",
+  };
+
+  sendMail(params);
 }
 
 export function sendMail(params) {

@@ -1,4 +1,4 @@
-import { fetchOne, updateOne } from "./manageDatas.js";
+import { fetchOne, updateUno } from "./manageDatas.js";
 
 export async function invitationRecoUpdateDataBase(
   recommender,
@@ -18,7 +18,7 @@ export async function invitationRecoUpdateDataBase(
     buddyToAdd.status = "pending";
     console.log("buddyToAdd : ", buddyToAdd);
 
-    await updateOne(
+    await updateUno(
       { uuid: recommended },
       {
         $push: {
@@ -28,7 +28,7 @@ export async function invitationRecoUpdateDataBase(
       }
     );
 
-    await updateOne(
+    await updateUno(
       { uuid: recommender, "friends.uuid": recommended },
       {
         $set: { "friends.$.status": "invited" },
