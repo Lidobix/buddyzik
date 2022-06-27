@@ -190,6 +190,6 @@ export class EditProfileComponent implements OnInit {
     console.log('modification du formulaire: ', this.userProfileForm);
 
     this.authService.updatehUser(this.userProfileForm, '/updateprofile');
-    this.router.navigateByUrl('/blankprofile');
+    // this.router.navigateByUrl('/blankprofile');
   }
 }

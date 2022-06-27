@@ -345,6 +345,7 @@ app.post("/updateprofile", (req, res, next) => {
           if (myNewInfos.passwordModif != "") {
             console.log("nouveau mot de passe détecté");
             myNewInfos.password = myNewInfos.passwordModif;
+
             // console.log("new pwd : ", myNewInfos);
           }
           myNewInfos.password = hash(myNewInfos.password);

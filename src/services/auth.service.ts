@@ -136,18 +136,27 @@ export class AuthService implements OnInit {
           .subscribe((res) => {
             console.log(res);
             alert(res);
-            localStorage.setItem('token', res.token);
             // if (authentication.success === true) {
             //   alert(authentication.message);
             //   localStorage.setItem('token', authentication.token);
             //   localStorage.setItem('uuid', authentication.user.uuid);
             //   // this.buddyService.userIdBuilder(authentication.user);
+            if (res.token != undefined) {
+              localStorage.setItem('token', res.token);
+            }
+
             //   this.router.navigateByUrl('/home');
             // } else {
             //   alert(authentication.message);
             // }
           });
-        this.router.navigateByUrl('/auth/login');
+
+        if (route === '/updateprofile') {
+          this.router.navigateByUrl('/blankprofile');
+        }
+        if (route === '/resetpassword') {
+          this.router.navigateByUrl('/auth/login');
+        }
       } catch (error) {
         console.log(error);
       }
