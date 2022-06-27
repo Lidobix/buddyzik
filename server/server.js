@@ -2,8 +2,8 @@ import express from "express";
 // import { Request, Response } from "express";
 import bodyParser from "body-parser";
 // import { authToken, createToken } from "./security.js";
-import { passwordGenerator } from "./password-gen.js";
-import { resetPasswordProcess } from "./resetPassword.js";
+// import { passwordGenerator } from "./auth-gen.js";
+import { resetPasswordProcess } from "./auth-reset.js";
 import { updateOne } from "./manageDatas.js";
 // import { fetchDatas } from "./fetchDatas.js";
 import {
