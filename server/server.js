@@ -661,9 +661,11 @@ app.post("/invitationfromreco", (req, res) => {
     req.body.buddyTarget
   );
   if (authToken(req.headers.token, req.headers.uuid)) {
-    invitationRecoUpdateDataBase(req.headers.uuid, req.body.buddyTarget).then(
-      res.json("Votre invitation a bien été envoyée!!")
-    );
+    invitationRecoUpdateDataBase(
+      req.headers.uuid,
+      req.body.buddyTarget,
+      projectionBuddyCard
+    ).then(res.json("Votre invitation a bien été envoyée!!"));
     // async function invitationRecoUpdateDataBase(uuid1, uuid2) {
     //   await mongoClient.connect();
     //   try {
