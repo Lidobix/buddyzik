@@ -735,48 +735,6 @@ app.post("/invitation", (req, res) => {
     invitationProcess().then(() => {
       res.json("Votre invitation a bien été envoyée!!");
     });
-
-    // async function invitationUpdateDataBase(uuid1, uuid2, status) {
-    //   await mongoClient.connect();
-    //   try {
-    //     const buddyToAdd = await fetchBuddy(
-    //       { uuid: uuid2 },
-    //       {
-    //         projection: projectionBuddyCard,
-    //       }
-    //     );
-
-    //     buddyToAdd.status = status;
-
-    //     const up1 = await collection.updateOne(
-    //       { uuid: uuid1 },
-    //       {
-    //         $push: {
-    //           friends: buddyToAdd,
-    //           friends_list: uuid2,
-    //         },
-    //       }
-    //     );
-    //   } catch (error) {
-    //   } finally {
-    //     // await mongoClient.close();
-    //   }
-    // }
-    // // On récupère l'invité et on le colle dans la liste d'amis de l'inviteur
-    // const updateHostDB = invitationUpdateDataBase(
-    //   req.headers.uuid,
-    //   req.body.buddyTarget,
-    //   "invited"
-    // );
-
-    // // On récupère l'inviteur et on le colle dans la liste d'amis de l'invité
-    // const updateGuestDB = invitationUpdateDataBase(
-    //   req.body.buddyTarget,
-    //   req.headers.uuid,
-    //   "pending"
-    // );
-
-    // res.json("Votre invitation a bien été envoyée!!");
   } else {
     res.json(
       "une erreur est survenue, impossible d'effectuer cette action, contactez le service support."
