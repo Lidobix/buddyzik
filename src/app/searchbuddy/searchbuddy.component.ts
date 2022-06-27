@@ -18,6 +18,15 @@ export class SearchbuddyComponent implements OnInit {
   ngOnInit(): void {
     this.getAllBuddies();
   }
+  onInvitation(invitation: boolean) {
+    alert('invitation envoyée');
+
+    if (invitation) {
+      console.log('invitation détectée');
+      this.getAllBuddies();
+    }
+  }
+
   getAllBuddies(): void {
     this.buddyService.getAllBuddies().subscribe((buddies) => {
       this.allBuddies = buddies;

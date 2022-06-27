@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Buddy } from '../models/buddy-model';
 import { BuddyService } from 'src/services/buddy.service';
 import { ProfileService } from 'src/services/profile.service';
@@ -11,6 +11,7 @@ import { DisplayingElementsService } from 'src/services/displaying-elements.serv
 })
 export class BuddycardComponent implements OnInit {
   @Input() buddy!: Buddy;
+  @Output() invited = new EventEmitter<boolean>();
   profilePicture!: string;
   isRecommended!: boolean;
   constructor(
@@ -21,8 +22,10 @@ export class BuddycardComponent implements OnInit {
 
   inviteBuddy() {
     console.log('this.buddy = ', this.buddy);
+
     this.buddyService.updateBuddy(this.buddy.uuid, '/invitation').subscribe();
-    this.buddy.status = 'invited';
+    this.invited.emit(true);
+    // this.buddy.status = 'invited';
   }
   inviteBuddyFromReco() {
     console.log('this.buddy = ', this.buddy);

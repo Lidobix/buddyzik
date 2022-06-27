@@ -3,6 +3,7 @@
   <app-buddycard
     *ngFor="let buddy of allBuddies"
     [buddy]="buddy"
+    (invited)="onInvitation($event)"
   ></app-buddycard>
 </div>
 <!-- <app-buddycard
