@@ -87,15 +87,15 @@ export class EditProfileComponent implements OnInit {
         {
           validators: [
             Validators.required,
-            Validators.pattern(this.authService.passwordPattern),
+            // Validators.pattern(this.authService.passwordPattern),
           ],
         },
       ],
       passwordModif: [
         '',
-        {
-          validators: [Validators.pattern(this.authService.passwordPattern)],
-        },
+        // {
+        //   validators: [Validators.pattern(this.authService.passwordPattern)],
+        // },
       ],
       mailAddress: [
         '',

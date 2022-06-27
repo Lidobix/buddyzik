@@ -136,6 +136,7 @@ export class AuthService implements OnInit {
           .subscribe((res) => {
             console.log(res);
             alert(res);
+            localStorage.setItem('token', res.token);
             // if (authentication.success === true) {
             //   alert(authentication.message);
             //   localStorage.setItem('token', authentication.token);
@@ -146,6 +147,7 @@ export class AuthService implements OnInit {
             //   alert(authentication.message);
             // }
           });
+        this.router.navigateByUrl('/auth/login');
       } catch (error) {
         console.log(error);
       }

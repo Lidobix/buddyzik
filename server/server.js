@@ -2,7 +2,10 @@ import express from "express";
 // import { Request, Response } from "express";
 import bodyParser from "body-parser";
 // import { authToken, createToken } from "./security.js";
-
+import { passwordGenerator } from "./password-gen.js";
+import { resetPasswordProcess } from "./resetPassword.js";
+import { updateOne } from "./manageDatas.js";
+// import { fetchDatas } from "./fetchDatas.js";
 import {
   registerMail,
   invitationMail,
@@ -135,12 +138,9 @@ app.get("/mailtest", (req, res) => {
 /////////////////////////////////////////////////////////
 app.get("/auth", (req, res, next) => {
   console.log("dans le middleware auth");
-  // req.session.message = "neeeeeeeeeewww";
-  // console.log("ma session : ", req.session);
 
-  // console.log("token: ", req.headers.token);
   console.log("authToken: ", authToken(req.headers.token));
-  // const checked = ;
+
   res.status(200).json(authToken(req.headers.token));
 });
 
@@ -167,7 +167,7 @@ app.post("/login", (req, res) => {
 
       const buddy = await collection.findOne({ mailAddress: user.mailAddress });
       // console.log("buddy : ", buddy);
-      const newToken = createToken(buddy).toString();
+      const newToken = createToken(buddy.uuid, hash(buddy.password)).toString();
       // console.log("newtoken: ", newToken);
       await collection.updateOne(
         { mailAddress: user.mailAddress },
@@ -250,7 +250,10 @@ app.post("/register", (req, res) => {
           recommends: [],
         };
 
-        const newToken = createToken(newBuddy).toString();
+        const newToken = createToken(
+          newBuddy.uuid,
+          newBuddy.password
+        ).toString();
         newBuddy.token = newToken;
         const thankYou = registerMail(newBuddy.mailAddress, newBuddy.firstName);
 
@@ -301,6 +304,7 @@ app.post("/updateprofile", (req, res, next) => {
   // console.log("new profile:", req.body);
   const myNewInfos = req.body;
   console.log("newInformations:", myNewInfos);
+  // const auth = await authToken(req.headers.token, req.headers.uuid)
   if (authToken(req.headers.token)) {
     async function checkInformations() {
       try {
@@ -339,10 +343,12 @@ app.post("/updateprofile", (req, res, next) => {
           console.log("c'est tout bon!!!! on peut soumettre");
           // si le nouveau mdp est présent, on le crypte, on récupère la dats et on l'envoie en base
           if (myNewInfos.passwordModif != "") {
+            console.log("nouveau mot de passe détecté");
             myNewInfos.password = myNewInfos.passwordModif;
             // console.log("new pwd : ", myNewInfos);
           }
           myNewInfos.password = hash(myNewInfos.password);
+          const newToken = createToken(req.headers.uuid, myNewInfos.password);
 
           collection.updateOne(
             {
@@ -378,7 +384,9 @@ app.post("/updateprofile", (req, res, next) => {
               },
             }
           );
-          res.status(200).json("Modifications enregistrées!");
+          res
+            .status(200)
+            .json({ message: "Modifications enregistrées!", token: newToken });
           // console.log("infos à jour : ", myNewInfos);
           //
 
@@ -394,7 +402,9 @@ app.post("/updateprofile", (req, res, next) => {
       console.log("test pwd");
 
       if (!checkHash(toCheck, reference)) {
-        res.json("Mot de passe incorrect");
+        res.json(
+          "Mot de passe incorrect , on ne peut pas faire la modification du profil"
+        );
         return false;
       } else {
         console.log("pasword ok");
@@ -419,26 +429,6 @@ app.post("/updateprofile", (req, res, next) => {
       }
     };
 
-    async function updateProfile() {
-      try {
-        await mongoClient.connect();
-        await collection.findOne(
-          {
-            uuid: req.headers.uuid,
-          },
-          {
-            projection: {
-              _id: 0,
-              password: 1,
-              mailAddress: 1,
-            },
-          }
-        );
-      } catch (error) {
-        console.log(error);
-      } finally {
-      }
-    }
     checkInformations();
   } else {
     res.json("Impossible de vous authentifier!");
@@ -452,8 +442,8 @@ app.get("/myinformations", (req, res, next) => {
   console.log("dans le middleware myinformations");
   // console.log("reqbody", req.body);
 
-  if (authToken(req.headers.token)) {
-    console.log("token authentifié");
+  if (authToken(req.headers.token, req.headers.uuid)) {
+    // console.log("token authentifié");
     async function fetchMyInformations() {
       try {
         await mongoClient.connect();
@@ -465,7 +455,6 @@ app.get("/myinformations", (req, res, next) => {
           },
           {
             projection: {
-              _id: 0,
               login: 1,
               mailAddress: 1,
               firstName: 1,
@@ -506,8 +495,8 @@ app.get("/myinformations", (req, res, next) => {
 //////////////////////// SEND BY ID ////////////////////////
 /////////////////////////////////////////////////////////
 app.post("/buddybyid", (req, res, next) => {
-  if (authToken(req.headers.token)) {
-    console.log("req.body.buddyTarget : ", req.body.buddyTarget);
+  if (authToken(req.headers.token, req.headers.uuid)) {
+    // console.log("req.body.buddyTarget : ", req.body.buddyTarget);
     async function sendBuddy(buddyTarget) {
       try {
         await mongoClient.connect();
@@ -515,7 +504,7 @@ app.post("/buddybyid", (req, res, next) => {
           { uuid: buddyTarget },
           { projection: projectionBuddyCard }
         );
-        console.log("buddyToSend = ", buddyToSend);
+        // console.log("buddyToSend = ", buddyToSend);
         res.status(200).json(buddyToSend);
       } catch (error) {
         console.log(error);
@@ -532,7 +521,7 @@ app.post("/buddybyid", (req, res, next) => {
 app.get("/allbuddies", (req, res, next) => {
   console.log("dans le middleware allbuddies");
   // console.log("reqbody", req.body);
-  if (authToken(req.headers.token)) {
+  if (authToken(req.headers.token, req.headers.uuid)) {
     console.log("token authentifié");
     async function fetchAllBuddies() {
       try {
@@ -547,7 +536,6 @@ app.get("/allbuddies", (req, res, next) => {
             },
             {
               projection: {
-                _id: 0,
                 friends_list: 1,
               },
             }
@@ -613,7 +601,7 @@ app.get("/fetchmybuddies", (req, res) => {
   console.log("dans le middleware fetchmybuddies");
   // console.log("req.headers.token = ", req.headers.token);
 
-  if (authToken(req.headers.token)) {
+  if (authToken(req.headers.token, req.headers.uuid)) {
     async function fetchMyBuddies() {
       try {
         await mongoClient.connect();
@@ -653,7 +641,7 @@ app.get("/fetchmybuddies", (req, res) => {
 
 app.get("/mongoff", (req, res) => {
   console.log("fermeture mongo....", req.headers.token);
-  if (authToken(req.headers.token)) {
+  if (authToken(req.headers.token, req.headers.uuid)) {
     mongoClient.close();
   }
 });
@@ -666,7 +654,7 @@ app.post("/invitationfromreco", (req, res) => {
     "dans le middleware invitation reco, guest = ",
     req.body.buddyTarget
   );
-  if (authToken(req.headers.token)) {
+  if (authToken(req.headers.token, req.headers.uuid)) {
     async function invitationRecoUpdateDataBase(uuid1, uuid2) {
       await mongoClient.connect();
       try {
@@ -723,7 +711,7 @@ app.post("/invitationfromreco", (req, res) => {
 app.post("/invitation", (req, res) => {
   console.log("dans le middleware invitation, guest = ", req.body.buddyTarget);
 
-  if (authToken(req.headers.token)) {
+  if (authToken(req.headers.token, req.headers.uuid)) {
     async function invitationUpdateDataBase(uuid1, uuid2, status) {
       await mongoClient.connect();
       try {
@@ -782,7 +770,7 @@ app.post("/confirmation", (req, res) => {
     req.body.buddyTarget
   );
 
-  if (authToken(req.headers.token)) {
+  if (authToken(req.headers.token, req.headers.uuid)) {
     async function confirmationUpdateDataBase(uuid1, uuid2) {
       console.log("confirmation d'acceptation");
       await mongoClient.connect();
@@ -840,11 +828,7 @@ app.post("/confirmation", (req, res) => {
           .find(
             { uuid: uuid1 },
             {
-              projection: {
-                _id: 0,
-                login: 1,
-                friends_list: 1,
-              },
+              projection: { _id: 0, login: 1, friends_list: 1 },
             }
           )
           .toArray();
@@ -949,110 +933,110 @@ app.post("/confirmation", (req, res) => {
 app.post("/deletion", (req, res) => {
   console.log("dans le middleware deletion, guest = ", req.body.buddyTarget);
 
-  if (authToken(req.headers.token)) {
-    async function deletionRecommendationDataBase(uuid1, uuid2) {
-      try {
-        await mongoClient.connect();
+  // if (authToken(req.headers.token, req.headers.uuid)) {
+  //   async function deletionRecommendationDataBase(uuid1, uuid2) {
+  //     try {
+  //       await mongoClient.connect();
 
-        // supprimer les recommandations
-        // checker si le buddy supprimé est dans la mliste de recommandés
+  //       // supprimer les recommandations
+  //       // checker si le buddy supprimé est dans la mliste de recommandés
 
-        // Il faut le retirer de tous les amis chez qui il est en statut recommandé et uniquement par moi
+  //       // Il faut le retirer de tous les amis chez qui il est en statut recommandé et uniquement par moi
 
-        await updateBuddy(
-          { uuid: uuid1 },
-          { $pull: { recommends: uuid2, recommendedBy: uuid2 } }
-        );
-        await updateBuddy(
-          { uuid: uuid2 },
-          { $pull: { recommends: uuid1, recommendedBy: uuid1 } }
-        );
+  //       await updateBuddy(
+  //         { uuid: uuid1 },
+  //         { $pull: { recommends: uuid2, recommendedBy: uuid2 } }
+  //       );
+  //       await updateBuddy(
+  //         { uuid: uuid2 },
+  //         { $pull: { recommends: uuid1, recommendedBy: uuid1 } }
+  //       );
 
-        // - si il est recommendé par moi uniquement: on supprime sa présence dans chaque ami.
-        await collection
-          .updateMany(
-            {},
-            {
-              $pull: {
-                friends: {
-                  $and: [
-                    { uuid: uuid2 },
-                    { status: "recommended" },
-                    { recommendedBy: { $size: 1 } },
-                  ],
-                },
-                friends_list: uuid2,
-              },
-            }
-          )
-          .then(
-            // Ensuite je supprime ma recommandation de chez tous mes amis qui ont mon recommandé en ami:
-            collection.updateMany(
-              {
-                $and: [
-                  {},
-                  { "friends.uuid": uuid2 },
-                  // { "friends.status": "confirmed" },
-                ],
-              },
-              {
-                $pull: { "friends.$.recommendedBy": uuid1 },
-              }
-            )
-          ) // je supprime chez tous les gens qui m'ont en ami ma recommandation
-          .then(
-            collection.updateMany(
-              { $and: [{}, { "friends.uuid": uuid1 }] },
-              {
-                $pull: {
-                  "friends.$.recommends": uuid2,
-                },
-              }
-            )
-          );
-      } catch (error) {
-        console.log(error);
-      }
-    }
+  //       // - si il est recommendé par moi uniquement: on supprime sa présence dans chaque ami.
+  //       await collection
+  //         .updateMany(
+  //           {},
+  //           {
+  //             $pull: {
+  //               friends: {
+  //                 $and: [
+  //                   { uuid: uuid2 },
+  //                   { status: "recommended" },
+  //                   { recommendedBy: { $size: 1 } },
+  //                 ],
+  //               },
+  //               friends_list: uuid2,
+  //             },
+  //           }
+  //         )
+  //         .then(
+  //           // Ensuite je supprime ma recommandation de chez tous mes amis qui ont mon recommandé en ami:
+  //           collection.updateMany(
+  //             {
+  //               $and: [
+  //                 {},
+  //                 { "friends.uuid": uuid2 },
+  //                 // { "friends.status": "confirmed" },
+  //               ],
+  //             },
+  //             {
+  //               $pull: { "friends.$.recommendedBy": uuid1 },
+  //             }
+  //           )
+  //         ) // je supprime chez tous les gens qui m'ont en ami ma recommandation
+  //         .then(
+  //           collection.updateMany(
+  //             { $and: [{}, { "friends.uuid": uuid1 }] },
+  //             {
+  //               $pull: {
+  //                 "friends.$.recommends": uuid2,
+  //               },
+  //             }
+  //           )
+  //         );
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
 
-    const deleteReco = deletionRecommendationDataBase(
-      req.headers.uuid,
-      req.body.buddyTarget
-    );
+  //   const deleteReco = deletionRecommendationDataBase(
+  //     req.headers.uuid,
+  //     req.body.buddyTarget
+  //   );
 
-    async function deletionUpdateDataBase(uuid1, uuid2) {
-      try {
-        await mongoClient.connect();
+  //   async function deletionUpdateDataBase(uuid1, uuid2) {
+  //     try {
+  //       await mongoClient.connect();
 
-        // on supprime cet ami de ma liste et moi de la sienne:
-        collection.updateMany(
-          { uuid: { $in: [uuid1, uuid2] } },
-          {
-            $pull: {
-              friends: {
-                $or: [{ uuid: { $eq: uuid1 } }, { uuid: { $eq: uuid2 } }],
-              },
-              friends_list: { $in: [uuid1, uuid2] },
-            },
-          }
-        );
-      } catch (error) {
-      } finally {
-        // await mongoClient.close();
-      }
-    }
+  //       // on supprime cet ami de ma liste et moi de la sienne:
+  //       collection.updateMany(
+  //         { uuid: { $in: [uuid1, uuid2] } },
+  //         {
+  //           $pull: {
+  //             friends: {
+  //               $or: [{ uuid: { $eq: uuid1 } }, { uuid: { $eq: uuid2 } }],
+  //             },
+  //             friends_list: { $in: [uuid1, uuid2] },
+  //           },
+  //         }
+  //       );
+  //     } catch (error) {
+  //     } finally {
+  //       // await mongoClient.close();
+  //     }
+  //   }
 
-    const updateHostDB = deletionUpdateDataBase(
-      req.headers.uuid,
-      req.body.buddyTarget
-    );
+  //   const updateHostDB = deletionUpdateDataBase(
+  //     req.headers.uuid,
+  //     req.body.buddyTarget
+  //   );
 
-    res.json("Votre suppression a bien été effectuée!!");
-  } else {
-    res.json(
-      "une erreur est survenue, impossible d'effectuer cette action, contactez le service support."
-    );
-  }
+  //   res.json("Votre suppression a bien été effectuée!!");
+  // } else {
+  //   res.json(
+  //     "une erreur est survenue, impossible d'effectuer cette action, contactez le service support."
+  //   );
+  // }
 
   // On fetche les 2 buddy
 
@@ -1069,7 +1053,7 @@ app.post("/recommendation", (req, res) => {
     req.body.buddyTarget
   );
 
-  if (authToken(req.headers.token)) {
+  if (authToken(req.headers.token, req.headers.uuid)) {
     async function recommendationUpdateDataBase(uuid1, uuid2) {
       await mongoClient.connect();
       try {
@@ -1137,10 +1121,7 @@ app.post("/recommendation", (req, res) => {
               uuid: uuid2,
             },
             {
-              projection: {
-                _id: 0,
-                friends_list: 1,
-              },
+              projection: { _id: 0, friends_list: 1 },
             }
           )
           .toArray();
@@ -1153,10 +1134,7 @@ app.post("/recommendation", (req, res) => {
             { uuid: uuid1 },
 
             {
-              projection: {
-                _id: 0,
-                friends_list: 1,
-              },
+              projection: { _id: 0, friends_list: 1 },
             }
           )
           .toArray();
@@ -1216,11 +1194,11 @@ app.post("/recommendation", (req, res) => {
 
 app.post("/resetpassword", (req, res) => {
   console.log("dans le middleware reste password");
-  // console.log(req.body);
 
-  // console.log("buddy à aider: ", buddy);
-  const nevermind = lostPasswordMail(req.body.mailAddress);
-  res.status(200).json("Un mail vous a été envoyé.");
+  resetPasswordProcess(req.body.mailAddress).then((response) => {
+    console.log("response = ", response);
+    res.status(response.status).json(response.json);
+  });
 });
 
 //////////////////////////////////////////////

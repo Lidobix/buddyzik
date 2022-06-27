@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import "dotenv/config";
+import { fetchOne } from "./manageDatas.js";
 import jwt from "jsonwebtoken";
 
 export const hash = (toHash) => {
@@ -13,39 +14,32 @@ export const checkHash = (toCheck, reference) => {
   return bcrypt.compareSync(toCheck, reference);
 };
 
-export const createToken = (buddy) => {
+export const createToken = (uuid, password) => {
+  // le pwd est crypté quand il arrive ici
   return jwt.sign(
     {
-      mailAddress: buddy.password,
+      // mailAddress: buddy.password,
+      id: uuid,
     },
     process.env.JWT_PRIVATE_KEY,
-    // process.env.KEY || key,
     {
       // expiresIn: 3600,
-      subject: buddy.uuid,
+      // subject: buddy.uuid,
+      subject: password,
     }
   );
 };
 
-export const authToken = (token) => {
-  // console.log("je checke le token)");
-  // console.log(token != undefined);
-  if (token != undefined) {
-    try {
-      // if (jwt.verify(token, process.env.KEY || key)) {
-      if (jwt.verify(token, process.env.JWT_PRIVATE_KEY)) {
-        // console.log("le token est valide");
-        return true;
-      } else {
-        // console.log("le token est non valide");
-        return false;
-      }
-    } catch (error) {
-      console.log("problème de token");
+export function authToken(token, uuid) {
+  try {
+    if (jwt.verify(token, process.env.JWT_PRIVATE_KEY)) {
+      return true;
+    } else {
+      console.log("le token est non valide");
       return false;
     }
-  } else {
-    console.log("le token est undefined");
+  } catch (error) {
+    console.log("problème de token");
     return false;
   }
-};
+}
