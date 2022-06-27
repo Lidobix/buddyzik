@@ -21,7 +21,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+
+import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     LoginPageComponent,
     PageNotFoundComponent,
     EmptyToMyProfileComponent,
-    ResetPasswordComponent,
+    ResetPwdComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,8 +9,8 @@ import { SearchbuddyComponent } from './searchbuddy/searchbuddy.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guards';
-import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+
+import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
 
 const routes: Routes = [
   {
@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'lostpassword',
-    component: ResetPasswordComponent,
+    component: ResetPwdComponent,
     // canActivate: [AuthGuard],
   },
   {

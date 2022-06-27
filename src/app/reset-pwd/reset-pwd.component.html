@@ -1,0 +1,17 @@
+<div>
+  <h2>MOT DE PASSE PERDU</h2>
+  <form [formGroup]="resetPasswordForm">
+    <label for="mailAddress"
+      >Renseignez l'adresse mail associée à votre compte BuddyZik, nous allons
+      vous envoyer un mail contenant un lien à suivre pour réinitialiser votre
+      mot de passe.</label
+    >
+    <br />
+    <br />
+    <input type="text" id="mailInput" formControlName="mailAddress" />
+    <br />
+    <br />
+
+    <button type="submit" (click)="onSubmitResetForm()">Réinitialiser</button>
+  </form>
+</div>
