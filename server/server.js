@@ -7,6 +7,7 @@ import { resetPasswordProcess } from "./auth-reset.js";
 import { updateOne } from "./manageDatas.js";
 // import { fetchDatas } from "./fetchDatas.js";
 import { invitationUpdateDataBase } from "./invitationBuddy.js";
+import { invitationRecoUpdateDataBase } from "./invitationBuddyReco.js";
 import {
   registerMail,
   invitationMail,
@@ -523,8 +524,8 @@ app.post("/buddybyid", (req, res, next) => {
 ///////////////////////////////////////////////////////////////////////////
 app.get("/allbuddies", (req, res, next) => {
   console.log("dans le middleware allbuddies");
-  console.log("reqbody", req.body);
-  console.log("reqheaders", req.headers);
+  // console.log("reqbody", req.body);
+  // console.log("reqheaders", req.headers);
 
   if (authToken(req.headers.token, req.headers.uuid)) {
     console.log("token authentifié");
@@ -660,48 +661,51 @@ app.post("/invitationfromreco", (req, res) => {
     req.body.buddyTarget
   );
   if (authToken(req.headers.token, req.headers.uuid)) {
-    async function invitationRecoUpdateDataBase(uuid1, uuid2) {
-      await mongoClient.connect();
-      try {
-        // On récupère ma carte:
-        const buddyToAdd = await fetchBuddy(
-          { uuid: uuid1 },
-          {
-            projection: projectionBuddyCard,
-          }
-        );
-
-        buddyToAdd.status = "pending";
-
-        const up1 = await collection.updateOne(
-          { uuid: uuid2 },
-          {
-            $push: {
-              friends: buddyToAdd,
-              friends_list: uuid1,
-            },
-          }
-        );
-
-        const up3 = await collection.updateOne(
-          { uuid: uuid1, "friends.uuid": uuid2 },
-          {
-            $set: { "friends.$.status": "invited" },
-          }
-        );
-      } catch (error) {
-      } finally {
-        // await mongoClient.close();
-      }
-    }
-    // On récupère l'invité et on le colle dans la liste d'amis de l'inviteur
-    const updateHostDB = invitationRecoUpdateDataBase(
-      req.headers.uuid,
-      req.body.buddyTarget,
-      "invited"
+    invitationRecoUpdateDataBase(req.headers.uuid, req.body.buddyTarget).then(
+      res.json("Votre invitation a bien été envoyée!!")
     );
+    // async function invitationRecoUpdateDataBase(uuid1, uuid2) {
+    //   await mongoClient.connect();
+    //   try {
+    //     // On récupère ma carte:
+    //     const buddyToAdd = await fetchBuddy(
+    //       { uuid: uuid1 },
+    //       {
+    //         projection: projectionBuddyCard,
+    //       }
+    //     );
 
-    res.json("Votre invitation a bien été envoyée!!");
+    //     buddyToAdd.status = "pending";
+
+    //     const up1 = await collection.updateOne(
+    //       { uuid: uuid2 },
+    //       {
+    //         $push: {
+    //           friends: buddyToAdd,
+    //           friends_list: uuid1,
+    //         },
+    //       }
+    //     );
+
+    //     const up3 = await collection.updateOne(
+    //       { uuid: uuid1, "friends.uuid": uuid2 },
+    //       {
+    //         $set: { "friends.$.status": "invited" },
+    //       }
+    //     );
+    //   } catch (error) {
+    //   } finally {
+    //     // await mongoClient.close();
+    //   }
+    // }
+    // // On récupère l'invité et on le colle dans la liste d'amis de l'inviteur
+    // const updateHostDB = invitationRecoUpdateDataBase(
+    //   req.headers.uuid,
+    //   req.body.buddyTarget,
+    //   "invited"
+    // );
+
+    // res.json("Votre invitation a bien été envoyée!!");
   } else {
     res.json(
       "une erreur est survenue, impossible d'effectuer cette action, contactez le service support."
