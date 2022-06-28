@@ -40,9 +40,10 @@ export class Buddy {
     public singer: string,
     public pro: string,
     public status: string,
-    public deletable: boolean //     public config: { //   addable: boolean; //   acceptable: boolean;
-  ) //   rejectable: boolean;
-  //   recommendable: boolean;
+    public style: string,
+    public group: string,
+    public deletable: boolean //     public config: { //   addable: boolean; //   acceptable: boolean; //   rejectable: boolean;
+  ) //   recommendable: boolean;
   //   deletable: boolean;
   //   status: string;
   // }

@@ -37,6 +37,7 @@ export class BuddycardComponent implements OnInit {
     this.buddy.status = 'invited';
   }
   goToBuddyProfile() {
+    console.log('aller voir ', this.buddy.firstName);
     this.profileService.goToProfile(this.buddy.uuid);
   }
   deleteBuddy() {

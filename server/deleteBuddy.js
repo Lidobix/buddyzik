@@ -1,8 +1,8 @@
-import { fetchOne } from "./manageDatas.js";
+import { fetchOne, updateSome } from "./manageDatas.js";
 
 async function deletionRecommendationDataBase(uuid1, uuid2) {
   try {
-    await mongoClient.connect();
+    // await mongoClient.connect();
 
     // supprimer les recommandations
     // checker si le buddy supprimé est dans la mliste de recommandés
@@ -19,25 +19,24 @@ async function deletionRecommendationDataBase(uuid1, uuid2) {
     );
 
     // - si il est recommendé par moi uniquement: on supprime sa présence dans chaque ami.
-    await collection
-      .updateMany(
-        {},
-        {
-          $pull: {
-            friends: {
-              $and: [
-                { uuid: uuid2 },
-                { status: "recommended" },
-                { recommendedBy: { $size: 1 } },
-              ],
-            },
-            friends_list: uuid2,
+    await updateSome(
+      {},
+      {
+        $pull: {
+          friends: {
+            $and: [
+              { uuid: uuid2 },
+              { status: "recommended" },
+              { recommendedBy: { $size: 1 } },
+            ],
           },
-        }
-      )
+          friends_list: uuid2,
+        },
+      }
+    )
       .then(
         // Ensuite je supprime ma recommandation de chez tous mes amis qui ont mon recommandé en ami:
-        collection.updateMany(
+        updateSome(
           {
             $and: [
               {},
@@ -51,7 +50,7 @@ async function deletionRecommendationDataBase(uuid1, uuid2) {
         )
       ) // je supprime chez tous les gens qui m'ont en ami ma recommandation
       .then(
-        collection.updateMany(
+        updateSome(
           { $and: [{}, { "friends.uuid": uuid1 }] },
           {
             $pull: {
@@ -72,10 +71,10 @@ async function deletionRecommendationDataBase(uuid1, uuid2) {
 
 async function deletionUpdateDataBase(uuid1, uuid2) {
   try {
-    await mongoClient.connect();
+    // await mongoClient.connect();
 
     // on supprime cet ami de ma liste et moi de la sienne:
-    collection.updateMany(
+    updateSome(
       { uuid: { $in: [uuid1, uuid2] } },
       {
         $pull: {
@@ -97,7 +96,7 @@ async function deletionUpdateDataBase(uuid1, uuid2) {
 //     req.body.buddyTarget
 //   );
 
-res.json("Votre suppression a bien été effectuée!!");
+// res.json("Votre suppression a bien été effectuée!!");
 
 // On fetche les 2 buddy
 
@@ -105,7 +104,7 @@ res.json("Votre suppression a bien été effectuée!!");
 
 export async function deletionBuddyProcess(uuid1, uuid2) {
   // const deleteReco = await deletionRecommendationDataBase(
-
+  console.log("suppression en cours");
   try {
     await deletionRecommendationDataBase(
       uuid1,

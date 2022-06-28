@@ -24,7 +24,9 @@ width:200px;
     padding: 10px;
     // width: 220px;
 
-
+a{
+    outline: none;
+}
     #imgCardContainer{ 
         // width: 200px; 
         margin:auto; 
@@ -50,11 +52,14 @@ width:200px;
 text-align: center;
 margin-top: 5px;
 
-        p{
+
+        // p{
+            
+            text-overflow: ellipsis;
             font-weight:600;
             font-size:large
 
-        }
+        // }
     }
 
     .action{

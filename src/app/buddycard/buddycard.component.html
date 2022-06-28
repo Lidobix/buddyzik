@@ -8,25 +8,22 @@
     <img [src]="profilePicture" alt="" />
   </div>
 
-  <div class="id">
-    <p>{{ buddy.firstName }} {{ buddy.lastName }}</p>
-  </div>
-  <div class="status">
-    <p *ngIf="buddy.status == 'pending'">Attend une réponse de votre part...</p>
-    <p *ngIf="buddy.status == 'invited'">En attente d'une réponse...</p>
-    <p *ngIf="buddy.status == 'recommended'">On vous recommande chaudement:</p>
-    <p *ngIf="buddy.status == 'recommendedByMe'">Vous avez recommandé:</p>
-  </div>
+  <div class="id">{{ buddy.firstName }} {{ buddy.lastName }}</div>
   <div class="info">
-    <p>Instrument: {{ buddy.instrument }}</p>
+    <p>{{ buddy.instrument }} - {{ buddy.style }}</p>
     <p *ngIf="buddy.pro">Professionnel</p>
     <p *ngIf="!buddy.pro">Amateur - loisir</p>
-    <!-- <p *ngIf="buddy.group">Groupe: {{ buddy.group }}</p>
-    <p *ngIf="!buddy.group">Groupe: -</p> -->
+    <p *ngIf="buddy.group">Groupe: {{ buddy.group }}</p>
+    <p *ngIf="!buddy.group">Solo</p>
   </div>
 
-  <p *ngIf="buddy.status == 'deletion'">Suppression en cours...</p>
-
+  <div class="status">
+    <p *ngIf="buddy.status == 'pending'">Vous a invité.</p>
+    <p *ngIf="buddy.status == 'invited'">Invitation en cours.</p>
+    <p *ngIf="buddy.status == 'recommended'">On vous recommande chaudement:</p>
+    <p *ngIf="buddy.status == 'recommendedByMe'">Vous avez recommandé:</p>
+    <p *ngIf="buddy.status == 'deletion'">Suppression en cours...</p>
+  </div>
   <div class="action">
     <button *ngIf="buddy.status == 'unknown'" (click)="inviteBuddy()">
       Inviter
@@ -45,7 +42,7 @@
       Profil
     </button>
     <button *ngIf="buddy.status == 'confirmed'" (click)="recommendBuddy()">
-      Recommander
+      YEAH!
     </button>
 
     <button *ngIf="buddy.status == 'pending'" (click)="confirmBuddy()">

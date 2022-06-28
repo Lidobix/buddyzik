@@ -1,7 +1,6 @@
 import { fetchOne, fetchSome, updateSome, updateUno } from "./manageDatas.js";
 
 export async function recommendationUpdateDataBase(uuid1, uuid2, projection) {
-  //   await mongoClient.connect();
   try {
     // On met à jour le tableau remmendedBy chez le recommandé:
     await updateUno({ uuid: uuid2 }, { $push: { recommendedBy: uuid1 } });
@@ -50,7 +49,6 @@ export async function recommendationUpdateDataBase(uuid1, uuid2, projection) {
       }
     );
     buddyToRecommend.status = "recommended";
-    // buddyToRecommend.recommendedBy.push(uuid1);
 
     console.log("buddyToRecommend", buddyToRecommend);
     // on extrait la liste d'amis du recommandeur:
@@ -63,7 +61,6 @@ export async function recommendationUpdateDataBase(uuid1, uuid2, projection) {
         projection: { _id: 0, friends_list: 1 },
       }
     );
-    //   .toArray();
 
     const buddyListRecommended = extractListRecommended[0].friends_list;
 
@@ -75,7 +72,6 @@ export async function recommendationUpdateDataBase(uuid1, uuid2, projection) {
         projection: { _id: 0, friends_list: 1 },
       }
     );
-    //   .toArray();
 
     const buddyListRecommendator = extractListRecommendator[0].friends_list;
 
@@ -102,20 +98,10 @@ export async function recommendationUpdateDataBase(uuid1, uuid2, projection) {
         $push: {
           friends: buddyToRecommend,
           friends_list: buddyToRecommend.uuid,
-          // "friends.recommendedBy": uuid1,
         },
       }
     );
   } catch (error) {
     console.log(error);
-  } finally {
-    // await mongoClient.close();
   }
 }
-
-// const updateHostDB = recommendationUpdateDataBase(
-//     req.headers.uuid,
-//     req.body.buddyTarget
-//   );
-
-//   res.json("Votre invitation a bien été envoyée!!");

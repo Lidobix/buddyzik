@@ -30,6 +30,13 @@ export class AuthService implements OnInit {
     'svg',
     'gif',
     'webp',
+    'JPG',
+    'JPEG',
+    'PNG',
+    'BMP',
+    'SVG',
+    'GIF',
+    'WEBP',
   ];
   passwordPattern: string =
     '^[^<>](?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).*[^<>]$';

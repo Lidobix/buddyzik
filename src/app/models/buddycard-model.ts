@@ -7,6 +7,8 @@ export class BuddyCard {
     public deletable: boolean,
     public addable: boolean,
     public recommendable: boolean,
-    public status: string
+    public status: string,
+    public style: string,
+    public group: string
   ) {}
 }
