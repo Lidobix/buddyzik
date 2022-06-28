@@ -1,5 +1,12 @@
 .buddyList{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 70%;
+    margin: auto;
+    padding:20px;
+    // flex-basis: 30%;
+    // display: grid;
+    // grid-template-columns: 1fr 1fr 1fr;
+    // gap: 10px;
 }
