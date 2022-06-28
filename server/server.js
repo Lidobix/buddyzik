@@ -25,11 +25,10 @@ import path from "path";
 // import sessionFileStore from "session-file-store";
 
 import "dotenv/config";
-
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { recommendationUpdateDataBase } from "./recommendationBuddy.js";
-
+import cloudinary from "cloudinary";
 const app = express();
 app.use(cors());
 
@@ -224,6 +223,7 @@ app.post("/register", (req, res) => {
         mailAddress: newUser.mailAddress,
       });
       console.log("resultat de la recherche: ", result);
+      console.log(cloudinary.config().buddyzik);
 
       if (result === null) {
         const newBuddy = {
@@ -253,12 +253,33 @@ app.post("/register", (req, res) => {
           recommends: [],
         };
 
+        // const thumb = 3;
+        // await cloudinary.image(newUser.profilePicture, {
+        //   height: 200,
+        //   width: 200,
+        //   crop: "fit",
+        // });
+
+        // console.log("thumb = ", thumb);
+
+        await cloudinary.v2.uploader
+          .upload(newUser.profilePicture, {
+            ressource: "image",
+            eager: [{ width: 200, height: 200, crop: "fill", gravity: "face" }],
+          })
+          .then((result) => {
+            newBuddy.profilePicture = result.eager[0].secure_url;
+            // console.log("newBuddy.profilePicture", newBuddy.profilePicture);
+          })
+          .catch((error) => {
+            console.log("error", JSON.stringify(error, null, 2));
+          });
         const newToken = createToken(
           newBuddy.uuid,
           newBuddy.password
         ).toString();
         newBuddy.token = newToken;
-        const thankYou = registerMail(newBuddy.mailAddress, newBuddy.firstName);
+        registerMail(newBuddy.mailAddress, newBuddy.firstName);
 
         // console.log("newBuddy: ", newBuddy);
         // console.log("newBuddyToClient: ", newBuddyToClient);

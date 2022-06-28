@@ -20,6 +20,7 @@ export class EditProfileComponent implements OnInit {
   userProfileForm!: FormGroup;
   previewProfilePic!: string;
   displayCreationMode!: boolean;
+
   // controlsFormList: string[] = [
   //   'login',
   //   'password',
@@ -79,14 +80,16 @@ export class EditProfileComponent implements OnInit {
       login: [
         null,
         {
-          validators: [Validators.required, Validators.minLength(3)],
+          validators: [
+            // Validators.required, Validators.minLength(3)
+          ],
         },
       ],
       password: [
         '',
         {
           validators: [
-            Validators.required,
+            // Validators.required,
             // Validators.pattern(this.authService.passwordPattern),
           ],
         },
@@ -99,40 +102,62 @@ export class EditProfileComponent implements OnInit {
       ],
       mailAddress: [
         '',
-        { validators: [Validators.required, Validators.email] },
+        {
+          validators: [
+            // Validators.required, Validators.email
+          ],
+        },
       ],
       firstName: [
         null,
         {
-          validators: [Validators.required],
+          validators: [
+            // Validators.required
+          ],
         },
       ],
       lastName: [
         null,
         {
-          validators: [Validators.required],
+          validators: [
+            // Validators.required
+          ],
         },
       ],
       birthDate: [
         '',
         {
           validators: [
-            Validators.required,
-            ageValidator(this.authService.minimumAge),
+            // Validators.required,
+            // ageValidator(this.authService.minimumAge),
           ],
         },
       ],
       location: [
         null,
         {
-          validators: [Validators.required],
+          validators: [
+            // Validators.required
+          ],
         },
       ],
-      gender: [null, Validators.required],
+      gender: [
+        null,
+        // Validators.required
+      ],
 
-      instrument: [null, Validators.required],
-      singer: [null, Validators.required],
-      pro: [null, Validators.required],
+      instrument: [
+        null,
+        //  Validators.required
+      ],
+      singer: [
+        null,
+        // Validators.required
+      ],
+      pro: [
+        null,
+        //  Validators.required
+      ],
       bio: [null],
       profilePicture: [
         null,

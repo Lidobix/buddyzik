@@ -1,4 +1,4 @@
-<div id="main"></div>
+<!-- <div id="main"></div>
 
 <div class="card">
   <div
@@ -54,4 +54,25 @@
   >
     Supprimer
   </button>
-</div>
+</div> -->
+
+<mat-card class="card">
+  <mat-card-header>
+    <div mat-card-avatar class="avatar">
+      <img
+        mat-card-image
+        src="https://res.cloudinary.com/buddyzik/image/upload/v1656406644/fhoua1mcqdu6o7uzpate.jpg"
+        alt="Photo
+      de profil"
+      />
+    </div>
+    <mat-card-title>{{ buddy.firstName }} {{ buddy.lastName }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- <p class="name"></p> -->
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>

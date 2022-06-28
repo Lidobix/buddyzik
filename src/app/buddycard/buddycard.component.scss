@@ -1,15 +1,15 @@
-.main{
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
+// .main{
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: row;
+//     flex-wrap: wrap;
+// }
 
 .card {
     border: 2px solid black;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding: 10px;
+    // margin-top: 5px;
+    // margin-bottom: 5px;
+    // padding: 10px;
     width: 220px;
     border-radius:7px ;
     -webkit-border-radius:7px ;
@@ -17,27 +17,43 @@
     -ms-border-radius:7px ;
     -o-border-radius:7px ;
 }
-
-
-#imgCardContainer{
-    width:200px;
-    height: 200px;
-    display: flex;
-    // border:2px solid black;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    border-radius:7px ;
-    -webkit-border-radius:7px ;
-    -moz-border-radius:7px ;
-    -ms-border-radius:7px ;
-    -o-border-radius:7px ;
+.avatar{
+    background-image: url('https://res.cloudinary.com/buddyzik/image/upload/v1656406644/fhoua1mcqdu6o7uzpate.jpg"');
+    background-size: cover;
+}
+.name{
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
 }
 
+// #imgCardContainer{
+//     width:200px;
+//     height: 200px;
+//     display: flex;
+//     // border:2px solid black;
+//     justify-content: center;
+//     align-items: center;
+//     padding: 5px;
+//     border-radius:7px ;
+//     -webkit-border-radius:7px ;
+//     -moz-border-radius:7px ;
+//     -ms-border-radius:7px ;
+//     -o-border-radius:7px ;
+// }
+
 img {
-    max-width: 200px;
-    max-height: 200px;   
-    }
+    // margin:auto;
+    // padding:10px;
+    // max-width: 200px;
+    // max-height: 200px;
+    border: 1px solid black;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    -ms-border-radius:50%;
+    -o-border-radius:50%;
+}
 
 
     .recommended{

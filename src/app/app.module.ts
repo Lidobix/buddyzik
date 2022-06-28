@@ -20,14 +20,13 @@ import { CookieService } from 'ngx-cookie-service';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
-
 import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerInterceptor } from './spinner.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +41,6 @@ import { SpinnerInterceptor } from './spinner.interceptor';
     NavComponent,
     LoginPageComponent,
     PageNotFoundComponent,
-    EmptyToMyProfileComponent,
     ResetPwdComponent,
     SpinnerComponent,
   ],
@@ -54,6 +52,7 @@ import { SpinnerInterceptor } from './spinner.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    MatCardModule,
   ],
   providers: [
     CookieService,
