@@ -18,7 +18,7 @@ import "dotenv/config";
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { recommendationUpdateDataBase } from "./recommendationBuddy.js";
-
+import { sendPostProcess } from "./sendPost.js";
 import { deletionBuddyProcess } from "./deleteBuddy.js";
 import { confirmationProcess } from "./confirmationInvitaionBuddy.js";
 import { loginProcess } from "./login.js";
@@ -155,6 +155,7 @@ app.post("/login", (req, res) => {
     res.status(response.status).json(response.content);
   });
 });
+
 /////////////////////////////////////////////////////////
 ////////////////////// INSCRIPTION //////////////////////
 /////////////////////////////////////////////////////////
@@ -503,6 +504,18 @@ app.post("/resetpassword", (req, res) => {
     console.log("response = ", response);
     res.status(response.status).json(response.json);
   });
+});
+///////////////////////////////////////
+////////////// SEND POST //////////////
+///////////////////////////////////////
+
+app.post("/sendpost", (req, res) => {
+  console.log("dans le middleware sendpost");
+  if (authToken(req.headers.token, req.headers.uuid)) {
+    sendPostProcess(req.headers, req.body).then(() => {
+      res.status(200).json({ message: "ok" });
+    });
+  }
 });
 
 //////////////////////////////////////////////

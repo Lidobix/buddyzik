@@ -139,12 +139,14 @@ export class AuthService implements OnInit {
       alert('Formulaire non valide!');
     } else {
       try {
+        console.log('soumission du formulaire...');
         this.http
 
           .post<any>(this.serverService.serverUrl + route, form.value)
           .subscribe((res) => {
             console.log(res);
             alert(res.message);
+            console.log('route = ', route);
             // if (authentication.success === true) {
             //   alert(authentication.message);
             //   localStorage.setItem('token', authentication.token);
@@ -161,13 +163,20 @@ export class AuthService implements OnInit {
             if (route === '/updateprofile' && res.success === true) {
               this.profileService.goToProfile(this.getMyId());
               // this.router.navigateByUrl('/blankprofile');
-            } else {
-              if (route === '/updateprofile' && res.success === false) {
-                this.router.navigateByUrl('/edition');
-                // this.profileService.goToProfile(this.getMyId());
-                // this.router.navigateByUrl('/blankprofile');
-              }
             }
+            if (route === '/updateprofile' && res.success === false) {
+              this.router.navigateByUrl('/edition');
+              // this.profileService.goToProfile(this.getMyId());
+              // this.router.navigateByUrl('/blankprofile');
+            }
+            if (route === '/sendpost') {
+              console.log('retour au profil');
+              // this.profileService.goToProfile(this.getMyId());
+              this.router.navigateByUrl('/blankprofile');
+              // this.profileService.goToProfile(this.getMyId());
+              // this.router.navigateByUrl('/edition');
+            }
+
             if (route === '/resetpassword') {
               this.router.navigateByUrl('/auth/login');
             }

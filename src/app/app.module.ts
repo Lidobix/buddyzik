@@ -28,6 +28,9 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerInterceptor } from './spinner.interceptor';
 
 import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
+import { ModalPostComponent } from './modal-post/modal-post.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,7 @@ import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-pro
     ResetPwdComponent,
     SpinnerComponent,
     EmptyToMyProfileComponent,
+    ModalPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +60,8 @@ import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-pro
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatCardModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     CookieService,

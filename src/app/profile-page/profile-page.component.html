@@ -1,3 +1,7 @@
+<app-modal-post
+  *ngIf="displayModalPost"
+  (cancelPost)="onCancellingPost($event)"
+></app-modal-post>
 <div id="main" *ngIf="buddy">
   <div id="idCard">
     <!-- <img id="profilePic" [src]="profilePicUrl" /> -->
@@ -19,6 +23,7 @@
       <p *ngIf="!buddy.singer">Chanteur : Non</p>
       <p *ngIf="buddy.singer">Chanteur : Oui</p>
     </div>
+    <button (click)="onPostRequest()">POST</button>
     <!-- <p class="">genre : {{ buddy.gender }}</p>
     <p class="">age : à calculer</p> -->
     <!-- 

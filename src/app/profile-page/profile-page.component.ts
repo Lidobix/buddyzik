@@ -20,6 +20,7 @@ export class ProfilePageComponent implements OnInit {
   // buddyID!: string;
   user!: Buddy;
   myID!: string;
+  displayModalPost: boolean = false;
 
   // url: string = 'http://localhost:3100';
   constructor(
@@ -60,6 +61,12 @@ export class ProfilePageComponent implements OnInit {
     // this.user = this.buddyService.connectedUser;
   }
 
+  onPostRequest(): void {
+    this.displayModalPost = true;
+  }
+  onCancellingPost(display: boolean): void {
+    this.displayModalPost = false;
+  }
   // getMe(): any {
   //   console.log('dans homepage , on va fetcher moi)');
   //   const idToFetch = localStorage.getItem('uuid');
