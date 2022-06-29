@@ -32,6 +32,7 @@ import cloudinary from "cloudinary";
 import { deletionBuddyProcess } from "./deleteBuddy.js";
 import { confirmationProcess } from "./confirmationInvitaionBuddy.js";
 import { loginProcess } from "./login.js";
+import { registrationProcess } from "./registrationBuddy.js";
 const app = express();
 app.use(cors());
 
@@ -129,16 +130,6 @@ app.get("/favicon.ico", (req, res) => {
     // .header("Access-Control-Allow-Origin' 'http://localhost:3100' always;")
     .sendFile(path.resolve(__dirname, "../favicon.ico"));
 });
-//////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////
-/////////TEST///////////////////////////
-
-app.get("/mailtest", (req, res) => {
-  console.log("dans le middleware mail test");
-  const mail = mailing();
-  res.status(200).json("ok");
-});
 
 /////////////////////////////////////////////////////////
 ////////////////////// CHECK TOKEN //////////////////////
@@ -164,113 +155,9 @@ app.post("/login", (req, res) => {
 ////////////////////// INSCRIPTION //////////////////////
 /////////////////////////////////////////////////////////
 app.post("/register", (req, res) => {
-  const newUser = req.body;
-  console.log(newUser);
-  async function userRegistration() {
-    try {
-      await mongoClient.connect();
-      // On checke si le mail n'est pas déjà existant dans la base:
-      const result = await collection.findOne({
-        mailAddress: newUser.mailAddress,
-      });
-      console.log("resultat de la recherche: ", result);
-      console.log(cloudinary.config().buddyzik);
-
-      if (result === null) {
-        const newBuddy = {
-          uuid: uuidv4(),
-          login: newUser.login,
-          mailAddress: newUser.mailAddress,
-          firstName: newUser.firstName,
-          password: hash(newUser.password),
-          lastName: newUser.lastName,
-          gender: newUser.gender,
-          birthDate: newUser.birthDate,
-          location: newUser.location,
-          profilePicture: newUser.profilePicture,
-          bannerPicture: newUser.bannerPicture,
-          bio: newUser.bio,
-          role: "user",
-          connected: true,
-          status: "unknown",
-          friends: [],
-          friends_list: [],
-          wall: [],
-          messager: {},
-          instrument: newUser.instrument,
-          style: newUser.style,
-          group: newUser.group,
-          singer: newUser.singer,
-          pro: newUser.pro,
-          recommendedBy: [],
-          recommends: [],
-        };
-
-        // const thumb = 3;
-        // await cloudinary.image(newUser.profilePicture, {
-        //   height: 200,
-        //   width: 200,
-        //   crop: "fit",
-        // });
-
-        // console.log("thumb = ", thumb);
-
-        await cloudinary.v2.uploader
-          .upload(newUser.profilePicture, {
-            ressource: "image",
-            eager: [{ width: 200, height: 200, crop: "fill", gravity: "face" }],
-          })
-          .then((result) => {
-            newBuddy.profilePicture = result.eager[0].secure_url;
-            // console.log("newBuddy.profilePicture", newBuddy.profilePicture);
-          })
-          .catch((error) => {
-            console.log("error", JSON.stringify(error, null, 2));
-          });
-        const newToken = createToken(
-          newBuddy.uuid,
-          newBuddy.password
-        ).toString();
-        newBuddy.token = newToken;
-        registerMail(newBuddy.mailAddress, newBuddy.firstName);
-
-        // console.log("newBuddy: ", newBuddy);
-        // console.log("newBuddyToClient: ", newBuddyToClient);
-        // On colle les champs du euser vers la DB
-        await collection.insertOne(newBuddy);
-        // On lui attribue un jeton
-        console.log(
-          "j'efface les données confidentielles avant d'envoyer au client"
-        );
-        delete newBuddy.password;
-        delete newBuddy.mailAddress;
-        delete newBuddy.token;
-        // console.log("nouveau buddy : ", newBuddy);
-        res
-          .status(200)
-          // .cookie("token", newToken)
-          // .cookie("token", newToken, { expires: new Date(Date.now() + 3600) })
-          .send({
-            success: true,
-            user: newBuddy,
-            token: newToken,
-            expiresIn: 3600,
-            message: "Vous êtes bien inscrit, bonne navigation!",
-          });
-      } else {
-        res
-          .status(200)
-          .json({ success: false, message: "Pas possible de vous inscrire!" });
-        // console.log("result:", result);
-      }
-    } catch (error) {
-      console.log("Pas d'utilisateur trouvé", error);
-    } finally {
-      // Ensures that the client will close when you finish/error
-      // await mongoClient.close();
-    }
-  }
-  userRegistration();
+  registrationProcess(req.body).then((response) => {
+    res.status(response.status).json(response.content);
+  });
 });
 ////////////////////////////////////////////////////////////////////////
 //////////////////////////// UPDATE PROFILE ////////////////////////////
@@ -786,8 +673,3 @@ const updateBuddy = (query, update) => {
 const server = app.listen(process.env.PORT, () => {
   console.log(`Le serveur est démarré sur le port ${server.address().port}`);
 });
-
-// const ht = https.createServer(app).listen(process.env.PORT, () => {
-//   console.log("server is runing at port 4000");
-
-// });

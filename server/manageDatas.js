@@ -63,3 +63,17 @@ export async function updateSome(query, update) {
     console.log(error);
   }
 }
+
+export async function insertUno(document) {
+  console.log("ça va promettre un insertUno....");
+  try {
+    await mongoClient.connect();
+    return new Promise((resolve, reject) => {
+      collection.insertOne(document).then((datas) => {
+        resolve(datas);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
