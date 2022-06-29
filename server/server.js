@@ -1,23 +1,13 @@
 import express from "express";
-// import { Request, Response } from "express";
 import bodyParser from "body-parser";
-// import { authToken, createToken } from "./security.js";
-// import { passwordGenerator } from "./auth-gen.js";
+
 import { resetPasswordProcess } from "./auth-reset.js";
 import { fetchSome } from "./manageDatas.js";
-// import { fetchDatas } from "./fetchDatas.js";
 import { invitationUpdateDataBase } from "./invitationBuddy.js";
 import { invitationRecoUpdateDataBase } from "./invitationBuddyReco.js";
-import {
-  registerMail,
-  invitationMail,
-  recommendationMail,
-  lostPasswordMail,
-} from "./mailing.js";
+import { invitationMail, recommendationMail, registerMail } from "./mailing.js";
 import cors from "cors";
 import { authToken, createToken, hash, checkHash } from "../server/security.js";
-
-import { v4 as uuidv4 } from "uuid";
 import { MongoClient } from "mongodb";
 import path from "path";
 // import cookieParser from "cookie-parser";
@@ -28,11 +18,13 @@ import "dotenv/config";
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { recommendationUpdateDataBase } from "./recommendationBuddy.js";
-import cloudinary from "cloudinary";
+
 import { deletionBuddyProcess } from "./deleteBuddy.js";
 import { confirmationProcess } from "./confirmationInvitaionBuddy.js";
 import { loginProcess } from "./login.js";
 import { registrationProcess } from "./registrationBuddy.js";
+import { updateProfileProcess } from "./updateProfile.js";
+import { main } from "./newmailing.js";
 const app = express();
 app.use(cors());
 
@@ -147,6 +139,10 @@ app.get("/auth", (req, res, next) => {
 /////////////////////////////////////////////////////////
 
 app.post("/login", (req, res) => {
+  console.log("dans le middleware login");
+  main();
+  registerMail("pipoflutepouet@gmail.com", "LLLUUUUUDOOOO");
+
   loginProcess(req.body).then((response) => {
     res.status(response.status).json(response.content);
   });
@@ -166,141 +162,132 @@ app.post("/register", (req, res) => {
 app.post("/updateprofile", (req, res, next) => {
   // console.log("dans le middleware updateprofile");
   // console.log("new profile:", req.body);
-  const myNewInfos = req.body;
-  console.log("newInformations:", myNewInfos);
+  // const myNewInfos = req.body;
+  // console.log("newInformations:", myNewInfos);
   // const auth = await authToken(req.headers.token, req.headers.uuid)
   if (authToken(req.headers.token)) {
-    async function checkInformations() {
-      try {
-        console.log("check des infos...");
-        await mongoClient.connect();
-        const myPreviousInfos = await collection.findOne(
-          {
-            uuid: req.headers.uuid,
-          },
-          {
-            projection: {
-              _id: 0,
-              uuid: 1,
-              password: 1,
-              mailAddress: 1,
-              friends_list: 1,
-            },
-          }
-        );
-        // console.log("myPreviousInfos: ", myPreviousInfos);
-
-        const isMailValid = await checkMailAddress(
-          myNewInfos.mailAddress,
-          myPreviousInfos.mailAddress
-        );
-
-        console.log("isMailValid: ", isMailValid);
-
-        const isPasswordValid = checkPassword(
-          myNewInfos.password,
-          myPreviousInfos.password
-        );
-        console.log("isPasswordValid: ", isPasswordValid);
-
-        if (isMailValid && isPasswordValid) {
-          console.log("c'est tout bon!!!! on peut soumettre");
-          // si le nouveau mdp est présent, on le crypte, on récupère la dats et on l'envoie en base
-          if (myNewInfos.passwordModif != "") {
-            console.log("nouveau mot de passe détecté");
-            myNewInfos.password = myNewInfos.passwordModif;
-
-            // console.log("new pwd : ", myNewInfos);
-          }
-          myNewInfos.password = hash(myNewInfos.password);
-          const newToken = createToken(req.headers.uuid, myNewInfos.password);
-
-          collection.updateOne(
-            {
-              uuid: req.headers.uuid,
-            },
-            {
-              $set: {
-                login: myNewInfos.login,
-                password: myNewInfos.password,
-                mailAddress: myNewInfos.mailAddress,
-                firstName: myNewInfos.firstName,
-                lastName: myNewInfos.lastName,
-                birthDate: myNewInfos.birthDate,
-                location: myNewInfos.location,
-                gender: myNewInfos.gender,
-                instrument: myNewInfos.instrument,
-                singer: myNewInfos.singer,
-                pro: myNewInfos.pro,
-                style: myNewInfos.style,
-                group: myNewInfos.group,
-                bio: myNewInfos.bio,
-                token: newToken,
-              },
-            }
-          );
-
-          collection.updateMany(
-            { $and: [{}, { "friends.uuid": myPreviousInfos.uuid }] },
-            {
-              $set: {
-                "friends.$.login": myNewInfos.login,
-                "friends.$.firstName": myNewInfos.firstName,
-                "friends.$.lastName": myNewInfos.lastName,
-                "friends.$.instrument": myNewInfos.instrument,
-                "friends.$.singer": myNewInfos.singer,
-                "friends.$.pro": myNewInfos.pro,
-                "friends.$.style": myNewInfos.style,
-                "friends.$.group": myNewInfos.group,
-              },
-            }
-          );
-          res
-            .status(200)
-            .json({ message: "Modifications enregistrées!", token: newToken });
-          // console.log("infos à jour : ", myNewInfos);
-          //
-
-          //
-        }
-      } catch (error) {
-        console.log("Pas d'utilisateur trouvé", error);
-      }
-    }
-
-    // const checkPassword = function () {
-    const checkPassword = function (toCheck, reference) {
-      console.log("test pwd");
-
-      if (!checkHash(toCheck, reference)) {
-        res.json(
-          "Mot de passe incorrect , on ne peut pas faire la modification du profil"
-        );
-        return false;
-      } else {
-        console.log("pasword ok");
-        return true;
-      }
-    };
-
-    const checkMailAddress = async function (toCheck, reference) {
-      console.log("dans le check address");
-      await mongoClient.connect();
-      const check = await collection.count({
-        mailAddress: toCheck,
-      });
-      console.log("check", check);
-      if (toCheck != reference && check >= 1) {
-        res.json("adresse dejà utilisée sur un autre compte");
-        console.log("mail nok");
-        return false;
-      } else {
-        console.log("mail ok");
-        return true;
-      }
-    };
-
-    checkInformations();
+    updateProfileProcess(req.body, req.headers).then((response) => {
+      res.status(respsonse.status).json(response.content);
+    });
+    // async function checkInformations() {
+    //   try {
+    //     console.log("check des infos...");
+    //     await mongoClient.connect();
+    //     const myPreviousInfos = await collection.findOne(
+    //       {
+    //         uuid: req.headers.uuid,
+    //       },
+    //       {
+    //         projection: {
+    //           _id: 0,
+    //           uuid: 1,
+    //           password: 1,
+    //           mailAddress: 1,
+    //           friends_list: 1,
+    //         },
+    //       }
+    //     );
+    //     // console.log("myPreviousInfos: ", myPreviousInfos);
+    //     const isMailValid = await checkMailAddress(
+    //       myNewInfos.mailAddress,
+    //       myPreviousInfos.mailAddress
+    //     );
+    //     console.log("isMailValid: ", isMailValid);
+    //     const isPasswordValid = checkPassword(
+    //       myNewInfos.password,
+    //       myPreviousInfos.password
+    //     );
+    //     console.log("isPasswordValid: ", isPasswordValid);
+    //     if (isMailValid && isPasswordValid) {
+    //       console.log("c'est tout bon!!!! on peut soumettre");
+    //       // si le nouveau mdp est présent, on le crypte, on récupère la dats et on l'envoie en base
+    //       if (myNewInfos.passwordModif != "") {
+    //         console.log("nouveau mot de passe détecté");
+    //         myNewInfos.password = myNewInfos.passwordModif;
+    //         // console.log("new pwd : ", myNewInfos);
+    //       }
+    //       myNewInfos.password = hash(myNewInfos.password);
+    //       const newToken = createToken(req.headers.uuid, myNewInfos.password);
+    //       collection.updateOne(
+    //         {
+    //           uuid: req.headers.uuid,
+    //         },
+    //         {
+    //           $set: {
+    //             login: myNewInfos.login,
+    //             password: myNewInfos.password,
+    //             mailAddress: myNewInfos.mailAddress,
+    //             firstName: myNewInfos.firstName,
+    //             lastName: myNewInfos.lastName,
+    //             birthDate: myNewInfos.birthDate,
+    //             location: myNewInfos.location,
+    //             gender: myNewInfos.gender,
+    //             instrument: myNewInfos.instrument,
+    //             singer: myNewInfos.singer,
+    //             pro: myNewInfos.pro,
+    //             style: myNewInfos.style,
+    //             group: myNewInfos.group,
+    //             bio: myNewInfos.bio,
+    //             token: newToken,
+    //           },
+    //         }
+    //       );
+    //       collection.updateMany(
+    //         { $and: [{}, { "friends.uuid": myPreviousInfos.uuid }] },
+    //         {
+    //           $set: {
+    //             "friends.$.login": myNewInfos.login,
+    //             "friends.$.firstName": myNewInfos.firstName,
+    //             "friends.$.lastName": myNewInfos.lastName,
+    //             "friends.$.instrument": myNewInfos.instrument,
+    //             "friends.$.singer": myNewInfos.singer,
+    //             "friends.$.pro": myNewInfos.pro,
+    //             "friends.$.style": myNewInfos.style,
+    //             "friends.$.group": myNewInfos.group,
+    //           },
+    //         }
+    //       );
+    //       res
+    //         .status(200)
+    //         .json({ message: "Modifications enregistrées!", token: newToken });
+    //       // console.log("infos à jour : ", myNewInfos);
+    //       //
+    //       //
+    //     }
+    //   } catch (error) {
+    //     console.log("Pas d'utilisateur trouvé", error);
+    //   }
+    // }
+    // // const checkPassword = function () {
+    // const checkPassword = function (toCheck, reference) {
+    //   console.log("test pwd");
+    //   if (!checkHash(toCheck, reference)) {
+    //     res.json(
+    //       "Mot de passe incorrect , on ne peut pas faire la modification du profil"
+    //     );
+    //     return false;
+    //   } else {
+    //     console.log("pasword ok");
+    //     return true;
+    //   }
+    // };
+    // const checkMailAddress = async function (toCheck, reference) {
+    //   console.log("dans le check address");
+    //   await mongoClient.connect();
+    //   const check = await collection.count({
+    //     mailAddress: toCheck,
+    //   });
+    //   console.log("check", check);
+    //   if (toCheck != reference && check >= 1) {
+    //     res.json("adresse dejà utilisée sur un autre compte");
+    //     console.log("mail nok");
+    //     return false;
+    //   } else {
+    //     console.log("mail ok");
+    //     return true;
+    //   }
+    // };
+    // checkInformations();
   } else {
     res.json("Impossible de vous authentifier!");
   }

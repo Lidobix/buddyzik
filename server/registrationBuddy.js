@@ -60,6 +60,11 @@ export async function registrationProcess(newUser) {
 
       const newToken = createToken(newBuddy.uuid, newBuddy.password).toString();
       newBuddy.token = newToken;
+      console.log(
+        "mail à envoyer à : ",
+        newBuddy.mailAddress,
+        newBuddy.firstName
+      );
       registerMail(newBuddy.mailAddress, newBuddy.firstName);
 
       await insertUno(newBuddy);

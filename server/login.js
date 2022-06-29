@@ -2,21 +2,20 @@ import { fetchOne, updateUno } from "./manageDatas.js";
 import { checkHash, createToken, hash } from "./security.js";
 
 export async function loginProcess(request) {
-  const user = {
-    mailAddress: request.mailAddress,
-    password: request.password,
-  };
   try {
-    const buddy = await fetchOne({ mailAddress: user.mailAddress });
+    const buddy = await fetchOne(
+      { mailAddress: request.mailAddress },
+      { projection: { _id: 0, uuid: 1, password: 1 } }
+    );
 
     const newToken = createToken(buddy.uuid, hash(buddy.password)).toString();
 
     await updateUno(
-      { mailAddress: user.mailAddress },
+      { mailAddress: request.mailAddress },
       { $set: { token: newToken } }
     );
 
-    if (buddy === null || !checkHash(user.password, buddy.password)) {
+    if (buddy === null || !checkHash(request.password, buddy.password)) {
       return {
         status: 200,
         content: {
@@ -41,5 +40,12 @@ export async function loginProcess(request) {
     }
   } catch (error) {
     console.log("Pas d'utilisateur trouvé, error: ", error);
+    return {
+      status: 200,
+      content: {
+        success: false,
+        message: "Adresse mail inconnue",
+      },
+    };
   }
 }

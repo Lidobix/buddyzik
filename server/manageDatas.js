@@ -77,3 +77,16 @@ export async function insertUno(document) {
     console.log(error);
   }
 }
+export async function counter(query) {
+  console.log("ça va promettre un insertUno....");
+  try {
+    await mongoClient.connect();
+    return new Promise((resolve, reject) => {
+      collection.count(query).then((datas) => {
+        resolve(datas);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
