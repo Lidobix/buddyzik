@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 import { resetPasswordProcess } from "./auth-reset.js";
-import { fetchSome } from "./manageDatas.js";
+import { fetchOne, fetchSome } from "./manageDatas.js";
 import { invitationUpdateDataBase } from "./invitationBuddy.js";
 import { invitationRecoUpdateDataBase } from "./invitationBuddyReco.js";
 import { invitationMail, recommendationMail, registerMail } from "./mailing.js";
@@ -101,6 +101,7 @@ const projectionBuddyCard = {
   recommends: 1,
   group: 1,
   style: 1,
+  pro: 1,
 };
 // await mongoClient.connect();
 
@@ -132,6 +133,13 @@ app.get("/auth", (req, res, next) => {
   console.log("authToken: ", authToken(req.headers.token));
 
   res.status(200).json(authToken(req.headers.token));
+});
+app.get("/mailtest", (req, res, next) => {
+  console.log("dans le middleware auth");
+
+  // console.log("authToken: ", authToken(req.headers.token));
+
+  registerMail("pipoflutepouet@gmail.com", "LLLUUUUUDOOOO");
 });
 
 /////////////////////////////////////////////////////////
@@ -167,7 +175,8 @@ app.post("/updateprofile", (req, res, next) => {
   // const auth = await authToken(req.headers.token, req.headers.uuid)
   if (authToken(req.headers.token)) {
     updateProfileProcess(req.body, req.headers).then((response) => {
-      res.status(respsonse.status).json(response.content);
+      console.log("response = ", response);
+      res.status(response.status).json(response.content);
     });
     // async function checkInformations() {
     //   try {
@@ -298,16 +307,16 @@ app.post("/updateprofile", (req, res, next) => {
 ///////////////////////////////////////////////////////////////////////////
 app.get("/myinformations", (req, res, next) => {
   console.log("dans le middleware myinformations");
-  // console.log("reqbody", req.body);
-
   if (authToken(req.headers.token, req.headers.uuid)) {
-    // console.log("token authentifié");
     async function fetchMyInformations() {
       try {
-        await mongoClient.connect();
-        console.log(req.headers.uuid);
-        // On créé le tableau de uuid d'amis à exclure
-        const informations = await collection.findOne(
+        // await mongoClient.connect();
+
+        projectionBuddyCard.birthDate = 1;
+        projectionBuddyCard.mailAddress = 1;
+        projectionBuddyCard.location = 1;
+        projectionBuddyCard.bio = 1;
+        const informations = await fetchOne(
           {
             uuid: req.headers.uuid,
           },
@@ -315,20 +324,14 @@ app.get("/myinformations", (req, res, next) => {
             projection: projectionBuddyCard,
           }
         );
-
         if (informations === null) {
         } else {
           res.status(200).json(informations);
-          // console.log("result:", result);
         }
       } catch (error) {
         console.log("Pas d'utilisateur trouvé", error);
-      } finally {
-        // Ensures that the client will close when you finish/error
-        // await mongoClient.close();
       }
     }
-
     fetchMyInformations();
   } else {
     res.json("Impossible de vous authentifier!");
@@ -343,8 +346,7 @@ app.post("/buddybyid", (req, res, next) => {
     // console.log("req.body.buddyTarget : ", req.body.buddyTarget);
     async function sendBuddy(buddyTarget) {
       try {
-        await mongoClient.connect();
-        const buddyToSend = await fetchBuddy(
+        const buddyToSend = await fetchOne(
           { uuid: buddyTarget },
           { projection: projectionBuddyCard }
         );
@@ -633,26 +635,6 @@ app.get("*", function (req, res) {
 // app.get("/*", (req, res) => {
 //   res.status(404).sendFile("erreur 404");
 // });
-
-///////////////////////////////////////////////////////////////////////////
-//////////////////////////////// FONCTIONS ////////////////////////////////
-///////////////////////////////////////////////////////////////////////////
-const fetchBuddy = (query, projection) => {
-  console.log("ça va promettre un fetch....");
-  return new Promise((resolve, reject) => {
-    collection.findOne(query, projection).then((buddy) => {
-      resolve(buddy);
-    });
-  });
-};
-const updateBuddy = (query, update) => {
-  console.log("ça va promettre un update....");
-  return new Promise((resolve, reject) => {
-    collection.updateOne(query, update).then((buddy) => {
-      resolve(buddy);
-    });
-  });
-};
 
 /////////////////////////////////////////////////////////
 //////////////////// SERVER EXPRESS /////////////////////

@@ -89,7 +89,7 @@ export class EditProfileComponent implements OnInit {
         '',
         {
           validators: [
-            // Validators.required,
+            Validators.required,
             // Validators.pattern(this.authService.passwordPattern),
           ],
         },
@@ -172,24 +172,29 @@ export class EditProfileComponent implements OnInit {
   }
 
   formFilling(): void {
-    this.buddyService.getMyInformations().subscribe((value) => {
-      console.log('je suis : ', value);
+    this.buddyService
+      // .getBuddyByID(this.authService.getMyId())
+      .getMyInformations()
+      .subscribe((value) => {
+        console.log('je suis : ', value);
 
-      this.userProfileForm.controls['login'].setValue(value['login']);
+        this.userProfileForm.controls['login'].setValue(value['login']);
 
-      this.userProfileForm.controls['mailAddress'].setValue(
-        value['mailAddress']
-      );
-      this.userProfileForm.controls['firstName'].setValue(value['firstName']);
-      this.userProfileForm.controls['lastName'].setValue(value['lastName']);
-      this.userProfileForm.controls['birthDate'].setValue(value['birthDate']);
-      this.userProfileForm.controls['location'].setValue(value['location']);
-      this.userProfileForm.controls['gender'].setValue(value['gender']);
-      this.userProfileForm.controls['instrument'].setValue(value['instrument']);
-      this.userProfileForm.controls['singer'].setValue(value['singer']);
-      this.userProfileForm.controls['pro'].setValue(value['pro']);
-      this.userProfileForm.controls['bio'].setValue(value['bio']);
-    });
+        this.userProfileForm.controls['mailAddress'].setValue(
+          value['mailAddress']
+        );
+        this.userProfileForm.controls['firstName'].setValue(value['firstName']);
+        this.userProfileForm.controls['lastName'].setValue(value['lastName']);
+        this.userProfileForm.controls['birthDate'].setValue(value['birthDate']);
+        this.userProfileForm.controls['location'].setValue(value['location']);
+        this.userProfileForm.controls['gender'].setValue(value['gender']);
+        this.userProfileForm.controls['instrument'].setValue(
+          value['instrument']
+        );
+        this.userProfileForm.controls['singer'].setValue(value['singer']);
+        this.userProfileForm.controls['pro'].setValue(value['pro']);
+        this.userProfileForm.controls['bio'].setValue(value['bio']);
+      });
   }
 
   selectFile(event: any): void {

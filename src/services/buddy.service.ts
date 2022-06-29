@@ -52,7 +52,7 @@ export class BuddyService implements OnInit {
   // getMe(): Observable<Buddy> {
   //   console.log('dans authservice, on va fetcher moi)');
   //   return this.http.post<Buddy>(this.serverService.serverUrl + '/me', '');
-  // }
+  // // }
   getMyInformations(): Observable<Buddy> {
     console.log('dans authservice, on va fetcher moi)');
 

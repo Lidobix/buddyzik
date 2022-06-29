@@ -144,7 +144,7 @@ export class AuthService implements OnInit {
           .post<any>(this.serverService.serverUrl + route, form.value)
           .subscribe((res) => {
             console.log(res);
-            alert(res);
+            alert(res.message);
             // if (authentication.success === true) {
             //   alert(authentication.message);
             //   localStorage.setItem('token', authentication.token);
@@ -158,15 +158,20 @@ export class AuthService implements OnInit {
             // } else {
             //   alert(authentication.message);
             // }
+            if (route === '/updateprofile' && res.success === true) {
+              this.profileService.goToProfile(this.getMyId());
+              // this.router.navigateByUrl('/blankprofile');
+            } else {
+              if (route === '/updateprofile' && res.success === false) {
+                this.router.navigateByUrl('/edition');
+                // this.profileService.goToProfile(this.getMyId());
+                // this.router.navigateByUrl('/blankprofile');
+              }
+            }
+            if (route === '/resetpassword') {
+              this.router.navigateByUrl('/auth/login');
+            }
           });
-
-        if (route === '/updateprofile') {
-          this.profileService.goToProfile(this.getMyId());
-          // this.router.navigateByUrl('/blankprofile');
-        }
-        if (route === '/resetpassword') {
-          this.router.navigateByUrl('/auth/login');
-        }
       } catch (error) {
         console.log(error);
       }

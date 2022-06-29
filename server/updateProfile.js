@@ -8,25 +8,13 @@ import { checkHash, createToken, hash } from "./security.js";
 // console.log("newInformations:", myNewInfos);
 // const auth = await authToken(req.headers.token, req.headers.uuid)
 
-async function checkInformations(myNewInfos, headers) {
+async function checkInformations(myPreviousInfos, myNewInfos) {
   try {
     console.log("check des infos...");
     // await mongoClient.connect();
-    const myPreviousInfos = await fetchOne(
-      {
-        uuid: headers.uuid,
-      },
-      {
-        projection: {
-          _id: 0,
-          uuid: 1,
-          password: 1,
-          mailAddress: 1,
-          friends_list: 1,
-        },
-      }
-    );
+
     // console.log("myPreviousInfos: ", myPreviousInfos);
+    console.log("myNewInfos: ", myNewInfos);
 
     const isMailValid = await checkMailAddress(
       myNewInfos.mailAddress,
@@ -48,7 +36,7 @@ async function checkInformations(myNewInfos, headers) {
 
 // const checkPassword = function () {
 const checkPassword = function (toCheck, reference) {
-  console.log("test pwd");
+  console.log("test pwd : ", toCheck, reference);
 
   if (!checkHash(toCheck, reference)) {
     // res.json(
@@ -87,11 +75,11 @@ async function updateProfile(myNewInfos, headers) {
 
     // console.log("new pwd : ", myNewInfos);
   }
-
+  console.log(headers.uuid, myNewInfos.password);
   myNewInfos.password = hash(myNewInfos.password);
   const newToken = createToken(headers.uuid, myNewInfos.password);
 
-  updateUno(
+  await updateUno(
     {
       uuid: headers.uuid,
     },
@@ -116,7 +104,7 @@ async function updateProfile(myNewInfos, headers) {
     }
   );
 
-  updateSome(
+  await updateSome(
     { $and: [{}, { "friends.uuid": headers.uuid }] },
     {
       $set: {
@@ -143,17 +131,38 @@ async function updateProfile(myNewInfos, headers) {
 }
 
 export async function updateProfileProcess(myNewInfos, headers) {
-  const validation = await checkInformations(myNewInfos, headers);
+  const myPreviousInfos = await fetchOne(
+    {
+      uuid: headers.uuid,
+    },
+    {
+      projection: {
+        _id: 0,
+        uuid: 1,
+        password: 1,
+        mailAddress: 1,
+        friends_list: 1,
+      },
+    }
+  );
+
+  const validation = await checkInformations(myPreviousInfos, myNewInfos);
+
+  console.log("validation :", validation);
 
   if (validation.mailAddress && validation.password) {
     console.log("c'est tout bon!!!! on peut soumettre");
     const response = await updateProfile(myNewInfos, headers);
+    response.success = true;
     return { status: 200, content: response };
   }
 
   if (!validation.password || !validation.mailAddress) {
-    const response =
-      "Mot de passe ou adresse mail incorrect, veuillez vérifier vos informations";
+    const response = {
+      message:
+        "Mot de passe ou adresse mail incorrect, veuillez vérifier vos informations",
+      success: false,
+    };
     return { status: 200, content: response };
   }
   //   if (!validation.mailAddress) {

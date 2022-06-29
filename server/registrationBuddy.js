@@ -90,7 +90,10 @@ export async function registrationProcess(newUser) {
     } else {
       return {
         status: 200,
-        content: { success: false, message: "Pas possible de vous inscrire!" },
+        content: {
+          success: false,
+          message: "Données incorrectes, impossible de vous inscrire!",
+        },
       };
 
       // console.log("result:", result);
