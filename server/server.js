@@ -31,6 +31,7 @@ import { recommendationUpdateDataBase } from "./recommendationBuddy.js";
 import cloudinary from "cloudinary";
 import { deletionBuddyProcess } from "./deleteBuddy.js";
 import { confirmationProcess } from "./confirmationInvitaionBuddy.js";
+import { loginProcess } from "./login.js";
 const app = express();
 app.use(cors());
 
@@ -153,65 +154,11 @@ app.get("/auth", (req, res, next) => {
 /////////////////////////////////////////////////////////
 ///////////////////////// LOGIN /////////////////////////
 /////////////////////////////////////////////////////////
-// app.get("/auth/login", (req, res) => {
-//   // res.json("coucou");
-// });
 
 app.post("/login", (req, res) => {
-  console.log("login");
-  const user = {
-    mailAddress: req.body.mailAddress,
-    password: req.body.password,
-  };
-
-  // console.log(user);
-  // console.log(req.headers);
-
-  async function userLoginCheck() {
-    try {
-      await mongoClient.connect();
-
-      const buddy = await collection.findOne({ mailAddress: user.mailAddress });
-      // console.log("buddy : ", buddy);
-      const newToken = createToken(buddy.uuid, hash(buddy.password)).toString();
-      // console.log("newtoken: ", newToken);
-      await collection.updateOne(
-        { mailAddress: user.mailAddress },
-        { $set: { token: newToken } }
-      );
-
-      if (buddy === null || !checkHash(user.password, buddy.password)) {
-        res.status(200).json({
-          success: false,
-          message: "Login ou password erroné",
-        });
-      } else {
-        delete buddy.password;
-        delete buddy.mailAddress;
-        delete buddy.token;
-        res.status(200).json({
-          success: true,
-          user: buddy,
-          message: "Vous êtes connecté, bonne navigation!",
-          token: newToken,
-          // expiresIn: 3600,
-        });
-        // res.status(200).cookie("token", newToken).json({
-        //   success: true,
-        //   user: buddy,
-        //   message: "Vous êtes connecté, bonne navigation!",
-        //   token: newToken,
-        //   // expiresIn: 3600,
-        // });
-      }
-    } catch (error) {
-      console.log("Pas d'utilisateur trouvé, error: ", error);
-    } finally {
-      // await mongoClient.close();
-    }
-  }
-
-  userLoginCheck();
+  loginProcess(req.body).then((response) => {
+    res.status(response.status).json(response.content);
+  });
 });
 /////////////////////////////////////////////////////////
 ////////////////////// INSCRIPTION //////////////////////
@@ -649,15 +596,6 @@ app.get("/fetchmybuddies", (req, res) => {
   }
 });
 
-////////////////////////////////////////////////////
-
-app.get("/mongoff", (req, res) => {
-  console.log("fermeture mongo....", req.headers.token);
-  if (authToken(req.headers.token, req.headers.uuid)) {
-    mongoClient.close();
-  }
-});
-
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////// INVITATION RECO /////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
@@ -672,48 +610,6 @@ app.post("/invitationfromreco", (req, res) => {
       req.body.buddyTarget,
       projectionBuddyCard
     ).then(res.json("Votre invitation a bien été envoyée!!"));
-    // async function invitationRecoUpdateDataBase(uuid1, uuid2) {
-    //   await mongoClient.connect();
-    //   try {
-    //     // On récupère ma carte:
-    //     const buddyToAdd = await fetchBuddy(
-    //       { uuid: uuid1 },
-    //       {
-    //         projection: projectionBuddyCard,
-    //       }
-    //     );
-
-    //     buddyToAdd.status = "pending";
-
-    //     const up1 = await collection.updateOne(
-    //       { uuid: uuid2 },
-    //       {
-    //         $push: {
-    //           friends: buddyToAdd,
-    //           friends_list: uuid1,
-    //         },
-    //       }
-    //     );
-
-    //     const up3 = await collection.updateOne(
-    //       { uuid: uuid1, "friends.uuid": uuid2 },
-    //       {
-    //         $set: { "friends.$.status": "invited" },
-    //       }
-    //     );
-    //   } catch (error) {
-    //   } finally {
-    //     // await mongoClient.close();
-    //   }
-    // }
-    // // On récupère l'invité et on le colle dans la liste d'amis de l'inviteur
-    // const updateHostDB = invitationRecoUpdateDataBase(
-    //   req.headers.uuid,
-    //   req.body.buddyTarget,
-    //   "invited"
-    // );
-
-    // res.json("Votre invitation a bien été envoyée!!");
   } else {
     res.json(
       "une erreur est survenue, impossible d'effectuer cette action, contactez le service support."
