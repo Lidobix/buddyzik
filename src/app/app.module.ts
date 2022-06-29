@@ -27,6 +27,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerInterceptor } from './spinner.interceptor';
 
+import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +45,7 @@ import { SpinnerInterceptor } from './spinner.interceptor';
     PageNotFoundComponent,
     ResetPwdComponent,
     SpinnerComponent,
+    EmptyToMyProfileComponent,
   ],
   imports: [
     BrowserModule,

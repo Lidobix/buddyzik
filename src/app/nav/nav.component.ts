@@ -53,8 +53,8 @@ export class NavComponent implements OnInit {
   }
   goToMyProfile(): void {
     // this.displayingElementsService.setDisplayModif(true);
-    this.profileService.goToProfile(this.authService.getMyId());
-    // this.router.navigateByUrl('/blankprofile');
+    // this.profileService.goToProfile(this.authService.getMyId());
+    this.router.navigateByUrl('/blankprofile');
   }
 
   goToMyBuddysList(): void {

@@ -9,6 +9,7 @@ import { SearchbuddyComponent } from './searchbuddy/searchbuddy.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guards';
+import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
 
 import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
 
@@ -59,11 +60,11 @@ const routes: Routes = [
     component: SearchbuddyComponent,
     canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'blankprofile',
-  //   component: EmptyToMyProfileComponent,
-  //   canActivate: [AuthGuard],
-  // },
+  {
+    path: 'blankprofile',
+    component: EmptyToMyProfileComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: '**',
     component: PageNotFoundComponent,
