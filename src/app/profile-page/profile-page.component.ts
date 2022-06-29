@@ -63,6 +63,7 @@ export class ProfilePageComponent implements OnInit {
 
   onPostRequest(): void {
     this.displayModalPost = true;
+    console.log(this.buddy.firstName);
   }
   onCancellingPost(display: boolean): void {
     this.displayModalPost = false;

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/services/auth.service';
 import { ImageService } from 'src/services/image.service';
@@ -10,6 +10,7 @@ import { pictureValidator } from 'src/shared/picture-format.directive';
   styleUrls: ['./modal-post.component.scss'],
 })
 export class ModalPostComponent implements OnInit {
+  @Input() postRecipient!: string;
   @Output() cancelPost = new EventEmitter<boolean>();
   postForm!: FormGroup;
   previewPostPic!: string;
@@ -23,6 +24,7 @@ export class ModalPostComponent implements OnInit {
     this.postForm = this.formBuilder.group({
       post: [null, Validators.required],
       postPic: [null, pictureValidator(this.authService.pictureExtension)],
+      recipient: [this.postRecipient],
     });
   }
 

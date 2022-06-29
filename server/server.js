@@ -512,8 +512,8 @@ app.post("/resetpassword", (req, res) => {
 app.post("/sendpost", (req, res) => {
   console.log("dans le middleware sendpost");
   if (authToken(req.headers.token, req.headers.uuid)) {
-    sendPostProcess(req.headers, req.body).then(() => {
-      res.status(200).json({ message: "ok" });
+    sendPostProcess(req.headers, req.body).then((response) => {
+      res.status(response.status).json(response.message);
     });
   }
 });

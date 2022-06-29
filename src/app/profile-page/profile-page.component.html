@@ -1,6 +1,7 @@
 <app-modal-post
   *ngIf="displayModalPost"
   (cancelPost)="onCancellingPost($event)"
+  [postRecipient]="buddy.uuid"
 ></app-modal-post>
 <div id="main" *ngIf="buddy">
   <div id="idCard">
