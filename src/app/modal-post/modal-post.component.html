@@ -1,10 +1,9 @@
 <div class="modal">
   <form [formGroup]="postForm">
-    <!-- <label for="title">Titre:</label>
-    <input type="text" id="titleInput" formControlName="title" />
-    <br /> -->
     <label for="post"><h2>Nouveau Post:</h2></label>
-    <img [src]="previewPostPic" alt="" />
+    <div class="previewContainer">
+      <img *ngIf="previewPostPic" [src]="previewPostPic" alt="" />
+    </div>
     <textarea
       name="post"
       id="postInput"
@@ -30,5 +29,4 @@
       </button>
     </div>
   </form>
-  <!-- <button>POSTER</button> -->
 </div>

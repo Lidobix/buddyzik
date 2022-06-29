@@ -36,6 +36,7 @@ export class ModalPostComponent implements OnInit {
     });
   }
   onSubmitPostForm(): void {
+    this.postForm.value.postPic = this.previewPostPic;
     this.authService.updatehUser(this.postForm, '/sendpost');
   }
 

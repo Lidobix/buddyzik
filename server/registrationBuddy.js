@@ -1,5 +1,6 @@
 import { fetchOne, insertUno } from "./manageDatas.js";
 import { createToken, hash } from "./security.js";
+import "dotenv/config";
 import { v4 as uuidv4 } from "uuid";
 import cloudinary from "cloudinary";
 import { registerMail } from "./mailing.js";
