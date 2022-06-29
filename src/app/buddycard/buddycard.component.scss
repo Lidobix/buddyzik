@@ -6,24 +6,29 @@
 // }
 
 .card {
-    // display: flex;
-    // flex-direction: column;
-    
-    // border: 1px solid black;
-    // border-radius:10px ;
-    // -webkit-border-radius:10px ;
-    // -moz-border-radius:10px ;
-    // -ms-border-radius:10px ;
-    // -o-border-radius:10px ;
-    box-shadow: 5px 5px 5px rgb(100,125,200,0.4);
-width:200px;
-    // margin:10px;
+    //display: flex;
+    //flex-direction: column;
+    background-color: #94A187 ;
+    //border: 1px solid black;
+    //border-radius:10px ;
+    //-webkit-border-radius:10px ;
+    //-moz-border-radius:10px ;
+    //-ms-border-radius:10px ;
+    //-o-border-radius:10px ;
+    box-shadow: 5px 5px 5px rgba(0,0, 00, 0.4);
+    width:200px;
+    //margin:10px;
     height:350px;
-    // width:100%;
+    //width:100%;
     margin: 8px;
     padding: 10px;
-    // width: 220px;
-
+    //width: 220px;
+    border-radius: 10px;
+    
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 a{
     outline: none;
 }

@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfilePageComponent implements OnInit {
   buddy!: Buddy;
-  bannierPicUrl!: string;
+
   profilePicUrl!: string;
   pseudo!: string;
   // buddyID!: string;

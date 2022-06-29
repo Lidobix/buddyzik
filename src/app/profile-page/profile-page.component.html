@@ -1,6 +1,5 @@
 <div id="main" *ngIf="buddy">
   <div id="profileId">
-    <img id="bannierPic" [src]="bannierPicUrl" />
     <img id="profilePic" [src]="profilePicUrl" />
 
     <div id="imgCardContainer"><img [src]="buddy.profilePicture" alt="" /></div>
@@ -9,8 +8,7 @@
     <p id="">age : à calculer</p>
 
     <p id="">Chanteur : {{ buddy.singer }}</p>
-  </div>
-  <div id="musicId">
+
     <p>Instrument de prédilection : {{ buddy.instrument }}</p>
     <p>
       Est ic pour:

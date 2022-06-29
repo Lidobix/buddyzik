@@ -25,7 +25,6 @@ export async function registrationProcess(newUser) {
         birthDate: newUser.birthDate,
         location: newUser.location,
         profilePicture: newUser.profilePicture,
-        bannerPicture: newUser.bannerPicture,
         bio: newUser.bio,
         role: "user",
         connected: true,

@@ -32,7 +32,6 @@ export class Buddy {
     public birthDate: Date,
     public location: string,
     public profilePicture: string,
-    public bannerPicture: string,
     public bio: string,
     public role: string,
     public online: boolean,
@@ -42,9 +41,8 @@ export class Buddy {
     public status: string,
     public style: string,
     public group: string,
-    public deletable: boolean //     public config: { //   addable: boolean; //   acceptable: boolean; //   rejectable: boolean;
-  ) //   recommendable: boolean;
-  //   deletable: boolean;
+    public deletable: boolean //     public config: { //   addable: boolean; //   acceptable: boolean; //   rejectable: boolean; //   recommendable: boolean;
+  ) //   deletable: boolean;
   //   status: string;
   // }
   {}
