@@ -5,7 +5,10 @@
     <mat-card-title>{{ post.authorName }}</mat-card-title>
     <mat-card-subtitle>{{ post.date }}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="postPicture" alt="" />
+  <div class="postPictureContainer">
+    <img mat-card-image [src]="postPicture" alt="" />
+  </div>
+
   <mat-card-content>
     <p>
       {{ post.content }}
