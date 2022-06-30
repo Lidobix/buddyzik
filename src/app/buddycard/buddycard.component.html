@@ -25,10 +25,15 @@
     <p *ngIf="buddy.status == 'deletion'">Suppression en cours...</p>
   </div>
   <div class="action">
-    <button *ngIf="buddy.status == 'unknown'" (click)="inviteBuddy()">
+    <button
+      mat-raised-button
+      *ngIf="buddy.status == 'unknown'"
+      (click)="inviteBuddy()"
+    >
       Inviter
     </button>
     <button
+      mat-raised-button
       *ngIf="buddy.status == 'recommended'"
       (click)="inviteBuddyFromReco()"
     >
@@ -36,25 +41,37 @@
     </button>
 
     <button
+      mat-raised-button
       *ngIf="buddy.status == 'confirmed' || buddy.status == 'recommendedByMe'"
       (click)="goToBuddyProfile()"
     >
       Profil
     </button>
-    <button *ngIf="buddy.status == 'confirmed'" (click)="recommendBuddy()">
+    <button
+      mat-raised-button
+      mat-raised-button
+      *ngIf="buddy.status == 'confirmed'"
+      (click)="recommendBuddy()"
+    >
       YEAH!
     </button>
 
-    <button *ngIf="buddy.status == 'pending'" (click)="confirmBuddy()">
+    <button
+      mat-raised-button
+      *ngIf="buddy.status == 'pending'"
+      (click)="confirmBuddy()"
+    >
       Accepter
     </button>
     <button
+      mat-raised-button
       *ngIf="buddy.status == 'pending' || buddy.status == 'recommended'"
       (click)="deleteBuddy()"
     >
       Refuser
     </button>
     <button
+      mat-raised-button
       *ngIf="
         buddy.status == 'invited' ||
         buddy.status == 'confirmed' ||

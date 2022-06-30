@@ -6,6 +6,8 @@ import { AuthService } from 'src/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ServerService } from 'src/services/server.service';
 import { ActivatedRoute } from '@angular/router';
+import { Post } from '../models/post-model';
+import { PostService } from 'src/services/post.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -14,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfilePageComponent implements OnInit {
   buddy!: Buddy;
-
+  allPosts!: Post[];
   profilePicUrl!: string;
   pseudo!: string;
   // buddyID!: string;
@@ -25,6 +27,7 @@ export class ProfilePageComponent implements OnInit {
   // url: string = 'http://localhost:3100';
   constructor(
     private buddyService: BuddyService,
+    private postService: PostService,
     private serverService: ServerService,
     private authService: AuthService,
     private http: HttpClient,
@@ -59,6 +62,14 @@ export class ProfilePageComponent implements OnInit {
     // this.profilePicUrl = './assets/profil.jpg';
     // this.pseudo = 'Jean-Mi la Gratte de la mort qui tue';
     // this.user = this.buddyService.connectedUser;
+    this.getPosts();
+  }
+
+  getPosts() {
+    this.postService.getAllPosts().subscribe((posts) => {
+      this.allPosts = posts;
+      console.log("dans l'observable de tous les posts ", this.allPosts);
+    });
   }
 
   onPostRequest(): void {

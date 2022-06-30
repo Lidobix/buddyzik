@@ -18,13 +18,14 @@ import "dotenv/config";
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { recommendationUpdateDataBase } from "./recommendationBuddy.js";
-import { sendPostProcess } from "./sendPost.js";
+import { sendPostProcess } from "./uploadPost.js";
 import { deletionBuddyProcess } from "./deleteBuddy.js";
 import { confirmationProcess } from "./confirmationInvitaionBuddy.js";
 import { loginProcess } from "./login.js";
 import { registrationProcess } from "./registrationBuddy.js";
 import { updateProfileProcess } from "./updateProfile.js";
 import { main } from "./newmailing.js";
+import { downloadPostsProcess } from "./downloadPost.js";
 const app = express();
 app.use(cors());
 
@@ -515,6 +516,21 @@ app.post("/sendpost", (req, res) => {
     sendPostProcess(req.headers, req.body).then((response) => {
       res.status(response.status).json(response.message);
     });
+  }
+});
+///////////////////////////////////////
+///////////// FETCH  POST /////////////
+///////////////////////////////////////
+
+app.get("/fetchposts", (req, res) => {
+  console.log("dans le middleware FETCHpost");
+  if (authToken(req.headers.token, req.headers.uuid)) {
+    downloadPostsProcess(req.headers).then((response) => {
+      res.status(200).json({ message: "downlaod de post ok" });
+    });
+    // downloadPostsProcess(req.headers).then((response) => {
+    //   res.status(response.status).json(response.message);
+    // });
   }
 });
 
