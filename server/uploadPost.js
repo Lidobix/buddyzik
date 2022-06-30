@@ -2,11 +2,13 @@ import { fetchOne, updateUno } from "./manageDatas.js";
 import { v4 as uuidv4 } from "uuid";
 import "dotenv/config";
 import cloudinary from "cloudinary";
+import moment from "moment";
 
 class PostToSave {
-  constructor(uuid, authorUuid, date, content, picture) {
+  constructor(uuid, authorUuid, timestamp, date, content, picture) {
     this.uuid = uuid;
     this.authorUuid = authorUuid;
+    this.timestamp = timestamp;
     this.date = date;
     this.content = content;
     this.picPost = picture;
@@ -15,11 +17,6 @@ class PostToSave {
 
 async function createPost(sender, content) {
   try {
-    // const extractAuthor = await fetchOne(
-    //   { uuid: sender.uuid },
-    //   { projection: { _id: 0, firstName: 1, lastName: 1 } }
-    // );
-
     await cloudinary.v2.uploader
       .upload(content.postPic, {
         ressource: "image",
@@ -35,25 +32,26 @@ async function createPost(sender, content) {
     return new PostToSave(
       uuidv4(),
       sender.uuid,
-      new Date().toDateString(),
+      Date.now(),
+      moment().format("dddd D MMMM YYYY, HH:mm"),
       content.post,
       content.postPic
     );
-
-    // console.log("post : ", post);
-    // return post;
   } catch (error) {
-    console.log(error);
+    console.log("ceci est une erreur", error);
   }
 }
 
 export async function uploadPostProcess(sender, content) {
-  // console.log("content = ", content);
   const postToUpload = await createPost(sender, content);
 
   await updateUno(
     { uuid: content.recipient },
     { $push: { wall: postToUpload } }
+  );
+  await updateUno(
+    { uuid: content.recipient },
+    { $push: { wall: { $each: [], $sort: { timestamp: -1 } } } }
   );
   return { status: 200, message: "post posté!" };
 }
