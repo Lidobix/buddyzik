@@ -66,7 +66,9 @@ export class ProfilePageComponent implements OnInit {
   }
 
   getPosts() {
-    this.postService.getAllPosts().subscribe((posts) => {
+    const buddyID = this.route.snapshot.params['uuid'];
+    console.log('this.buddy', buddyID);
+    this.postService.getAllPosts(buddyID).subscribe((posts) => {
       this.allPosts = posts;
       console.log("dans l'observable de tous les posts ", this.allPosts);
     });

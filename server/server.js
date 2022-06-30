@@ -18,7 +18,7 @@ import "dotenv/config";
 // import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { recommendationUpdateDataBase } from "./recommendationBuddy.js";
-import { sendPostProcess } from "./uploadPost.js";
+import { uploadPostProcess } from "./uploadPost.js";
 import { deletionBuddyProcess } from "./deleteBuddy.js";
 import { confirmationProcess } from "./confirmationInvitaionBuddy.js";
 import { loginProcess } from "./login.js";
@@ -139,8 +139,8 @@ app.get("/mailtest", (req, res, next) => {
   console.log("dans le middleware auth");
 
   // console.log("authToken: ", authToken(req.headers.token));
-
-  registerMail("pipoflutepouet@gmail.com", "LLLUUUUUDOOOO");
+  main();
+  // registerMail("pipoflutepouet@gmail.com", "LLLUUUUUDOOOO");
 });
 
 /////////////////////////////////////////////////////////
@@ -295,6 +295,7 @@ app.get("/allbuddies", (req, res, next) => {
 
         if (allBuddies === null) {
         } else {
+          console.log("allBuddies", allBuddies);
           res.status(200).json(allBuddies);
           // console.log("result:", result);
         }
@@ -338,7 +339,7 @@ app.get("/fetchmybuddies", (req, res) => {
 
         const allMyBuddies = result[0].friends;
 
-        // console.log("tous les buddies: ", allMyBuddies);
+        console.log("tous les buddies: ", allMyBuddies);
         res.status(200).json(allMyBuddies);
       } catch (error) {
         console.log(error);
@@ -498,7 +499,7 @@ app.post("/recommendation", (req, res) => {
 /////////////// RESET PASSWORD ///////////////
 //////////////////////////////////////////////
 
-app.post("/resetpassword", (req, res) => {
+app.post("/resetpassword", (req, res, next) => {
   console.log("dans le middleware reste password");
 
   resetPasswordProcess(req.body.mailAddress).then((response) => {
@@ -510,10 +511,10 @@ app.post("/resetpassword", (req, res) => {
 ////////////// SEND POST //////////////
 ///////////////////////////////////////
 
-app.post("/sendpost", (req, res) => {
-  console.log("dans le middleware sendpost");
+app.post("/uploadpost", (req, res, next) => {
+  console.log("dans le middleware uploadpost");
   if (authToken(req.headers.token, req.headers.uuid)) {
-    sendPostProcess(req.headers, req.body).then((response) => {
+    uploadPostProcess(req.headers, req.body).then((response) => {
       res.status(response.status).json(response.message);
     });
   }
@@ -522,11 +523,13 @@ app.post("/sendpost", (req, res) => {
 ///////////// FETCH  POST /////////////
 ///////////////////////////////////////
 
-app.get("/fetchposts", (req, res) => {
+app.post("/downloadposts", (req, res, next) => {
   console.log("dans le middleware FETCHpost");
+  console.log("req.body", req.body);
+
   if (authToken(req.headers.token, req.headers.uuid)) {
-    downloadPostsProcess(req.headers).then((response) => {
-      res.status(200).json({ message: "downlaod de post ok" });
+    downloadPostsProcess(req.body.target).then((response) => {
+      res.status(200).json(response);
     });
     // downloadPostsProcess(req.headers).then((response) => {
     //   res.status(response.status).json(response.message);

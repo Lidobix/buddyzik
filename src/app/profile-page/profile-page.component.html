@@ -40,10 +40,6 @@
   </div>
 
   <div id="postsList">
-    <app-post-card></app-post-card>
-    <app-post-card></app-post-card>
-    <app-post-card></app-post-card>
-    <app-post-card></app-post-card>
-    <app-post-card></app-post-card>
+    <app-post-card *ngFor="let post of allPosts" [post]="post"></app-post-card>
   </div>
 </div>

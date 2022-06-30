@@ -93,12 +93,12 @@ export async function main() {
   let testAccount = await nodemailer.createTestAccount();
   //   console.log("testAccount", testAccount);
   let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
+    host: "smtp-relay.sendinblue.com",
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: testAccount.user, // generated ethereal user
-      pass: testAccount.pass, // generated ethereal password
+      user: "buddyzik.contact@gmail.com", // generated ethereal user
+      pass: "WSCQ4qbvj09mzIws", // generated ethereal password
     },
     tls: {
       rejectUnauthorized: false,

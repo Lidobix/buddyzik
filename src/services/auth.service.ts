@@ -169,7 +169,7 @@ export class AuthService implements OnInit {
               // this.profileService.goToProfile(this.getMyId());
               // this.router.navigateByUrl('/blankprofile');
             }
-            if (route === '/sendpost') {
+            if (route === '/uploadpost') {
               console.log('retour au profil');
               // this.profileService.goToProfile(this.getMyId());
               this.router.navigateByUrl('/blankprofile');

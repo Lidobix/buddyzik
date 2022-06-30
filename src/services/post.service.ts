@@ -9,8 +9,11 @@ import { ServerService } from './server.service';
 export class PostService {
   constructor(private http: HttpClient, private serverService: ServerService) {}
 
-  getAllPosts(): Observable<Post[]> {
-    console.log('recherche des posts sur le serveur....');
-    return this.http.get<Post[]>(this.serverService.serverUrl + '/fetchposts');
+  getAllPosts(buddyUuid: string): Observable<Post[]> {
+    console.log('recherche des posts sur le serveur....de ', buddyUuid);
+    return this.http.post<Post[]>(
+      this.serverService.serverUrl + '/downloadposts',
+      { target: buddyUuid }
+    );
   }
 }

@@ -1,12 +1,11 @@
 export class Post {
   constructor(
     public uuid: string,
-    public author_uuid: string,
-    public author_name: string,
-    public recipient_uuid: string,
+    public authorUuid: string,
+    public authorName: string,
     public picPost: string,
     public content: string,
-    public avatar: boolean,
+    public avatar: string,
     public date: string
   ) {}
 }
