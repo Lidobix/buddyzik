@@ -9,22 +9,30 @@
       id="postInput"
       formControlName="post"
       cols="30"
-      rows="10"
+      rows="5"
     ></textarea>
 
     <div class="action">
-      <input
-        type="file"
-        formControlName="postPic"
-        (change)="selectFile($event)"
-      />
-      <input
+      <button mat-raised-button (click)="fileInput.click()">
+        <span>Image...</span>
+        <input
+          #fileInput
+          type="file"
+          (change)="selectFile($event)"
+          style="display: none"
+        />
+      </button>
+
+      <button mat-raised-button class="button" (click)="onSubmitPostForm()">
+        POSTER
+      </button>
+
+      <button
+        mat-raised-button
         class="button"
-        type="submit"
-        (click)="onSubmitPostForm()"
-        value="POSTER"
-      />
-      <button class="button" type="button" (click)="onCancelPost()">
+        type="button"
+        (click)="onCancelPost()"
+      >
         ANNULER
       </button>
     </div>

@@ -14,6 +14,9 @@ export class ModalPostComponent implements OnInit {
   @Output() cancelPost = new EventEmitter<boolean>();
   postForm!: FormGroup;
   previewPostPic!: string;
+  srcResult!: string;
+  selectedFile: any = null;
+  showFile: boolean = true;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,

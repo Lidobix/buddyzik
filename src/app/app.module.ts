@@ -31,6 +31,11 @@ import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-pro
 import { ModalPostComponent } from './modal-post/modal-post.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { PostCardComponent } from './post-card/post-card.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -50,6 +55,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SpinnerComponent,
     EmptyToMyProfileComponent,
     ModalPostComponent,
+    PostCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,8 +66,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatFormFieldModule,
     BrowserAnimationsModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatInputModule,
   ],
   providers: [
     CookieService,
