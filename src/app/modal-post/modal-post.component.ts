@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/services/auth.service';
 import { ImageService } from 'src/services/image.service';
+import { PostService } from 'src/services/post.service';
+import { ProfileService } from 'src/services/profile.service';
 import { pictureValidator } from 'src/shared/picture-format.directive';
 
 @Component({
@@ -20,10 +22,13 @@ export class ModalPostComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private postService: PostService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
+    // this.postService.defineTarget();
     this.postForm = this.formBuilder.group({
       post: [null, Validators.required],
       postPic: [null, pictureValidator(this.authService.pictureExtension)],
@@ -40,7 +45,12 @@ export class ModalPostComponent implements OnInit {
   }
   onSubmitPostForm(): void {
     this.postForm.value.postPic = this.previewPostPic;
-    this.authService.updatehUser(this.postForm, '/uploadpost');
+    this.postService.uploadPost(
+      this.postForm,
+      '/uploadpost',
+      this.postRecipient
+    );
+    this.onCancelPost();
   }
 
   onCancelPost(): void {

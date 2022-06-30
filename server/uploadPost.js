@@ -32,7 +32,7 @@ async function createPost(sender, content) {
         console.log("error", JSON.stringify(error, null, 2));
       });
 
-    const post = new PostToSave(
+    return new PostToSave(
       uuidv4(),
       sender.uuid,
       new Date().toDateString(),
@@ -40,8 +40,8 @@ async function createPost(sender, content) {
       content.postPic
     );
 
-    console.log("post : ", post);
-    return post;
+    // console.log("post : ", post);
+    // return post;
   } catch (error) {
     console.log(error);
   }

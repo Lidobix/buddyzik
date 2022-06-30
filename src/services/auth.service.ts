@@ -44,7 +44,6 @@ export class AuthService implements OnInit {
   authentication!: boolean;
   constructor(
     private http: HttpClient,
-    // private buddyService: BuddyService,
     private serverService: ServerService,
     private router: Router,
     private displayingElementsService: DisplayingElementsService,
@@ -62,13 +61,6 @@ export class AuthService implements OnInit {
     this.router.navigateByUrl('/auth/login');
   }
 
-  // public isLoggedIn() {
-  //   return moment().isBefore(this.getExpiration());
-  // }
-
-  // isLoggedOut() {
-  //   return !this.isLoggedIn();
-  // }
   getMyToken(): any {
     // console.log('fetch du token');
     this.myToken = localStorage.getItem('token');
@@ -97,14 +89,6 @@ export class AuthService implements OnInit {
       this.http.get<boolean>(this.serverService.serverUrl + '/auth')
     );
   }
-  // getExpiration() {
-  //   const expiration = localStorage.getItem('expires_at');
-  //   console.log('expiration', expiration);
-  //   console.log('moment : ', moment());
-  //   // const expiresAt = JSON.parse(expiration);
-  //   // return moment(expiresAt);
-  //   return 12;
-  // }
 
   authUser(form: FormGroup, route: string): void {
     if (!form.valid) {
@@ -146,35 +130,16 @@ export class AuthService implements OnInit {
           .subscribe((res) => {
             console.log(res);
             alert(res.message);
-            console.log('route = ', route);
-            // if (authentication.success === true) {
-            //   alert(authentication.message);
-            //   localStorage.setItem('token', authentication.token);
-            //   localStorage.setItem('uuid', authentication.user.uuid);
-            //   // this.buddyService.userIdBuilder(authentication.user);
+
             if (res.token != undefined) {
               localStorage.setItem('token', res.token);
             }
 
-            //   this.router.navigateByUrl('/home');
-            // } else {
-            //   alert(authentication.message);
-            // }
             if (route === '/updateprofile' && res.success === true) {
               this.profileService.goToProfile(this.getMyId());
-              // this.router.navigateByUrl('/blankprofile');
             }
             if (route === '/updateprofile' && res.success === false) {
               this.router.navigateByUrl('/edition');
-              // this.profileService.goToProfile(this.getMyId());
-              // this.router.navigateByUrl('/blankprofile');
-            }
-            if (route === '/uploadpost') {
-              console.log('retour au profil');
-              // this.profileService.goToProfile(this.getMyId());
-              this.router.navigateByUrl('/blankprofile');
-              // this.profileService.goToProfile(this.getMyId());
-              // this.router.navigateByUrl('/edition');
             }
 
             if (route === '/resetpassword') {
@@ -186,11 +151,4 @@ export class AuthService implements OnInit {
       }
     }
   }
-
-  // setResetPassword(form: FormGroup): void {
-  //   console.log('dans le service, demande de reste pwd');
-  //   this.http
-  //     .post<any>(this.serverService.serverUrl + '/resetpassword', form)
-  //     .subscribe();
-  // }
 }

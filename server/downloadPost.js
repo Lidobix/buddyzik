@@ -1,17 +1,5 @@
 import { fetchOne, fetchSome } from "./manageDatas.js";
 
-// class PostToSend {
-//   constructor(uuid, authorUuid, date, content, picture, avatar, authorName) {
-//     this.uuid = uuid;
-//     this.authorUuid = authorUuid;
-//     this.date = date;
-//     this.content = content;
-//     this.picture = picture;
-//     this.avatar = avatar;
-//     this.authorName = authorName;
-//   }
-// }
-
 export async function downloadPostsProcess(buddy) {
   console.log("download de post requis");
 
@@ -38,7 +26,7 @@ export async function downloadPostsProcess(buddy) {
       post.avatar = extractAuthor.profilePicture;
     }
 
-    console.log("posts", posts);
+    // console.log("posts", posts);
     // return { status: 200, message: "ok!", wall: posts };
     return posts;
   } catch (error) {

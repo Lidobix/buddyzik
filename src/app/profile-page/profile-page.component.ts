@@ -8,6 +8,7 @@ import { ServerService } from 'src/services/server.service';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from '../models/post-model';
 import { PostService } from 'src/services/post.service';
+import { ProfileService } from 'src/services/profile.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -19,7 +20,7 @@ export class ProfilePageComponent implements OnInit {
   allPosts!: Post[];
   profilePicUrl!: string;
   pseudo!: string;
-  // buddyID!: string;
+  buddyUuid!: string;
   user!: Buddy;
   myID!: string;
   displayModalPost: boolean = false;
@@ -31,44 +32,27 @@ export class ProfilePageComponent implements OnInit {
     private serverService: ServerService,
     private authService: AuthService,
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private profileService: ProfileService
   ) {}
-  // logoutRequest(): void {
-  //   this.authService.logout();
-  // }
 
-  // fetch(): void {
-  //   this.http
-  //     .get<any>(this.serverService.serverUrl + '/fetch')
-  //     .subscribe((retour) => {
-  //       console.log(retour);
-  //     });
-  // }
   ngOnInit(): void {
-    // this.getMe();
+    this.buddyUuid = this.route.snapshot.params['uuid'];
 
-    const buddyID = this.route.snapshot.params['uuid'];
-
-    // console.log('this.route : ', this.route.snapshot.params['uuid']);
-    // console.log('buddyID : ', buddyID);
-    // console.log('buddyID : ', buddyID);
-    console.log('buddyID : ', buddyID);
-    console.log('buddy à charger: ', buddyID);
-    this.buddyService.getBuddyByID(buddyID).subscribe((value) => {
+    // console.log('buddyID : ', this.buddyUuid);
+    // console.log('buddy à charger: ', this.buddyUuid);
+    this.buddyService.getBuddyByID(this.buddyUuid).subscribe((value) => {
       this.buddy = value;
-      console.log('utilisateur connecté : ', this.buddy);
+      // console.log('utilisateur connecté : ', this.buddy);
     });
-    // this.bannierPicUrl = './assets/concert.jpeg';
-    // this.profilePicUrl = './assets/profil.jpg';
-    // this.pseudo = 'Jean-Mi la Gratte de la mort qui tue';
-    // this.user = this.buddyService.connectedUser;
+
     this.getPosts();
   }
 
   getPosts() {
-    const buddyID = this.route.snapshot.params['uuid'];
-    console.log('this.buddy', buddyID);
-    this.postService.getAllPosts(buddyID).subscribe((posts) => {
+    // const buddyID = this.route.snapshot.params['uuid'];
+    console.log('this.buddy', this.buddyUuid);
+    this.postService.getAllPosts(this.buddyUuid).subscribe((posts) => {
       this.allPosts = posts;
       console.log("dans l'observable de tous les posts ", this.allPosts);
     });
@@ -81,23 +65,4 @@ export class ProfilePageComponent implements OnInit {
   onCancellingPost(display: boolean): void {
     this.displayModalPost = false;
   }
-  // getMe(): any {
-  //   console.log('dans homepage , on va fetcher moi)');
-  //   const idToFetch = localStorage.getItem('uuid');
-  //   if (idToFetch != null) {
-  //     this.buddyService.getBuddyByID(idToFetch).subscribe((me) => {
-  //       // console.log("dans l'observable, buddies =  ", buddies);
-  //       this.user = me;
-  //       console.log("dans l'observable me = ", me);
-  //     });
-  //   } else {
-  //     alert("problème d'identification");
-  //     this.authService.logout();
-  //   }
-  // }
-
-  // @HostListener('unload')
-  // ngOnDestroy(): void {
-  //   console.log('destruction en cours');
-  // }
 }
