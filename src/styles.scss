@@ -56,13 +56,13 @@ $buddyzik-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$buddyzik-theme: mat.define-light-theme((
-  color: (
-    primary: $buddyzik-primary,
-    accent: $buddyzik-accent,
-    warn: $buddyzik-warn,
-  )
-));
+// $buddyzik-theme: mat.define-light-theme((
+//   color: (
+//     primary: $buddyzik-primary,
+//     accent: $buddyzik-accent,
+//     warn: $buddyzik-warn,
+//   )
+// ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
