@@ -14,7 +14,7 @@ export class SpinnerInterceptor implements HttpInterceptor, OnInit {
   constructor(private spinnerService: SpinnerService) {}
 
   ngOnInit(): void {
-    console.log("dans l'einterceptor spinner");
+    // console.log("dans l'einterceptor spinner");
   }
 
   intercept(

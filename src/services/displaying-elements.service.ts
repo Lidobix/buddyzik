@@ -21,5 +21,14 @@ export class DisplayingElementsService {
   setRecommendedClassCard(display: boolean) {
     this.recommendedClassCard.next(display);
   }
+
+  displayingValidationModalPost = new BehaviorSubject(false);
+  setdisplayValidationModalPost(display: boolean) {
+    this.displayingValidationModalPost.next(display);
+  }
+  displayingSpinner = new BehaviorSubject(false);
+  setdisplaySpinner(display: boolean) {
+    this.displayingSpinner.next(display);
+  }
   constructor() {}
 }

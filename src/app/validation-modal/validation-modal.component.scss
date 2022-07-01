@@ -1,0 +1,32 @@
+
+*{
+    margin:0;
+    padding:0;
+    // border: 1px solid black;
+}
+
+.modal{
+    border: 1px solid black;
+    padding:20px;
+    position: fixed;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width:20%;
+    margin-left: 40%;
+    margin-top: 10%;
+    background-color: white;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    z-index: 8;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    button{
+        width:30%
+    }
+ 
+
+   
+}

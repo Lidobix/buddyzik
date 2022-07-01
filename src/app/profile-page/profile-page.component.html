@@ -4,6 +4,11 @@
   [postRecipient]="buddy.uuid"
 ></app-modal-post>
 
+<app-validation-modal
+  *ngIf="displayValidationModalPost"
+  (validation)="onCloseValidationModalPost($event)"
+></app-validation-modal>
+
 <div id="main" *ngIf="buddy">
   <div id="idCard">
     <!-- <img id="profilePic" [src]="profilePicUrl" /> -->
@@ -39,6 +44,7 @@
     </p> -->
   </div>
 
+  <!-- <div id="postsList" (updatePosts)="onUpdatePosts($event)"> -->
   <div id="postsList">
     <app-post-card *ngFor="let post of allPosts" [post]="post"></app-post-card>
   </div>

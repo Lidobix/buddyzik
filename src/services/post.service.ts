@@ -7,42 +7,55 @@ import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { ProfileService } from './profile.service';
 import { ActivatedRoute } from '@angular/router';
+import { DisplayingElementsService } from './displaying-elements.service';
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
-  // postTarget!: string;
+  allPosts!: Post[]; // postTarget!: string;
+
   constructor(
     private http: HttpClient,
     private router: Router,
     private serverService: ServerService,
     private profileService: ProfileService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private displayingElementsService: DisplayingElementsService
   ) {}
 
-  getAllPosts(buddyTarget: string): Observable<Post[]> {
-    console.log('recherche des posts sur le serveur....de ', buddyTarget);
+  getAllPosts(buddyTarget: string): any {
+    // console.log('recherche des posts sur le serveur....de ', buddyTarget);
     return this.http.post<Post[]>(
       this.serverService.serverUrl + '/downloadposts',
-      { target: buddyTarget }
+      {
+        target: buddyTarget,
+      }
     );
   }
+  // getAllPosts(buddyTarget: string): Observable<Post[]> {
+  //   console.log('recherche des posts sur le serveur....de ', buddyTarget);
+  //   return this.http.post<Post[]>(
+  //     this.serverService.serverUrl + '/downloadposts',
+  //     { target: buddyTarget }
+  //   );
+  // }
 
-  uploadPost(form: FormGroup, route: string, buddyTarget: string): void {
+  uploadPost(form: FormGroup, route: string, buddyTarget: string): any {
     if (!form.valid) {
       alert('Formulaire non valide!');
     } else {
       try {
         console.log('soumission du formulaire...');
-        this.http
+        return this.http
 
-          .post<any>(this.serverService.serverUrl + route, form.value)
+          .post<Post[]>(this.serverService.serverUrl + route, form.value)
           .subscribe((res) => {
-            console.log(res);
-            alert(res.message);
+            console.log('res', res);
+            // this.displayingElementsService.setdisplayValidationModalPost(true);
+            // alert(res.message);
             console.log('route = ', route);
-
-            this.profileService.goToProfile(buddyTarget);
+            // this.getAllPosts('869cd705-5d80-47e5-954d-84f2515fd7ad');
+            // this.profileService.goToProfile(buddyTarget);
             // this.router.navigateByUrl('/blankprofile');
           });
       } catch (error) {

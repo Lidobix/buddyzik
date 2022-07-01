@@ -74,7 +74,7 @@ export class EditProfileComponent implements OnInit {
       }
     );
 
-    console.log('displayCreationMode : ', this.displayCreationMode);
+    // console.log('displayCreationMode : ', this.displayCreationMode);
 
     this.userProfileForm = this.formBuilder.group({
       login: [

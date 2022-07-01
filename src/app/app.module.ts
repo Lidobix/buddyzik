@@ -30,12 +30,13 @@ import { SpinnerInterceptor } from './spinner.interceptor';
 import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
 import { ModalPostComponent } from './modal-post/modal-post.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
+
 import { PostCardComponent } from './post-card/post-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { ValidationModalComponent } from './validation-modal/validation-modal.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { MatInputModule } from '@angular/material/input';
     EmptyToMyProfileComponent,
     ModalPostComponent,
     PostCardComponent,
+    ValidationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,12 +68,10 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    BrowserAnimationsModule,
     MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
     MatInputModule,
   ],
+
   providers: [
     CookieService,
     {
@@ -79,11 +79,11 @@ import { MatInputModule } from '@angular/material/input';
       useClass: AuthInterceptorInterceptor,
       multi: true,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: SpinnerInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: SpinnerInterceptor,
+    //   multi: true,
+    // },
   ],
   bootstrap: [AppComponent],
 })
