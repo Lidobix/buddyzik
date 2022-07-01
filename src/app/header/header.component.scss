@@ -29,7 +29,7 @@ flex-basis: 8%;
 
     @include media-min(phone-down)
     {
-        display: none;
+        // display: none;
 
     }
 }
@@ -40,17 +40,19 @@ flex-basis: 8%;
     flex-basis: 90%;
     // }
     // h1{
+        margin:0;
         // text-align: center;
         font-family: Rubik_Puddles;
         display: inline-block;
-        margin-top:50px;
-        margin-left:20px;
+       
 
         color:black;
         font-size: 3em;
         @include media-min(phone-down)
         {
             font-size: 8em;
+            margin-top:50px;
+            margin-left:20px;
 
         }
         
