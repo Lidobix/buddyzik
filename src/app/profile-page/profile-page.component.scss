@@ -1,9 +1,6 @@
-@import"../../styles/configs/variables";
-@import "../styles/configs/_mixins.scss";
-// *{border: 1px solid white}
+@import "../../styles/configs/variables";
+@import "../../styles/configs/_mixins.scss";
 
-
-// *{border: 1px solid black}
 #profile{
   //display: flex;
   
@@ -11,35 +8,42 @@
 //   margin: auto;
 //   margin-top: 15px;
 //   height: 100vh;
-  border-radius:10px;
-  -webkit-border-radius:10px;
-  -moz-border-radius:10px;
-  -ms-border-radius:10px;
-  -o-border-radius:10px;
-  #idCard
-{
+
+    #idCard{
         padding:15px;
-   
         display: flex;
         flex-direction: row;
         flex-basis: 100%;
         flex-wrap: wrap;
         justify-content: center;
-   
-   
-    
-.profilePicContainer{
-    flex-basis: 20%;
-    img{
-        margin: auto;
-        border-radius: 10px;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        -ms-border-radius: 10px;
-        -o-border-radius: 10px;
-}
-}
 
+        .buddyId{
+            flex-basis: 80%;
+            display:flex;
+            align-items: center;
+        
+            p{
+                font-size: 5em;
+                color:#333333;
+                font-weight: 700;
+            }
+        }
+        .buddyBio{
+            flex-basis: 100%;
+        }
+
+        
+    .profilePicContainer{
+        flex-basis: 20%;
+        img{
+            margin: auto;
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -o-border-radius: 10px;
+            }
+        }
     }
 }
 // img{
@@ -54,20 +58,8 @@
 //     // border:2px solid white
 // }
 
-.buddyId{
-    flex-basis: 80%;
-    display:flex;
-    align-items: center;
 
-    p{
-        font-size: 5em;
-        color:#333333;
-        font-weight: 700;
-    }
-}
-.buddyBio{
-    flex-basis: 100%;
-}
+
 // .imgCardContainer{
 //     // flex-basis: 30%;
 //     /* position: absolute; */

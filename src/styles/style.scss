@@ -1,5 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
-// @import "./configs/variables";
-// @import "./configs/mixins";
+// /* You can add global styles to this file, and also import other style files */
+@import "./configs/variables";
+@import "./configs/mixins";
 // @import "../app/header/header.component.scss";
-// @import "./components/footer";
+// @import "../app/components/footer";
+// @import "../app/buddycard/buddycard.component.scss";
+// @import "../app/edit-profile/edit-profile.component.scss";
+// @import "../app/empty-to-my-profile/empty-to-my-profile.component.scss";
+// @import "../app/footer/footer.component.scss";
+// @import "../app/header/header.component.scss";
+// @import "../app/homepage/homepage.component.scss";
+// @import "../app/login-page/login-page.component.scss";
+// @import "../app/modal-post/modal-post.component.scss";
+// @import "../app/mybuddies/mybuddies.component.scss";
+// @import "../app/nav/nav.component.scss";
+// @import "../app/page-not-found/page-not-found.component.scss";
+// @import "../app/post-card/post-card.component.scss";
+// @import "../app/profile-page/profile-page.component.scss";
+// @import "../app/searchbuddy/searchbuddy.component.scss";
+// @import "../app/reset-pwd/reset-pwd.component.scss";
+// @import "../app/validation-modal/validation-modal.component.scss";

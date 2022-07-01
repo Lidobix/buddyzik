@@ -1,6 +1,6 @@
 
 @import "../../styles/configs/_mixins.scss";
-@import "../styles/configs/_mixins.scss";
+@import "../../styles/configs/_variables.scss";
 .visible {
     // display: block;
     display: flex;
@@ -14,11 +14,9 @@
 
 nav{
 
-    @include media-min(phone-down)
-    {
-        display: none;
-
-    }
+    // @include media-min(phone-down){
+    //     // display: none
+    // }
 
 
     display: flex;
@@ -26,8 +24,8 @@ nav{
     // justify-content: space-around;
     margin-bottom: 0;
     button{
-        margin-left:20px;
-        margin-right:20px;
-        overflow: hidden;
+        // margin-left:20px;
+        // margin-right:20px;
+        // overflow: hidden;
     }
 }

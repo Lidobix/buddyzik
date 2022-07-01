@@ -15,7 +15,7 @@ import { SpinnerService } from 'src/services/spinner.service';
 export class AppComponent implements OnInit {
   title = 'buddyzik';
   spinnerVisible!: boolean;
-  // showNav: boolean = true;
+  showNav: boolean = true;
 
   constructor(
     private router: Router,

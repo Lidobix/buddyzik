@@ -43,14 +43,14 @@ flex-basis: 8%;
         // text-align: center;
         font-family: Rubik_Puddles;
         display: inline-block;
-        // margin-top:50px;
-        // margin-left:20px;
+        margin-top:50px;
+        margin-left:20px;
 
         color:black;
         font-size: 3em;
         @include media-min(phone-down)
         {
-            font-size: 1em;
+            font-size: 8em;
 
         }
         
