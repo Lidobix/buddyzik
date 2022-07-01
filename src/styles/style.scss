@@ -1,6 +1,5 @@
 // /* You can add global styles to this file, and also import other style files */
-@import "./configs/variables";
-@import "./configs/mixins";
+
 // @import "../app/header/header.component.scss";
 // @import "../app/components/footer";
 // @import "../app/buddycard/buddycard.component.scss";
@@ -25,6 +24,8 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+@import "./configs/variables";
+@import "./configs/mixins";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
