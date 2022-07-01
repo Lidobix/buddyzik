@@ -1,40 +1,41 @@
-<app-modal-post
-  *ngIf="displayModalPost"
-  (cancelPost)="onCancellingPost($event)"
-  [postRecipient]="buddy.uuid"
-></app-modal-post>
+<div class="main">
+  <app-modal-post
+    *ngIf="displayModalPost"
+    (cancelPost)="onCancellingPost($event)"
+    [postRecipient]="buddy.uuid"
+  ></app-modal-post>
 
-<app-validation-modal
-  *ngIf="displayValidationModalPost"
-  (validation)="onCloseValidationModalPost($event)"
-></app-validation-modal>
+  <app-validation-modal
+    *ngIf="displayValidationModalPost"
+    (validation)="onCloseValidationModalPost($event)"
+  ></app-validation-modal>
 
-<div id="main" *ngIf="buddy">
-  <div id="idCard">
-    <!-- <img id="profilePic" [src]="profilePicUrl" /> -->
+  <div id="profile" *ngIf="buddy">
+    <div id="idCard">
+      <!-- <img id="profilePic" [src]="profilePicUrl" /> -->
 
-    <div class="profilePicContainer">
-      <img [src]="buddy.profilePicture" alt="" />
-    </div>
-    <div class="buddyId">
-      <p>{{ buddy.firstName }} {{ buddy.lastName }}</p>
-    </div>
+      <div class="profilePicContainer">
+        <img [src]="buddy.profilePicture" alt="" />
+      </div>
+      <div class="buddyId">
+        <p>{{ buddy.firstName }} {{ buddy.lastName }}</p>
+      </div>
 
-    <div class="buddyBio">
-      <p>Instrument : {{ buddy.instrument }}</p>
-      <p *ngIf="buddy.group">Style : {{ buddy.style }}</p>
-      <p *ngIf="buddy.group">Groupe :{{ buddy.group }}</p>
-      <p *ngIf="!buddy.group">Groupe : Aucun</p>
-      <p *ngIf="buddy.pro">Professionnel</p>
-      <p *ngIf="!buddy.pro">Amateur - Loisir</p>
-      <p *ngIf="!buddy.singer">Chanteur : Non</p>
-      <p *ngIf="buddy.singer">Chanteur : Oui</p>
-    </div>
+      <div class="buddyBio">
+        <p>Instrument : {{ buddy.instrument }}</p>
+        <p *ngIf="buddy.group">Style : {{ buddy.style }}</p>
+        <p *ngIf="buddy.group">Groupe :{{ buddy.group }}</p>
+        <p *ngIf="!buddy.group">Groupe : Aucun</p>
+        <p *ngIf="buddy.pro">Professionnel</p>
+        <p *ngIf="!buddy.pro">Amateur - Loisir</p>
+        <p *ngIf="!buddy.singer">Chanteur : Non</p>
+        <p *ngIf="buddy.singer">Chanteur : Oui</p>
+      </div>
 
-    <button mat-raised-button (click)="onPostRequest()">POST</button>
-    <!-- <p class="">genre : {{ buddy.gender }}</p>
+      <button mat-raised-button (click)="onPostRequest()">POST</button>
+      <!-- <p class="">genre : {{ buddy.gender }}</p>
     <p class="">age : à calculer</p> -->
-    <!-- 
+      <!-- 
     <p id="">Chanteur : {{ buddy.singer }}</p>
 
     <p>Instrument de prédilection : {{ buddy.instrument }}</p>
@@ -42,10 +43,14 @@
       Est ic pour:
       {{ buddy.bio }}
     </p> -->
-  </div>
+    </div>
 
-  <!-- <div id="postsList" (updatePosts)="onUpdatePosts($event)"> -->
-  <div id="postsList">
-    <app-post-card *ngFor="let post of allPosts" [post]="post"></app-post-card>
+    <!-- <div id="postsList" (updatePosts)="onUpdatePosts($event)"> -->
+    <div id="postsList">
+      <app-post-card
+        *ngFor="let post of allPosts"
+        [post]="post"
+      ></app-post-card>
+    </div>
   </div>
 </div>

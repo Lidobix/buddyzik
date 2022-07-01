@@ -43,7 +43,13 @@ app.use(
     path.join(__dirname, "..", "dist", "buddyzik", "assets", "images")
   )
 );
-
+app.use(
+  "/fonts",
+  express.static(
+    path.join(__dirname, "..", "dist", "buddyzik", "assets", "fonts")
+  )
+);
+console.log(path.join(__dirname, "..", "dist", "buddyzik", "assets", "images"));
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
 // });
@@ -149,8 +155,8 @@ app.get("/mailtest", (req, res, next) => {
 
 app.post("/login", (req, res) => {
   console.log("dans le middleware login");
-  main();
-  registerMail("pipoflutepouet@gmail.com", "LLLUUUUUDOOOO");
+  // main();
+  // registerMail("pipoflutepouet@gmail.com", "LLLUUUUUDOOOO");
 
   loginProcess(req.body).then((response) => {
     res.status(response.status).json(response.content);

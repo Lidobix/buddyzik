@@ -37,6 +37,7 @@ import { PostCardComponent } from './post-card/post-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ValidationModalComponent } from './validation-modal/validation-modal.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,8 @@ import { ValidationModalComponent } from './validation-modal/validation-modal.co
     MatCardModule,
     MatButtonModule,
     MatInputModule,
+    MatMenuModule,
+    MatIconModule,
   ],
 
   providers: [

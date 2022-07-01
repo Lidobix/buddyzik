@@ -1,0 +1,19 @@
+@import "../styles/configs/_mixins.scss";
+@import "../styles/configs/_variables.scss";
+
+
+.content{
+    width:98%;
+    background-color: #94A187 ;
+    margin-top: 220px;
+    margin-left: auto;
+    margin-right: auto;
+
+
+@include media-min(phone-down){
+
+    width: 70%;
+}
+
+}
+

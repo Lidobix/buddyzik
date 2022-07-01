@@ -1,7 +1,32 @@
+
+@import "../../styles/configs/_mixins.scss";
 .visible {
-    display: block;
+    // display: block;
+    display: flex;
+    // justify-content: space-around;
+    // margin-bottom: 0;
 }
 
 .hidden{
     display : none;
+}
+
+nav{
+
+    @include media-min(phone-down)
+    {
+        display: none;
+
+    }
+
+
+    display: flex;
+    justify-content: center;
+    // justify-content: space-around;
+    margin-bottom: 0;
+    button{
+        margin-left:20px;
+        margin-right:20px;
+        overflow: hidden;
+    }
 }

@@ -16,7 +16,7 @@ import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomepageComponent,
+    component: EmptyToMyProfileComponent,
     canActivate: [AuthGuard],
   },
   {

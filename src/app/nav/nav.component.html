@@ -1,18 +1,23 @@
 <!-- <p>Bienvenue {{ user.login }}</p> -->
-
-<div [className]="displayNav ? 'visible' : 'hidden'">
-  <button (click)="goToMyProfile()">ACCUEIL</button>
-  <button (click)="goToMyBuddysList()">Mes amis</button>
-  <button (click)="goToAllBuddysList()">Rechercher des amis</button>
-  <button (click)="goToMessaging()">Messagerie</button>
-  <button (click)="goToTchat()">Tchat</button>
-  <button (click)="logout()">DECONNEXION</button>
-  <button (click)="goToEditProfile()">MODIFIER LE PROFIL</button>
-  <button (click)="testmail()">MAIL</button>
+<!-- <nav> -->
+<nav [className]="displayNav ? 'visible' : 'hidden'">
+  <button mat-raised-button (click)="goToMyProfile()">ACCUEIL</button>
+  <button mat-raised-button (click)="goToMyBuddysList()">Mes Buddys</button>
+  <button mat-raised-button (click)="goToAllBuddysList()">
+    Rechercher des amis
+  </button>
+  <button mat-raised-button (click)="goToMessaging()">Messagerie</button>
+  <button mat-raised-button (click)="goToTchat()">Tchat</button>
+  <button mat-raised-button (click)="logout()">DECONNEXION</button>
+  <button mat-raised-button (click)="goToEditProfile()">
+    MODIFIER LE PROFIL
+  </button>
+  <!-- <button (click)="testmail()">MAIL</button> -->
   <!-- <button
     [className]="displayModif ? 'visible' : 'hidden'"
     (click)="goToEditProfile()"
   >
     MODIFIER LE PROFIL
   </button> -->
-</div>
+  <!-- </div> -->
+</nav>

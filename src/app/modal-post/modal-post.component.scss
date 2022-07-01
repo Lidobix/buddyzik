@@ -1,18 +1,22 @@
-
+@import "../../styles/configs/_mixins.scss";
+@import "../../styles/configs/_variables.scss";
 *{
     margin:0;
     padding:0;
+    // border:1px solid black;
     // border: 1px solid black;
 }
 
 .modal{
+    top:10%;
     border: 1px solid black;
     padding:20px;
     position: fixed;
     display:flex;
     flex-direction: column;
-    width:40%;
-    margin-left: 30%;
+    width:88%;
+    // margin-top:0;
+    // margin-left: auto;
     background-color: white;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
     border-radius: 10px;
@@ -21,6 +25,12 @@
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+
+@include media-min(phone-down){
+    width:40%;
+    margin-left:50%;
+}
+
 
     .fileInput{
         visibility: hidden;
@@ -65,5 +75,4 @@
             height:fit-content;
             }
         }
-    }
-}
+    }}

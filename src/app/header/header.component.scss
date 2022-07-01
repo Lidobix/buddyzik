@@ -1,16 +1,68 @@
 @import "../../styles/configs/_variables.scss";
-
+@import "../../styles/configs/_mixins.scss";
+@font-face {
+    font-family: 'Rubik_Puddles';
+    font-display: block;
+    src: url('./../../assets/fonts/Rubik_Puddles/RubikPuddles-Regular.ttf') format('truetype');
+  }
+  *{border:1px solid black}
 header{
-    h1{
-        a{
-            color:$titleColor;
-        }
+    border: 1px solid black;
+    position: fixed;
+    // width: 100%;
+    z-index: 2;
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    // position:absolute;
+// height: 200px;
+// display:flex;
+// flex-direction: row;
+    // .banner {
+        // display: block;
+        // width :100%;
+.burgermenu{
+
+flex-basis: 8%;
+
+
+    @include media-min(phone-down)
+    {
+        display: none;
+
     }
-    a{color:green}
+}
 
 
+
+.title{
+    flex-basis: 90%;
+    // }
+    // h1{
+        // text-align: center;
+        font-family: Rubik_Puddles;
+        display: inline-block;
+        // margin-top:50px;
+        // margin-left:20px;
+
+        color:black;
+        font-size: 3em;
+        @include media-min(phone-down)
+        {
+            font-size: 1em;
+
+        }
+        
+            // color:$titleColor;
+        
+    // }
+    // a{color:green}
+
+}
    
 }
+
 
 
 
