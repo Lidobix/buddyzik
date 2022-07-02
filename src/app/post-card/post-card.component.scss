@@ -17,7 +17,7 @@
       max-height: 500px;
       max-width: 100%;
 
-      @include media-min (phone-down){max-width: 400px;}
+      @include media-min (desktop-up){max-width: 400px;}
       height: auto;
       width: auto;
     }            

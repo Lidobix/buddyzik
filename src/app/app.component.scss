@@ -12,7 +12,7 @@
     margin-right: auto;
 
 
-@include media-min(phone-down){
+@include media-min(desktop-up){
 
     width: 70%;
 }

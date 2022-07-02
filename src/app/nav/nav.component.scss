@@ -12,7 +12,7 @@ nav{
 
     .standardmenu{
         display:none;
-        @include media-min(phone-down){
+        @include media-min(desktop-up){
         display: block;
         }
      }   
@@ -26,7 +26,7 @@ nav{
             font-size: 40px;
         }
         display: block;
-        @include media-min(phone-down){
+        @include media-min(desktop-up){
             display: none;
         }
     }
