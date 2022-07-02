@@ -5,6 +5,7 @@ import { FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Observable, lastValueFrom } from 'rxjs';
+import { Buddy } from 'src/app/models/buddy-model';
 moment().format();
 
 // import { BuddyService } from './buddy.service';
@@ -19,7 +20,7 @@ import { ServerService } from './server.service';
 export class AuthService implements OnInit {
   myID!: string | null;
   myToken!: string | null;
-
+  connectedUser!: Buddy;
   isLogged!: boolean;
   minimumAge: number = 18;
   pictureExtension: string[] = [

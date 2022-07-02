@@ -23,7 +23,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   profilePicUrl!: string;
   pseudo!: string;
   buddyUuid!: string;
-  user!: Buddy;
+
   myID!: string;
   decompte!: any;
   displayspinner!: boolean;

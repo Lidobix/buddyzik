@@ -12,16 +12,16 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/mybuddies">
-        <span>Buddys</span>
+      <button mat-menu-item (click)="goToMyBuddysList()">
+        <span>Mes Buddys</span>
       </button>
-      <button mat-menu-item routerLink="/searchbuddy">
+      <button mat-menu-item (click)="goToAllBuddysList()">
         <span>Recherche de Buddys</span>
       </button>
-      <button mat-menu-item routerLink="/edition">
+      <button mat-menu-item (click)="goToEditProfile()">
         <span>Mes infos</span>
       </button>
-      <button mat-menu-item routerLink="">
+      <button mat-menu-item (click)="logout()">
         <span>Deconnexion</span>
       </button>
     </mat-menu>

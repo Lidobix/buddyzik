@@ -24,7 +24,7 @@ import { confirmationProcess } from "./confirmationInvitaionBuddy.js";
 import { loginProcess } from "./login.js";
 import { registrationProcess } from "./registrationBuddy.js";
 import { updateProfileProcess } from "./updateProfile.js";
-import { main } from "./newmailing.js";
+// import { main } from "./newmailing.js";
 import { downloadPostsProcess } from "./downloadPost.js";
 const app = express();
 app.use(cors());
@@ -146,7 +146,7 @@ app.get("/mailtest", (req, res, next) => {
   console.log("dans le middleware auth");
 
   // console.log("authToken: ", authToken(req.headers.token));
-  main();
+  // main();
   // registerMail("pipoflutepouet@gmail.com", "LLLUUUUUDOOOO");
 });
 

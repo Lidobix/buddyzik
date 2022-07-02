@@ -28,7 +28,7 @@ header{
     
     
     .titleContainer{
-        flex-basis: 80%;
+        flex-basis: 100%;
         text-align: center;
         
         @include media-min(desktop-up){
@@ -43,7 +43,6 @@ header{
         margin-top: 5px;
         font-family: Rubik_Puddles;
         display: inline-block;
-        
         font-size: 4em;
         font-weight: 600;
         color: $whiteTextColor;

@@ -1,30 +1,81 @@
 <!-- <div id="main"> -->
+<!-- 
 <div class="card">
-  <div class="invited" *ngIf="buddy.status == 'invited'"></div>
-  <div
-    id="imgCardContainer"
-    [className]="isRecommended ? 'recommended' : 'notRecommended'"
-  >
-    <img [src]="profilePicture" alt="" />
-  </div>
+  <div class="cardContent">
+    <div class="invited" *ngIf="buddy.status == 'invited'"></div>
 
-  <div class="id">{{ buddy.firstName }} {{ buddy.lastName }}</div>
-  <div class="info">
-    <p>{{ buddy.instrument }} - {{ buddy.style }}</p>
-    <p *ngIf="buddy.pro">Professionnel</p>
-    <p *ngIf="!buddy.pro">Amateur - loisir</p>
-    <p *ngIf="buddy.group">Groupe: {{ buddy.group }}</p>
-    <p *ngIf="!buddy.group">Solo</p>
-  </div>
+    <div class="id">{{ buddy.firstName }} {{ buddy.lastName }}</div>
+    <div class="info">
+      <p>{{ buddy.instrument }} - {{ buddy.style }}</p>
+      <p *ngIf="buddy.pro">Professionnel</p>
+      <p *ngIf="!buddy.pro">Amateur - loisir</p>
+      <p *ngIf="buddy.group">Groupe: {{ buddy.group }}</p>
+      <p *ngIf="!buddy.group">Solo</p>
+    </div>
 
-  <div class="status">
-    <p *ngIf="buddy.status == 'pending'">Vous a invité.</p>
-    <p *ngIf="buddy.status == 'invited'">Invitation en cours.</p>
-    <p *ngIf="buddy.status == 'recommended'">On vous recommande chaudement:</p>
-    <p *ngIf="buddy.status == 'recommendedByMe'">Vous avez recommandé:</p>
-    <p *ngIf="buddy.status == 'deletion'">Suppression en cours...</p>
+    <div class="status">
+      <p *ngIf="buddy.status == 'pending'">Vous a invité.</p>
+      <p *ngIf="buddy.status == 'invited'">Invitation en cours.</p>
+      <p *ngIf="buddy.status == 'recommended'">
+        On vous recommande chaudement:
+      </p>
+      <p *ngIf="buddy.status == 'recommendedByMe'">Vous avez recommandé:</p>
+      <p *ngIf="buddy.status == 'deletion'">Suppression en cours...</p>
+    </div>
   </div>
-  <div class="action">
+</div> -->
+
+<mat-card class="card">
+  <mat-card-title-group>
+    <mat-card-title>{{ buddy.firstName }} {{ buddy.lastName }}</mat-card-title>
+    <mat-card-subtitle>
+      <p *ngIf="buddy.status == 'pending'">Vous a invité.</p>
+      <p *ngIf="buddy.status == 'invited'">Invitation en cours.</p>
+      <p *ngIf="buddy.status == 'recommended'">
+        On vous recommande chaudement:
+      </p>
+      <p *ngIf="buddy.status == 'recommendedByMe'">Vous avez recommandé!</p>
+      <p *ngIf="buddy.status == 'deletion'">
+        Suppression en cours...
+      </p></mat-card-subtitle
+    >
+    <img mat-card-lg-image [src]="profilePicture" />
+  </mat-card-title-group>
+  <mat-card-content>
+    <!-- <div class="musicInfos"> -->
+    <mat-grid-list cols="2" rowHeight="3:1">
+      <mat-grid-tile>
+        <p><strong>Instru :</strong>{{ buddy.instrument }}</p></mat-grid-tile
+      >
+      <mat-grid-tile
+        ><p><strong>Style :</strong>{{ buddy.style }}</p></mat-grid-tile
+      >
+      <mat-grid-tile>
+        <p *ngIf="buddy.pro"><strong>Pratique : </strong>Professionnel</p>
+        <p *ngIf="!buddy.pro">
+          <strong>Pratique : </strong>Amateur - loisir
+        </p></mat-grid-tile
+      >
+      <mat-grid-tile>
+        <p *ngIf="buddy.group"><strong>Groupe: </strong>{{ buddy.group }}</p>
+        <p *ngIf="!buddy.group"><strong>Groupe: </strong>Solo</p></mat-grid-tile
+      >
+    </mat-grid-list>
+
+    <!-- <p>
+        <strong>Instru : </strong>{{ buddy.instrument }} -
+        <strong>Style</strong> :
+        {{ buddy.style }}
+      </p>
+      <p *ngIf="buddy.pro"><strong>Pratique : </strong>Professionnel</p>
+      <p *ngIf="!buddy.pro"><strong>Pratique : </strong>Amateur - loisir</p>
+      <p *ngIf="buddy.group"><strong>Groupe: </strong>{{ buddy.group }}</p>
+      <p *ngIf="!buddy.group"><strong>Groupe: </strong>Solo</p>
+    </div> -->
+    <p>{{ buddy.bio }}</p>
+  </mat-card-content>
+
+  <mat-card-actions>
     <button
       mat-raised-button
       *ngIf="buddy.status == 'unknown'"
@@ -81,26 +132,94 @@
     >
       Supprimer
     </button>
-  </div>
-</div>
-<!-- <mat-card class="card">
-  <mat-card-header>
-    <div mat-card-avatar class="avatar">
-      <img
-        mat-card-image
-        [src]="buddy.profilePicture"
-        alt="Photo
-      de profil"
-      />
-    </div>
-    <mat-card-title>{{ buddy.firstName }} {{ buddy.lastName }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p class="name"></p> -->
-<!-- </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
   </mat-card-actions>
-</mat-card> -->
-<!-- </div> -->
+</mat-card>
+
+<!-- <div class="card">
+  <div class="cardContent">
+    <div class="invited" *ngIf="buddy.status == 'invited'"></div>
+    <div
+      id="imgCardContainer"
+      [className]="isRecommended ? 'recommended' : 'notRecommended'"
+    >
+      <img [src]="profilePicture" alt="" />
+    </div>
+
+    <div class="id">{{ buddy.firstName }} {{ buddy.lastName }}</div>
+    <div class="info">
+      <p>{{ buddy.instrument }} - {{ buddy.style }}</p>
+      <p *ngIf="buddy.pro">Professionnel</p>
+      <p *ngIf="!buddy.pro">Amateur - loisir</p>
+      <p *ngIf="buddy.group">Groupe: {{ buddy.group }}</p>
+      <p *ngIf="!buddy.group">Solo</p>
+    </div>
+
+    <div class="status">
+      <p *ngIf="buddy.status == 'pending'">Vous a invité.</p>
+      <p *ngIf="buddy.status == 'invited'">Invitation en cours.</p>
+      <p *ngIf="buddy.status == 'recommended'">
+        On vous recommande chaudement:
+      </p>
+      <p *ngIf="buddy.status == 'recommendedByMe'">Vous avez recommandé:</p>
+      <p *ngIf="buddy.status == 'deletion'">Suppression en cours...</p>
+    </div>
+    <div class="action">
+      <button
+        mat-raised-button
+        *ngIf="buddy.status == 'unknown'"
+        (click)="inviteBuddy()"
+      >
+        Inviter
+      </button>
+      <button
+        mat-raised-button
+        *ngIf="buddy.status == 'recommended'"
+        (click)="inviteBuddyFromReco()"
+      >
+        Inviter
+      </button>
+
+      <button
+        mat-raised-button
+        *ngIf="buddy.status == 'confirmed' || buddy.status == 'recommendedByMe'"
+        (click)="goToBuddyProfile()"
+      >
+        Profil
+      </button>
+      <button
+        mat-raised-button
+        mat-raised-button
+        *ngIf="buddy.status == 'confirmed'"
+        (click)="recommendBuddy()"
+      >
+        YEAH!
+      </button>
+
+      <button
+        mat-raised-button
+        *ngIf="buddy.status == 'pending'"
+        (click)="confirmBuddy()"
+      >
+        Accepter
+      </button>
+      <button
+        mat-raised-button
+        *ngIf="buddy.status == 'pending' || buddy.status == 'recommended'"
+        (click)="deleteBuddy()"
+      >
+        Refuser
+      </button>
+      <button
+        mat-raised-button
+        *ngIf="
+          buddy.status == 'invited' ||
+          buddy.status == 'confirmed' ||
+          buddy.status == 'recommendedByMe'
+        "
+        (click)="deleteBuddy()"
+      >
+        Supprimer
+      </button>
+    </div>
+  </div>
+</div> -->

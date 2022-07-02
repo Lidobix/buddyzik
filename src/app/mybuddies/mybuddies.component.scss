@@ -1,12 +1,63 @@
-.buddyList{
+
+@import "../../styles/configs/variables";
+@import "../../styles/configs/_mixins.scss";
+
+
+.myBuddiesContent{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 70%;
-    margin: auto;
-    padding:20px;
-    // flex-basis: 30%;
-    // display: grid;
-    // grid-template-columns: 1fr 1fr 1fr;
-    // gap: 10px;
+    width:97vw;
+    background-color:$darkThemeColor;
+    margin-top: $headerHeight;
+    flex-direction: column;
+    
+    .myBuddiesTitle{
+        text-align: center;
+        background-color: $darkThemeColor;
+        color:$whiteTextColor;
+        width: 97vw;
+        line-height:$heightTitlePage;
+        position: fixed;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        .profilePicContainer{
+            flex-basis: 10%;
+            display: flex;
+            justify-self: flex-start;
+            align-items: center;
+            margin: 0 0 0 10px;
+
+            img{
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+                display: inline-block; 
+                width:9vw;
+        }
+    }
+
+
+    .pageTitle{
+
+        flex-basis: 100%;
+        p{    
+            font-size: 1.8em;
+            margin-top:1vh;
+        }
+    }
+    }
+    
+    .buddyList{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // flex-wrap: wrap;
+        // justify-content: space-around;
+        // width: 70%;
+        margin-top: calc($heightTitlePage + 3vh) ;
+    }
 }

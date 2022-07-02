@@ -39,6 +39,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ValidationModalComponent } from './validation-modal/validation-modal.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { PortalModule } from '@angular/cdk/portal';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { PortalModule } from '@angular/cdk/portal';
     MatIconModule,
     PortalModule,
     BrowserAnimationsModule,
+    MatGridListModule,
   ],
 
   providers: [

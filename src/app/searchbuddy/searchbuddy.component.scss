@@ -1,12 +1,30 @@
-.buddyList{
+@import "../../styles/configs/variables";
+@import "../../styles/configs/_mixins.scss";
+
+
+
+
+
+.myBuddiesContent{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 70%;
-    margin: auto;
-    padding:20px;
-    // flex-basis: 30%;
-    // display: grid;
-    // grid-template-columns: 1fr 1fr 1fr;
-    // gap: 10px;
+    width:97vw;
+    background-color: aqua;
+    margin-top: calc($headerHeight + 1vh);
+    
+    .buddyList{
+        
+
+
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        width: 70%;
+        // margin: auto;
+        // padding:20px;
+        // flex-basis: 30%;
+        // display: grid;
+        // grid-template-columns: 1fr 1fr 1fr;
+        // gap: 10px;
+    }
 }

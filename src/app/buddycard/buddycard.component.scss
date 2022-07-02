@@ -1,3 +1,4 @@
+@import "../../styles/configs/variables";
 @import "../../styles/configs/_mixins.scss";
 // .main{
 //     display: flex;
@@ -9,116 +10,30 @@
 .card {
     //display: flex;
     //flex-direction: column;
-    background-color: #f3f59d ;
+    background-color: #ffffff ;
     //border: 1px solid black;
-    //border-radius:10px ;
-    //-webkit-border-radius:10px ;
-    //-moz-border-radius:10px ;
-    //-ms-border-radius:10px ;
-    //-o-border-radius:10px ;
-    box-shadow: 5px 5px 5px rgba(174,8,92, 0.6);
-    width:200px;
+    border-radius:10px ;
+    -webkit-border-radius:10px ;
+    -moz-border-radius:10px ;
+    -ms-border-radius:10px ;
+    -o-border-radius:10px ;
+    // box-shadow: 5px 5px 5px rgba(174,8,92, 0.6);
+    // width:100%;
     //margin:10px;
-    height:350px;
-    //width:100%;
-    margin: 8px;
-    padding: 10px;
-    //width: 220px;
-    // border-radius: 10px;
+    // height:350px;
+    width:86vw;
+    margin-bottom: 20px;
     
-    // -webkit-border-radius: 10px;
-    // -moz-border-radius: 10px;
-    // -ms-border-radius: 10px;
-    // -o-border-radius: 10px;
-a{
-    outline: none;
+    
+
+
+    .musicInfos{display: grid}
 }
-    #imgCardContainer{ 
-        // width: 200px; 
-        margin:auto; 
-        
-        img{
-            border-radius:10px ;
-            -webkit-border-radius:10px ;
-            -moz-border-radius:10px ;
-            -ms-border-radius:10px ;
-            -o-border-radius:10px ;
-            border: 1px solid black;
-}
-
-
-
-
-
-
-// flex:50%
-    }
-
-    .id{
-text-align: center;
-margin-top: 5px;
-
-
-        // p{
-            
-            text-overflow: ellipsis;
-            font-weight:600;
-            font-size:large
-
-        // }
-    }
-
-    .action{
-        text-align: center;
-    }
-}
-.avatar{
-    // background-image: url('https://res.cloudinary.com/buddyzik/image/upload/v1656406644/fhoua1mcqdu6o7uzpate.jpg"');
-    // display: flex;
-    // text-align: center;
-    // background-size: cover;
-    // width: 100px;
-}
-.name{
-    // text-align: center;
-    font-weight: bold;
-    font-size: medium;
-}
-
-// #imgCardContainer{
-//     width:200px;
-//     height: 200px;
-//     display: flex;
-//     // border:2px solid black;
-//     justify-content: center;
-//     align-items: center;
-//     padding: 5px;
-//     border-radius:7px ;
-//     -webkit-border-radius:7px ;
-//     -moz-border-radius:7px ;
-//     -ms-border-radius:7px ;
-//     -o-border-radius:7px ;
-// }
-
-// img {
-    //margin:auto;
-    //padding:10px;
-    //max-width: 200px;
-    //max-height: 200px;
-    // opacity: 0.5;
-    // display: block;
-    // border: 1px solid black;
-    // border-radius: 10px;
-    // -webkit-border-radius: 10px;
-    // -moz-border-radius: 10px;
-    // -ms-border-radius: 10px;
-    // -o-border-radius: 10px;
-// }
 
 
     .recommended{
-        border: 2px solid black;
-        box-shadow: 6px 6px 3px yellow;
+        // border: 2px solid black;
+        // box-shadow: 6px 6px 3px yellow;
     }
     .notRecommended{
         // border: 2px solid black
