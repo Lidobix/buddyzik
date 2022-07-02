@@ -1,40 +1,42 @@
 <div class="modal">
-  <form [formGroup]="postForm">
+  <div class="contentModalPost">
     <label for="post"><h2>Nouveau Post:</h2></label>
     <div class="previewContainer">
       <img *ngIf="previewPostPic" [src]="previewPostPic" alt="" />
     </div>
-    <textarea
-      name="post"
-      id="postInput"
-      formControlName="post"
-      cols="30"
-      rows="5"
-    ></textarea>
+    <form [formGroup]="postForm">
+      <textarea
+        name="post"
+        id="postInput"
+        formControlName="post"
+        cols="30"
+        rows="5"
+      ></textarea>
 
-    <div class="action">
-      <button mat-raised-button (click)="fileInput.click()">
-        <span>Image...</span>
-        <input
-          #fileInput
-          type="file"
-          (change)="selectFile($event)"
-          style="display: none"
-        />
-      </button>
+      <div class="action">
+        <button mat-raised-button (click)="fileInput.click()">
+          <span>Image...</span>
+          <input
+            #fileInput
+            type="file"
+            (change)="selectFile($event)"
+            style="display: none"
+          />
+        </button>
 
-      <button mat-raised-button class="button" (click)="onSubmitPostForm()">
-        POSTER
-      </button>
+        <button mat-raised-button class="button" (click)="onSubmitPostForm()">
+          POSTER
+        </button>
 
-      <button
-        mat-raised-button
-        class="button"
-        type="button"
-        (click)="onCancelPost()"
-      >
-        ANNULER
-      </button>
-    </div>
-  </form>
+        <button
+          mat-raised-button
+          class="button"
+          type="button"
+          (click)="onCancelPost()"
+        >
+          ANNULER
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

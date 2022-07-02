@@ -60,7 +60,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     //     this.displayValidationModalPost = showValidationModalPost;
     //   }
     // );
-    // this.getPosts();
+    this.getPosts();
     // this.displayspinner = false;
   }
 
@@ -68,7 +68,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     let i = 0;
     this.decompte = setInterval((score: any) => {
       this.getPosts();
-    }, 1000);
+    }, 2000);
   }
 
   getPosts() {

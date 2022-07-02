@@ -109,6 +109,7 @@ const projectionBuddyCard = {
   group: 1,
   style: 1,
   pro: 1,
+  bio: 1,
 };
 // await mongoClient.connect();
 

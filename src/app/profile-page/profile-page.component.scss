@@ -7,8 +7,8 @@
 .profileContent{
     // background-color:aqua;
     display: flex;
-    margin-top: 100px;
-    width:95%;
+    margin-top: calc($headerHeight + 1vh);
+    width:95vw;
     
 // margin-left: auto;
 // margin-right: auto;
@@ -19,8 +19,13 @@
     }
 
 
-}
+
 #profile{
+// .modalPost{
+//     width:$widthDisplayZone;
+// }
+
+
   //display: flex;
   
 //   width:90vw;
@@ -45,62 +50,96 @@
         // flex-wrap: wrap;
         // justify-content: center;
         
-       
-        .buddyMusic{
-            flex-basis: 100%;
+        .buddyId{
+            color:$whiteTextColor;
+            width:$widthDisplayZone;
+            // top:$headerHeight;
+            display:flex;
+            // padding:5px;
+            justify-content: space-between;
+            align-items: center;
+     
+            background-color: $darkThemeColor;
+            padding:0 0 5px 0px;
+            .profilePicContainer{
+                //   width:20vw;
+                
+                margin: 0 0 0 10px;
+                img{
+                    display: inline-block;
+                    width:20vw;
+                    
+                    border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    -ms-border-radius: 50%;
+                    -o-border-radius: 50%;
+                }
+                }
+        
+        
+            p{
+                font-size: 1.7em;
+                font-weight: 700;
+                margin-left:10px;
+                margin:0;
+                
+                @include media-min(desktop-up){
+                    font-size: 5em;
+                    font-weight: 700;
+                }
+            }
+        
+        
+            button{
+                margin-right: 10px;
+            }
         }
+
+
+        .buddyMusicPhone{
+            display: flex;
+            font-weight: 500;
+            justify-content: space-around;
+            @include media-min(desktop-up){
+                display: none;
+            }
+        }
+        .buddyMusicDesktop{
+            display: flex;
+            // flex-basis: 100%;
+            display: none;
+
+            @include media-min(desktop-up){
+                display: block;
+            }
+        }
+
+        .buddyBio{
+            margin:10px;
+            p{
+                color:$whiteTextColor;
+        
+        
+            }
+        
+        }
+
+
 
         
  
     }
 }
 
-.buddyId{
-    color:$whiteTextColor;
-    width:$widthDisplayZone;
-    // top:$headerHeight;
-    display:flex;
-    // padding:5px;
-    justify-content: space-between;
-    align-items: center;
-    // position: fixed;
-    // position: absolute;
-    // top:0;
-    ;
-    // z-index: 3;
-    background-color: $darkThemeColor;
-    padding:0 0 5px 0px;
-    .profilePicContainer{
-        //   width:20vw;
-        
-        margin: 0 0 0 5px;
-        img{
-            display: inline-block;
-            width:20vw;
-            
-            border-radius: 50%;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            -ms-border-radius: 50%;
-            -o-border-radius: 50%;
-        }
-        }
+
+.postsList{
+
+width: 97%;
+margin: auto ;
+
+}
 
 
-    p{
-        font-size: 2em;
-        font-weight: 700;
-        margin-left:10px;
-        margin:0;
-        
-        @include media-min(desktop-up){
-            font-size: 5em;
-            font-weight: 700;
-        }
-    }
 
-
-    button{
-        margin-right: 10px;
-    }
 }

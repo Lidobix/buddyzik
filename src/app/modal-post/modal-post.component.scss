@@ -1,23 +1,26 @@
 @import "../../styles/configs/_mixins.scss";
 @import "../../styles/configs/_variables.scss";
 *{
-    margin:0;
-    padding:0;
+    // margin:0;
+    // padding:0;
     // border:1px solid black;
     // border: 1px solid black;
 }
 
 .modal{
-    top:10%;
+    // top:10%;
     border: 1px solid black;
-    padding:20px;
+    // padding: 20px;
     position: fixed;
-    display:flex;
-    flex-direction: column;
-    width:88%;
+    // display:flex;
+    // flex-direction: column;
+    // width:$widthDisplayZone;
+    margin-left: 0.9vw;
+    // margin-right: 1.5vw;
+    width: 95vw;
     // margin-top:0;
     // margin-left: auto;
-    background-color: white;
+    background-color: $whiteTextColor;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
     border-radius: 10px;
     z-index: 8;
@@ -26,6 +29,18 @@
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
 
+
+
+.contentModalPost{
+    // margin-left:20px;
+// width:50vw;
+padding-top:5px;
+// padding-bottom:5px;
+padding-left: 1.5vw;
+width: 93vw;
+
+    display: flex;
+flex-direction: column;
 @include media-min(desktop-up){
     width:40%;
     margin-left:50%;
@@ -37,11 +52,11 @@
     }
 
     .previewContainer{
-        text-align: center;
+        // text-align: center;
         img{    
             border: 1px solid black;
             max-height: 300px;
-            max-width: 100%;
+            max-width: 90.7vw;
         }            
     }
 
@@ -50,29 +65,34 @@
     }
 
     form{
-        margin-left: 10px;
-        margin-right: 11px;
+        // margin-left: 10px;
+        // margin-right: 11px;
+        width:100%;
         label {
             display: block;
         }
         input  {
             display: block;
-            width:100%
+            // width:100%
         }
         textarea{
-            width: 100%;
+            // margin-left:2.5vw;
+            margin-right:1vw;
+            width:90vw;
             resize: none;
         }
 
         .action{
             display: flex;
-            margin-top: 10px;
+            // margin-top: 10px;
             justify-content: flex-start;
 
         .button{
-            margin-right:7px;
-            margin-top:5px;
+            // margin-right:7px;
+            // margin-top:5px;
             height:fit-content;
             }
         }
-    }}
+    }
+}
+}
