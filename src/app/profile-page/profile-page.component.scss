@@ -45,86 +45,62 @@
         // flex-wrap: wrap;
         // justify-content: center;
         
-        .buddyId{
-            width:100%;
-            // flex-basis: %;
-            display:flex;
-            align-items: center;
-            position: fixed;
-            // position: absolute;
-            // top:0;
-            ;
-            z-index: 3;
-            background-color: black;
-        
-            p{
-                font-size: 2em;
-                // color:#333333;
-                font-weight: 700;
-                
-                @include media-min(desktop-up){
-                    font-size: 5em;
-                    font-weight: 700;
-                }
-            }
-        }
+       
         .buddyMusic{
             flex-basis: 100%;
         }
 
         
+ 
+    }
+}
+
+.buddyId{
+    color:$whiteTextColor;
+    width:$widthDisplayZone;
+    // top:$headerHeight;
+    display:flex;
+    // padding:5px;
+    justify-content: space-between;
+    align-items: center;
+    // position: fixed;
+    // position: absolute;
+    // top:0;
+    ;
+    // z-index: 3;
+    background-color: $darkThemeColor;
+    padding:0 0 5px 0px;
     .profilePicContainer{
-        // flex-basis: 50%;
-        // position: fixed;
-        // z-index: 3
-        // ;
+        //   width:20vw;
         
+        margin: 0 0 0 5px;
         img{
+            display: inline-block;
             width:20vw;
+            
             border-radius: 50%;
             -webkit-border-radius: 50%;
             -moz-border-radius: 50%;
             -ms-border-radius: 50%;
             -o-border-radius: 50%;
-            //margin: auto;
-}
+        }
+        }
+
+
+    p{
+        font-size: 2em;
+        font-weight: 700;
+        margin-left:10px;
+        margin:0;
+        
+        @include media-min(desktop-up){
+            font-size: 5em;
+            font-weight: 700;
         }
     }
+
+
+    button{
+        margin-right: 10px;
+    }
 }
-// img{
-//     display: block;
-// }
-// #bannierPic{
-//     /* position: absolute; */
-//     // z-index: 1;
-//     // width: 100%;
-//     // margin-left: 0;
-//     /* height:100%; */
-//     // border:2px solid white
-// }
-
-
-
-// .imgCardContainer{
-//     // flex-basis: 30%;
-//     /* position: absolute; */
-//     // z-index: 2;
-//     /* top:36%; */
-//     // margin-left: 5%;
-// // margin-top: -5%;
-//     /* width: 20%; */
-//     /* height: 20%; */
-//     // border-radius: 50%;
-//     // -webkit-border-radius: 50%;
-//     // -moz-border-radius: 50%;
-//     // -ms-border-radius: 50%;
-//     // -o-border-radius: 50%;
-//     // border:2px solid white
-// }
-// #profilePseudo {
-//     // font-size: 3em;
-//     // color: $titleColor;
-//     // font-weight: 800;
-//     // margin:20px
-// }
-
