@@ -1,14 +1,20 @@
-<!-- <app-nav></app-nav> -->
+<div class="searchBuddiesContent">
+  <div class="searchBuddiesTitle">
+    <div class="profilePicContainer">
+      <img [src]="user.profilePicture" alt="" />
+    </div>
 
-<div class="buddyList">
-  <app-buddycard
-    *ngFor="let buddy of allBuddies"
-    [buddy]="buddy"
-    (invited)="onInvitation($event)"
-  ></app-buddycard>
+    <div class="pageTitle">
+      <p>BuddyZik vous propose :</p>
+    </div>
+  </div>
+
+  <div class="buddyList">
+    <app-buddycard
+      *ngFor="let buddy of allBuddies"
+      [buddy]="buddy"
+      (rejectionBuddy)="onDeletion($event)"
+      (invited)="onInvitation($event)"
+    ></app-buddycard>
+  </div>
 </div>
-
-<!-- <app-buddycard
-  *ngFor="let buddy of allBuddies"
-  [buddyCard]="buddy"
-></app-buddycard> -->

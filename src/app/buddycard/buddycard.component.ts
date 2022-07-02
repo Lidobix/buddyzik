@@ -11,6 +11,7 @@ import { DisplayingElementsService } from 'src/services/displaying-elements.serv
 })
 export class BuddycardComponent implements OnInit {
   @Input() buddy!: Buddy;
+  @Output() rejectionBuddy = new EventEmitter<boolean>();
   @Output() invited = new EventEmitter<boolean>();
   profilePicture!: string;
   isRecommended!: boolean;
@@ -41,8 +42,10 @@ export class BuddycardComponent implements OnInit {
     this.profileService.goToProfile(this.buddy.uuid);
   }
   deleteBuddy() {
+    console.log('deletion');
     this.buddy.status = 'deletion';
     this.buddyService.updateBuddy(this.buddy.uuid, '/deletion').subscribe();
+    this.rejectionBuddy.emit(true);
   }
 
   confirmBuddy() {
