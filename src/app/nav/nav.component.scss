@@ -23,7 +23,7 @@ nav{
         flex-basis: 20%;
         .mat-icon{
             font-size: 40px;
-            color: #e1e5ee;
+            color: $whiteTextColor;
         }
         display: block;
         @include media-min(desktop-up){

@@ -1,4 +1,4 @@
-<div class="main">
+<div class="profileContent">
   <app-modal-post
     *ngIf="displayModalPost"
     (cancelPost)="onCancellingPost($event)"
@@ -14,14 +14,15 @@
     <div id="idCard">
       <!-- <img id="profilePic" [src]="profilePicUrl" /> -->
 
-      <div class="profilePicContainer">
-        <img [src]="buddy.profilePicture" alt="" />
-      </div>
       <div class="buddyId">
+        <div class="profilePicContainer">
+          <img [src]="buddy.profilePicture" alt="" />
+        </div>
         <p>{{ buddy.firstName }} {{ buddy.lastName }}</p>
+        <button mat-raised-button (click)="onPostRequest()">POST</button>
       </div>
 
-      <div class="buddyBio">
+      <!-- <div class="buddyBio">
         <p>Instrument : {{ buddy.instrument }}</p>
         <p *ngIf="buddy.group">Style : {{ buddy.style }}</p>
         <p *ngIf="buddy.group">Groupe :{{ buddy.group }}</p>
@@ -30,19 +31,17 @@
         <p *ngIf="!buddy.pro">Amateur - Loisir</p>
         <p *ngIf="!buddy.singer">Chanteur : Non</p>
         <p *ngIf="buddy.singer">Chanteur : Oui</p>
+      </div> -->
+      <div class="buddyMusic">
+        <p>{{ buddy.instrument }} / {{ buddy.style }}</p>
+        <!-- <p *ngIf="buddy.group">Style : {{ buddy.style }}</p> -->
+        <p *ngIf="buddy.group">Groupe :{{ buddy.group }}</p>
+        <p *ngIf="!buddy.group">Groupe : Aucun</p>
+        <p *ngIf="buddy.pro">Professionnel</p>
+        <p *ngIf="!buddy.pro">Amateur - Loisir</p>
+        <p *ngIf="!buddy.singer">Chanteur : Non</p>
+        <p *ngIf="buddy.singer">Chanteur : Oui</p>
       </div>
-
-      <button mat-raised-button (click)="onPostRequest()">POST</button>
-      <!-- <p class="">genre : {{ buddy.gender }}</p>
-    <p class="">age : à calculer</p> -->
-      <!-- 
-    <p id="">Chanteur : {{ buddy.singer }}</p>
-
-    <p>Instrument de prédilection : {{ buddy.instrument }}</p>
-    <p>
-      Est ic pour:
-      {{ buddy.bio }}
-    </p> -->
     </div>
 
     <!-- <div id="postsList" (updatePosts)="onUpdatePosts($event)"> -->

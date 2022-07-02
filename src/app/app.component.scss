@@ -2,20 +2,23 @@
 @import "../styles/configs/_variables.scss";
 
 *{
-    display: flex;
+    // display: flex;
 }
-.content{
+.displayZone{
     width:97vw;
-    background-color: #333333 ;
-    margin-top: 100px;
-    // position: relative;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: $darkThemeColor ;
+    // margin-top: 100px;
+    position: absolute;
+    // display:flex;
+    margin-left: 1.5vw;
+    margin-right: 1.5vw;
 
 
 @include media-min(desktop-up){
-    margin-top: 200px;
+    // margin-top: 200px;
     width:80%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 }

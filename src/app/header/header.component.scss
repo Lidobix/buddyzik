@@ -12,7 +12,7 @@ header{
     width: 100vw;
     height: 10vh;
     z-index: 3;
-    background-color: #333333;
+    background-color: $darkThemeColor;
     // background-color: rgb(213, 230, 66);
     display: flex;
     align-items: center;
@@ -43,10 +43,10 @@ header{
         margin-top: 5px;
         font-family: Rubik_Puddles;
         display: inline-block;
-        color:black;
+        
         font-size: 4em;
         font-weight: 600;
-        color: #e1e5ee;
+        color: $whiteTextColor;
         
         @include media-min(desktop-up){
             // display: inline-block;
@@ -59,7 +59,7 @@ header{
     
     h2{
         
-        color: #e1e5ee;
+        color: $whiteTextColor;
         
         display: none;
         @include media-min(desktop-up){
