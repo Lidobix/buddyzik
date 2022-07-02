@@ -1,26 +1,37 @@
 
 @import "../../styles/configs/_mixins.scss";
 @import "../../styles/configs/_variables.scss";
-.visible {
-    // display: block;
-    display: flex;
-    // justify-content: space-around;
-    // margin-bottom: 0;
-}
+// .visible {
+ 
+// }
 
-.hidden{
-    display : none;
-}
 
 nav{
 
-    // @include media-min(phone-down){
-    //     // display: none
-    // }
-
-
     display: flex;
-    justify-content: center;
+
+    .standardmenu{
+        display:none;
+        @include media-min(phone-down){
+        display: block;
+        }
+     }   
+    
+
+
+    .burgermenu{
+        margin-right: 15px;
+        flex-basis: 20%;
+        .mat-icon{
+            font-size: 40px;
+        }
+        display: block;
+        @include media-min(phone-down){
+            display: none;
+        }
+    }
+ 
+    // justify-content: center;
     // justify-content: space-around;
     margin-bottom: 0;
     button{
@@ -28,4 +39,8 @@ nav{
         // margin-right:20px;
         // overflow: hidden;
     }
+}
+
+.hidden{
+    display : none;
 }

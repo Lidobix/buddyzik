@@ -1,17 +1,44 @@
 <!-- <p>Bienvenue {{ user.login }}</p> -->
 <!-- <nav> -->
+
 <nav [className]="displayNav ? 'visible' : 'hidden'">
-  <button mat-raised-button (click)="goToMyProfile()">ACCUEIL</button>
-  <button mat-raised-button (click)="goToMyBuddysList()">Mes Buddys</button>
-  <button mat-raised-button (click)="goToAllBuddysList()">
-    Rechercher des amis
-  </button>
-  <!-- <button mat-raised-button (click)="goToMessaging()">Messagerie</button>
+  <div class="burgermenu">
+    <button
+      class="iconMenu"
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/mybuddies">
+        <span>Buddys</span>
+      </button>
+      <button mat-menu-item routerLink="/searchbuddy">
+        <span>Recherche de Buddys</span>
+      </button>
+      <button mat-menu-item disabled routerLink="/edition">
+        <span>Mes infos</span>
+      </button>
+      <button mat-menu-item routerLink="">
+        <span>Deconnexion</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="standardmenu">
+    <button mat-raised-button (click)="goToMyProfile()">ACCUEIL</button>
+    <button mat-raised-button (click)="goToMyBuddysList()">Mes Buddys</button>
+    <button mat-raised-button (click)="goToAllBuddysList()">
+      Rechercher des amis
+    </button>
+    <!-- <button mat-raised-button (click)="goToMessaging()">Messagerie</button>
   <button mat-raised-button (click)="goToTchat()">Tchat</button> -->
-  <button mat-raised-button (click)="logout()">DECONNEXION</button>
-  <button mat-raised-button (click)="goToEditProfile()">
-    MODIFIER LE PROFIL
-  </button>
+    <button mat-raised-button (click)="logout()">DECONNEXION</button>
+    <button mat-raised-button (click)="goToEditProfile()">
+      MODIFIER LE PROFIL
+    </button>
+  </div>
   <!-- <button (click)="testmail()">MAIL</button> -->
   <!-- <button
     [className]="displayModif ? 'visible' : 'hidden'"

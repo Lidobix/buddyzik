@@ -5,61 +5,33 @@
     font-display: block;
     src: url('./../../assets/fonts/Rubik_Puddles/RubikPuddles-Regular.ttf') format('truetype');
   }
-  *{border:1px solid black}
+//   *{border:1px solid black}
 header{
     border: 1px solid black;
     position: fixed;
-    // width: 100%;
-    z-index: 2;
-    background-color: aqua;
+    width: 100vw;
+    height: 8vh;
+    z-index: 3;
+    background-color: rgb(213, 230, 66);
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    // position:absolute;
-// height: 200px;
-// display:flex;
-// flex-direction: row;
-    // .banner {
-        // display: block;
-        // width :100%;
-.burgermenu{
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    
 
-flex-basis: 8%;
-
-
-    @include media-min(phone-down)
-    {
-        // display: none;
-
-    }
-}
-
-
-
-.title{
-    flex-basis: 90%;
-    // }
-    // h1{
-        margin:0;
-        // text-align: center;
+.titleContainer{
+    flex-basis: 80%;
+    text-align: center;
+    h1{
+        margin-bottom:0;
+        margin-top: 5px;
         font-family: Rubik_Puddles;
         display: inline-block;
-       
-
         color:black;
-        font-size: 3em;
-        @include media-min(phone-down)
-        {
-            font-size: 8em;
-            margin-top:50px;
-            margin-left:20px;
+        font-size: 4em;
+        font-weight: 600;
+    }
 
-        }
-        
-            // color:$titleColor;
-        
-    // }
-    // a{color:green}
 
 }
    

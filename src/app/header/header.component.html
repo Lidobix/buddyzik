@@ -6,33 +6,8 @@
     <h1>BuddyZik</h1>
   </div> -->
 
-  <div class="burgermenu">
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      aria-label="Example icon-button with a menu"
-    >
-      <mat-icon>more_vert</mat-icon>
-    </button>
+  <div class="titleContainer">
     <h1 class="title">BuddyZik</h1>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/mybuddies">
-        <!-- <mat-icon>dialpad</mat-icon> -->
-        <span>Buddys</span>
-      </button>
-      <button mat-menu-item routerLink="/searchbuddy">
-        <!-- <mat-icon>dialpad</mat-icon> -->
-        <span>Recherche de Buddys</span>
-      </button>
-      <button mat-menu-item disabled routerLink="/edition">
-        <!-- <mat-icon>voicemail</mat-icon> -->
-        <span>Mes infos</span>
-      </button>
-      <button mat-menu-item routerLink="">
-        <!-- <mat-icon>notifications_off</mat-icon> -->
-        <span>Deconnexion</span>
-      </button>
-    </mat-menu>
   </div>
   <app-nav></app-nav>
   <!-- </div> -->

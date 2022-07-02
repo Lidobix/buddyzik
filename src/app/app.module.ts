@@ -21,7 +21,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -38,6 +38,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ValidationModalComponent } from './validation-modal/validation-modal.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatInputModule,
     MatMenuModule,
     MatIconModule,
+    PortalModule,
+    BrowserAnimationsModule,
   ],
 
   providers: [
