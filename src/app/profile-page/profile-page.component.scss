@@ -2,33 +2,53 @@
 @import "../../styles/configs/_mixins.scss";
 
 
-.main{width:90vw;
+.main{
+    background-color:aqua;
+    // width:95%;
+// margin-left: auto;
+// margin-right: auto;
+
+    @include media-min(desktop-up){
+        width:50vw;
+    }
+
+
 }
 #profile{
   //display: flex;
   
-//   width:100vw;
+//   width:90vw;
 //   margin: auto;
 //   margin-top: 15px;
 //   height: 100vh;
 
+
+    @include media-min(desktop-up){
+        width:50vw;
+    }
     #idCard{
         padding:15px;
         display: flex;
-        flex-direction: row;
-        flex-basis: 100%;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        
+        // width: 30%;
+        // flex-wrap: wrap;
+        // justify-content: center;
 
         .buddyId{
-            flex-basis: 80%;
+            // flex-basis: %;
             display:flex;
             align-items: center;
         
             p{
-                font-size: 5em;
+                font-size: 2em;
                 color:#333333;
                 font-weight: 700;
+
+                @include media-min(desktop-up){
+                    font-size: 5em;
+                    font-weight: 700;
+                }
             }
         }
         .buddyBio{
@@ -37,9 +57,9 @@
 
         
     .profilePicContainer{
-        flex-basis: 20%;
+        // flex-basis: 20%;
         img{
-            margin: auto;
+            // margin: auto;
             border-radius: 10px;
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;

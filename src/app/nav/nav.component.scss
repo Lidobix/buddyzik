@@ -7,18 +7,17 @@
 
 
 nav{
-
     display: flex;
-
     .standardmenu{
         display:none;
+        margin-bottom: 10px;
         @include media-min(desktop-up){
-        display: block;
+            position: absolute;
+            display: block;
+            top:20vh;
         }
      }   
     
-
-
     .burgermenu{
         margin-right: 15px;
         flex-basis: 20%;
@@ -30,15 +29,9 @@ nav{
             display: none;
         }
     }
- 
-    // justify-content: center;
-    // justify-content: space-around;
+
     margin-bottom: 0;
-    button{
-        // margin-left:20px;
-        // margin-right:20px;
-        // overflow: hidden;
-    }
+
 }
 
 .hidden{
