@@ -10,7 +10,7 @@ export async function registrationProcess(newUser) {
   try {
     // On checke si le mail n'est pas déjà existant dans la base:
     const testPresence = await fetchOne({
-      mailAddress: newUser.mailAddress,
+      mailAddress: newUser.mailAddress.toLowerCase(),
     });
     // console.log("resultat de la recherche: ", result);
 
@@ -18,7 +18,7 @@ export async function registrationProcess(newUser) {
       const newBuddy = {
         uuid: uuidv4(),
         login: newUser.login,
-        mailAddress: newUser.mailAddress,
+        mailAddress: newUser.mailAddress.toLowerCase(),
         firstName: newUser.firstName,
         password: hash(newUser.password),
         lastName: newUser.lastName,
@@ -65,7 +65,7 @@ export async function registrationProcess(newUser) {
         newBuddy.mailAddress,
         newBuddy.firstName
       );
-      registerMail(newBuddy.mailAddress, newBuddy.firstName);
+      // registerMail(newBuddy.mailAddress, newBuddy.firstName);
 
       await insertUno(newBuddy);
       // On lui attribue un jeton

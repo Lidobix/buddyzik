@@ -1,14 +1,11 @@
-<!-- <app-header></app-header> -->
 <div class="form-card">
   <div class="editFormContent">
     <h2 *ngIf="displayCreationMode">CREATION DU PROFIL</h2>
     <h2 *ngIf="!displayCreationMode">EDITION DU PROFIL</h2>
 
     <form [formGroup]="userProfileForm">
-      <!-- <label for="login">Pseudo</label>
-    <input type="text" id="loginInput" formControlName="login" /> -->
       <div class="container">
-        <p>Quel musicien es-tu?</p>
+        <p>Quel musicien.ne es-tu?</p>
 
         <mat-form-field appearance="fill">
           <mat-label>Instrument</mat-label>
@@ -68,8 +65,6 @@
 
         <p>Qui es-tu?</p>
 
-        <!-- <label>Genre:</label> -->
-        <!-- <br /> -->
         <div class="radioModule">
           <mat-radio-group [formControl]="gender">
             <mat-radio-button value="Homme">Homme</mat-radio-button>

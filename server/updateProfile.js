@@ -17,7 +17,7 @@ async function checkInformations(myPreviousInfos, myNewInfos) {
     console.log("myNewInfos: ", myNewInfos);
 
     const isMailValid = await checkMailAddress(
-      myNewInfos.mailAddress,
+      myNewInfos.mailAddress.toLowerCase(),
       myPreviousInfos.mailAddress
     );
 
@@ -82,7 +82,7 @@ async function updateProfile(myNewInfos, headers) {
   const toUpdate = {
     login: myNewInfos.login,
     password: myNewInfos.password,
-    mailAddress: myNewInfos.mailAddress,
+    mailAddress: myNewInfos.mailAddress.toLowerCase(),
     firstName: myNewInfos.firstName,
     lastName: myNewInfos.lastName,
     birthDate: myNewInfos.birthDate,

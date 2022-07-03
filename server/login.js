@@ -4,14 +4,14 @@ import { checkHash, createToken, hash } from "./security.js";
 export async function loginProcess(request) {
   try {
     const buddy = await fetchOne(
-      { mailAddress: request.mailAddress },
+      { mailAddress: request.mailAddress.toLowerCase() },
       { projection: { _id: 0, uuid: 1, password: 1 } }
     );
 
     const newToken = createToken(buddy.uuid, hash(buddy.password)).toString();
 
     await updateUno(
-      { mailAddress: request.mailAddress },
+      { mailAddress: request.mailAddress.toLowerCase() },
       { $set: { token: newToken } }
     );
 
