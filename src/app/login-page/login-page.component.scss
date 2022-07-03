@@ -8,12 +8,7 @@ form{
 *{
     background-color: $whiteTextColor;
 }
-.loginFormContent{
-    margin-top: 30vh;
-    width: 86vw;
-    margin-left: 5.5vw;
-    height: 44vh;
-}
+
 
 .back{
     display:flex;
@@ -21,10 +16,26 @@ form{
     position: absolute;
     width: 97vw;
     background-color:$darkThemeColor;
+    @include media-min(desktop-up){
+        width:100%
+    }
+
+    .loginFormContent{
+        margin-top: 30vh;
+        width: 86vw;
+        margin-left: 5.5vw;
+        height: 10%;
+        @include media-min(desktop-up){
+            margin:20% 25% 0 25%;
+            width:50%;
+            height:10%;
+        }
+    
+        .container{
+            display:flex;
+            flex-direction: column;
+        
+        }
+    }
 }
 
-
-.container{
-    display:flex;
-    flex-direction: column;
-}
