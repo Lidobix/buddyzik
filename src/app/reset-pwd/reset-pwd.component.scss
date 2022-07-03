@@ -12,6 +12,28 @@
     margin-top:$headerHeight;
 padding: 20px;
 
+
+
+@include media-min(desktop-up){
+                
+    // max-width: 100%;
+    // max-height: 300px;
+}
+@include media-min (tablet-down){
+   
+    margin-top: 22vh;
+}
+@include media-max(tablet-down){
+
+    margin-top: 23vh;
+
+    }
+    
+    @include media-max(phone-down){
+     
+        margin-top:12vh;
+    }
+
 }
 
 button{

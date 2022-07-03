@@ -8,8 +8,8 @@
 // }
 
 .card {
-    //display: flex;
-    //flex-direction: column;
+    display: flex;
+    flex-direction: column;
     background-color: #ffffff ;
     //border: 1px solid black;
     border-radius:10px ;
@@ -21,13 +21,40 @@
     // width:100%;
     //margin:10px;
     // height:350px;
+    // min-width: 40vh;
     width:86vw;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     
-    
+margin: 10px 10px 10px 10px;
+
+
+
+    @include media-min(desktop-up){
+width:20vw;
+// height:auto;
+
+// height: 50vh;
+    }
+
+
+
+    img{
+        display:inline-block;
+        @include media-min(tablet-down){
+            max-width:20vw;
+           
+                }
+    }
 
 
     .musicInfos{display: grid}
+
+
+
+    mat-card-actions{
+
+    margin-bottom: 0;    // bottom:0s
+    }
 }
 
 

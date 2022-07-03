@@ -31,19 +31,19 @@
         <p *ngIf="buddy.group">Groupe :{{ buddy.group }} /</p>
       </div>
       <div class="buddyMusicDesktop">
-        <p>Instru : {{ buddy.instrument }}</p>
-        <p>Style : {{ buddy.style }}</p>
+        <p><strong>Instru :</strong> {{ buddy.instrument }}</p>
+        <p><strong>Style :</strong> {{ buddy.style }}</p>
         <!-- <p *ngIf="buddy.group">Style : {{ buddy.style }}</p> -->
-        <p *ngIf="buddy.group">Groupe :{{ buddy.group }}</p>
-        <p *ngIf="!buddy.group">Groupe : Aucun</p>
+        <p *ngIf="buddy.group"><strong>Groupe :</strong> {{ buddy.group }}</p>
+        <p *ngIf="!buddy.group"><strong>Groupe :</strong> Aucun</p>
         <p *ngIf="buddy.pro">Professionnel</p>
         <p *ngIf="!buddy.pro">Amateur - Loisir</p>
-        <p *ngIf="!buddy.singer">Chanteur : Non</p>
-        <p *ngIf="buddy.singer">Chanteur : Oui</p>
+        <p *ngIf="!buddy.singer">Ne chante pas</p>
+        <p *ngIf="buddy.singer">Chante</p>
       </div>
 
       <div class="buddyBio">
-        <p>{{ buddy.bio }}</p>
+        <p><strong>Son petit mot :</strong> {{ buddy.bio }}</p>
         <!-- <p *ngIf="buddy.bio != null">{{ buddy.bio }}</p> -->
       </div>
     </div>

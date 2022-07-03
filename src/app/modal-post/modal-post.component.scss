@@ -29,7 +29,11 @@
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
 
-
+    @include media-min(desktop-up){
+        // width:54vw;
+        width: 77.5vw;
+        // margin-left:50%;
+    }
 
 .contentModalPost{
 
@@ -41,8 +45,8 @@ width: 93vw;
     display: flex;
 flex-direction: column;
 @include media-min(desktop-up){
-    width:40%;
-    margin-left:50%;
+    // width:54vw;
+    // margin-left:50%;
 }
 
 
@@ -56,7 +60,26 @@ flex-direction: column;
             border: 1px solid black;
             max-height: 300px;
             max-width: 90.7vw;
+            @include media-min(desktop-up){
+                
+                max-width: 100%;
+                max-height: 300px;
+            }
+            @include media-min (tablet-down){
+                max-width: 100%;
+                max-height: 80px;}
+                @include media-max(tablet-down){
+                    max-width: 100%;
+                    max-height: 80px;
+            
+                }
+                
+                @include media-max(phone-down){
+                    max-width: 100%;
+                    max-height: 400px;
+                }
         }            
+
     }
 
     h2{

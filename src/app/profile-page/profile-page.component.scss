@@ -14,11 +14,27 @@
 // margin-right: auto;
 
     @include media-min(desktop-up){
-        width:50vw;
-        margin-top: 200px;
+        width:80vw;
+        margin-top: 22vh;
     }
-
-
+    @include media-min(tablet-down){
+        // padding:0;
+        margin-top: 24vh;
+        }
+        @include media-max(tablet-down){
+            // flex-direction: row;
+            // width:100%;
+            margin-top: 24vh;
+            // justify-content: center;
+    
+        }
+        @include media-max(phone-down){
+            // flex-direction: row;
+            // width:100%;
+            margin-top:12vh;
+            // justify-content: center;
+    
+        }
 
 #profile{
 // .modalPost{
@@ -49,6 +65,10 @@
         width: 100%;
         // flex-wrap: wrap;
         // justify-content: center;
+        @include media-min(desktop-up){
+            // padding:0;
+            width:79vw;
+            }
         
         .buddyId{
             color:$whiteTextColor;
@@ -61,6 +81,15 @@
      
             background-color: $darkThemeColor;
             padding:0 0 5px 0px;
+
+
+            @include media-min(desktop-up){
+                // padding:0;
+                width: 78vw;
+                }
+
+           
+
             .profilePicContainer{
                 //   width:20vw;
                 
@@ -75,11 +104,20 @@
                     -ms-border-radius: 50%;
                     -o-border-radius: 50%;
 
-                    @include media-min(desktop-up){
-                    width: 15vh
+                    @include media-max(tablet-down){
+                        // flex-direction: row;
+                        // width:100%;
+                        width:16vh;
+                        // justify-content: center;
+                
                     }
-
-
+                    @include media-min(tablet-down){
+                        // padding:0;
+                        width:13vh;
+                    }
+                    @include media-min(desktop-up){
+                    width: 20vh
+                    }
 
                 }
                 }
@@ -88,12 +126,21 @@
             p{
                 font-size: 1.7em;
                 font-weight: 700;
-                margin-left:10px;
-                
+                margin-left:4vw;
+                @include media-min(tablet-down){
+                    
+                    font-size: 3em;
+                    }
+                @include media-min(tablet-up){
+                    margin-left:4vw;
+                    font-size: 2em;
+                    
+                    }
                 
                 @include media-min(desktop-up){
                     font-size: 3em;
                     font-weight: 700;
+                    margin-left:-4vw;
                 }
             }
         
@@ -113,23 +160,43 @@
             }
         }
         .buddyMusicDesktop{
-            display: flex;
+            // p{
+            //     display:inline-block;
+            // }
+            
             // flex-basis: 100%;
+            
             display: none;
-
+            // flex-direction: row;
+            // justify-content: center;
+         
             @include media-min(desktop-up){
-                display: block;
+                display: flex;
+                // display: block;
+                font-weight: 500;
+                justify-content: space-evenly;
             }
         }
 
         .buddyBio{
-            margin-left:10px;
-            margin-right:10px;
-            // text-align: center;
+            
+            
             p{
+                margin-right:5vw;
+                margin-left: 5vw;
                 color:$whiteTextColor;
-        
-        
+          
+
+                @include media-min(tablet-down){
+                    // padding:0;
+                    margin-top:3vh;
+                    margin-bottom: 7vh;
+                    }
+                    @include media-min(desktop-up){
+                        margin-top:3vh;
+                        margin-left: 2vw;
+                     
+                     }
             }
         
         }
@@ -146,7 +213,11 @@
 display: flex;
 flex-direction: column;
 align-items: center;
+@include media-min(desktop-up){
+    margin-top:3vh;
+    width: 79vw;
 
+ }
 
 }
 

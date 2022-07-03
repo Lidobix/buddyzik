@@ -13,12 +13,10 @@ header{
     height: $headerHeight;
     z-index: 3;
     background-color: $darkThemeColor;
-    // background-color: rgb(213, 230, 66);
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
     justify-content: flex-end;
-    // color: #e1e5ee;
     @include media-min(desktop-up){
         flex-direction: row;
         width:100%;
@@ -26,9 +24,29 @@ header{
         justify-content: center;
 
     }
+    @include media-max(tablet-down){
+        // flex-direction: row;
+        // width:100%;
+        height:21vh;
+        // justify-content: center;
+
+    }
+    @include media-max(phone-down){
+        // flex-direction: row;
+        // width:100%;
+        height:11vh;
+        // justify-content: center;
+
+    }
+    @include media-min(tablet-down){
+        // flex-direction: row;
+        // width:100%;
+        height:20vh;
+        // justify-content: center;
+
+    }
     
-    
-    
+ 
     .titleContainer{
         flex-basis: 100%;
         text-align: center;

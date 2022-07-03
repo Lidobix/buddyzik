@@ -20,7 +20,7 @@ async function createPost(sender, content) {
     await cloudinary.v2.uploader
       .upload(content.postPic, {
         ressource: "image",
-        eager: [{ width: 400, crop: "scale" }],
+        eager: [{ width: 800, crop: "scale" }],
       })
       .then((result) => {
         content.postPic = result.eager[0].secure_url;

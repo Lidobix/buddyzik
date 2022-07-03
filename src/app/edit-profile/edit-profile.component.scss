@@ -1,3 +1,6 @@
+@import "../../styles/configs/_mixins.scss";
+@import "../../styles/configs/_variables.scss";
+
 img {
     width: 200px;
 }
@@ -30,6 +33,30 @@ width:100vw;
       
         align-items: center;
         text-align: center;
+
+        @include media-min(desktop-up){
+                
+            // max-width: 100%;
+            // max-height: 300px;
+        }
+        @include media-min (tablet-down){
+            // max-width: 100%;
+            // max-height: 80px;
+            margin-top: 22vh;
+        }
+        @include media-max(tablet-down){
+            // max-width: 100%;
+            // max-height: 80px;
+            margin-top: 23vh;
+        
+            }
+            
+            @include media-max(phone-down){
+                // max-width: 100%;
+                // max-height: 400px;
+                margin-top:12vh;
+            }
+        
      
         .container{
             display:flex;
