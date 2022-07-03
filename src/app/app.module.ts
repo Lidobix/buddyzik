@@ -40,7 +40,8 @@ import { ValidationModalComponent } from './validation-modal/validation-modal.co
 import { MatMenuModule } from '@angular/material/menu';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatGridListModule } from '@angular/material/grid-list';
-
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +79,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     PortalModule,
     BrowserAnimationsModule,
     MatGridListModule,
+    MatRadioModule,
     MatFormFieldModule,
+    MatSelectModule,
   ],
 
   providers: [

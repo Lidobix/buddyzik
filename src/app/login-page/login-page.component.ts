@@ -19,7 +19,7 @@ export class LoginPageComponent implements OnInit {
   password = new FormControl('', [Validators.required]);
   hide = true;
 
-  newForm = new FormGroup({
+  userLoginForm = new FormGroup({
     mailAddress: this.mailAddress,
     password: this.password,
   });
@@ -29,7 +29,7 @@ export class LoginPageComponent implements OnInit {
     private authService: AuthService,
     private displayingElementsService: DisplayingElementsService
   ) {}
-  userLoginForm!: FormGroup;
+  // userLoginForm!: FormGroup;
   // userEmail!: string;
   // userPassword!: string;
 
@@ -81,8 +81,8 @@ export class LoginPageComponent implements OnInit {
   // }
 
   submit() {
-    console.log(this.newForm);
-    this.authService.authUser(this.newForm, '/login');
+    console.log(this.userLoginForm);
+    this.authService.authUser(this.userLoginForm, '/login');
     console.log('form envoyé au serveur');
     this.router.navigateByUrl('/home');
     console.log('redirection vers home');

@@ -1,17 +1,56 @@
 <!-- <app-header></app-header> -->
 <div class="form-card">
+  <div class="editFormContent"></div>
   <h2 *ngIf="displayCreationMode">CREATION DU PROFIL</h2>
   <h2 *ngIf="!displayCreationMode">EDITION DU PROFIL</h2>
+
   <form [formGroup]="userProfileForm">
-    <label for="login">Pseudo</label>
-    <input type="text" id="loginInput" formControlName="login" />
-    <br />
-    <br />
-    <label for="password">Mot de passe</label>
-    <input type="text" id="passwordInput" formControlName="password" />
-    <br />
-    <br />
-    <label *ngIf="!displayCreationMode" for="passwordModif"
+    <!-- <label for="login">Pseudo</label>
+    <input type="text" id="loginInput" formControlName="login" /> -->
+
+    <mat-form-field appearance="fill">
+      <mat-label>Pseudo</mat-label>
+      <input matInput [formControl]="login" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>password</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [formControl]="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" *ngIf="!displayCreationMode">
+      <mat-label>nouveau password</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [formControl]="passwordModif"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <!-- //////////////////////////////////////////////////////////////////// -->
+
+    <!-- <label *ngIf="!displayCreationMode" for="passwordModif"
       >Nouveau mot de passe</label
     >
     <input
@@ -19,29 +58,43 @@
       type="text"
       id="passwordModifInput"
       formControlName="passwordModif"
-    />
-    <br />
-    <br />
-    <label for="mailAddress">Adresse mail</label>
-    <input type="text" id="mailAddressInput" formControlName="mailAddress" />
-    <br />
-    <br />
-    <label for="firstName">Prénom</label>
-    <input type="text" id="firstNameInput" formControlName="firstName" />
-    <br />
-    <br />
-    <label for="lastName">Nom</label>
-    <input type="text" id="lastNameInput" formControlName="lastName" />
-    <br />
-    <br />
-    <label for="birthDate">Date de naissance</label>
-    <input type="date" id="birthDateInput" formControlName="birthDate" /><br />
-    <br />
-    <label for="location">Ville</label>
-    <input type="text" id="locationInput" formControlName="location" />
-    <br />
+    /> -->
+    <!-- //////////////////////////////////////////////////////////////////// -->
+    <mat-form-field appearance="fill">
+      <mat-label>email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="mailAddress"
+        required
+      />
+      <mat-error *ngIf="mailAddress.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <!-- //////////////////////////////////////////////////////////////////// -->
+    <mat-form-field appearance="fill">
+      <mat-label>Prénom</mat-label>
+      <input matInput [formControl]="firstName" />
+    </mat-form-field>
 
-    <div *ngIf="displayCreationMode">
+    <mat-form-field appearance="fill">
+      <mat-label>Nom</mat-label>
+      <input matInput [formControl]="lastName" />
+    </mat-form-field>
+
+    <!-- <label for="birthDate">Date de naissance</label>
+    <input type="date" id="birthDateInput" formControlName="birthDate" /><br /> -->
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date de naissance</mat-label>
+      <input matInput [formControl]="birthDate" type="date" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Ville</mat-label>
+      <input matInput [formControl]="location" />
+    </mat-form-field>
+
+    <!-- <div *ngIf="displayCreationMode">
       <p>Photo de profil:</p>
       <input
         type="file"
@@ -49,7 +102,29 @@
         (change)="selectFile($event)"
       />
       <img [src]="previewProfilePic" alt="" />
+    </div> -->
+    <div>
+      <button mat-raised-button (click)="fileInput.click()">
+        <span>Image...</span>
+        <input
+          #fileInput
+          type="file"
+          (change)="selectFile($event)"
+          style="display: none"
+        />
+      </button>
+      <div><img [src]="previewProfilePic" alt="" /></div>
     </div>
+    <div>
+      <label>Genre:</label>
+      <br />
+      <mat-radio-group [formControl]="gender">
+        <mat-radio-button value="Homme">Homme</mat-radio-button>
+        <mat-radio-button value="Femme">Femme</mat-radio-button>
+        <mat-radio-button value="Autre">Autre</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <!-- 
     <p>Genre:</p>
     <input
       id="genderMaleInput"
@@ -75,21 +150,46 @@
       formControlName="gender"
       value="Autre"
     />
-    <label for="genderOther">Autre</label>
+    <label for="genderOther">Autre</label> -->
 
     <br />
     <br />
     <p>Dis nous en plus....</p>
 
-    <label for="instrument">Instrument de prédilection :</label>
+    <!-- <label for="instrument">Instrument de prédilection :</label>
     <select formControlName="instrument" id="instrumentSelect">
       <option value="">Choix...</option>
       <option *ngFor="let instrument of instrumentsList" [value]="instrument">
         {{ instrument }}
       </option>
-    </select>
-    <p>Tu chantes?</p>
-    <input
+    </select> -->
+
+    <mat-form-field appearance="fill">
+      <mat-label>Instrument</mat-label>
+      <mat-select>
+        <mat-option
+          *ngFor="let instrument of instrumentsList"
+          [value]="instrument"
+          >{{ instrument }}</mat-option
+        >
+        <!-- <mat-option value="two">Second option</mat-option> -->
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Style</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let style of stylesList" [value]="style">{{
+          style
+        }}</mat-option>
+        <!-- <mat-option value="two">Second option</mat-option> -->
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Nom de ton groupe</mat-label>
+      <input matInput [formControl]="group" />
+    </mat-form-field>
+    <!-- <p>Tu chantes?</p> -->
+    <!-- <input
       id="singerYesInput"
       type="radio"
       name="singer"
@@ -104,7 +204,16 @@
       formControlName="singer"
       value="no"
     />
-    <label for="singerNo">Non</label>
+    <label for="singerNo">Non</label> -->
+
+    <div>
+      <label>Tu chantes?</label>
+      <br />
+      <mat-radio-group [formControl]="singer">
+        <mat-radio-button value="yes">Evidemment</mat-radio-button>
+        <mat-radio-button value="no">Non</mat-radio-button>
+      </mat-radio-group>
+    </div>
 
     <!-- <input
       id="singerMaybeInput"
@@ -114,7 +223,7 @@
       value="Maybe"
     />
     <label for="singerMaybe">Si il le faut</label> -->
-    <br />
+    <!-- <br />
     <br />
     <p>Tu es un pro?</p>
     <input
@@ -135,21 +244,46 @@
     <label for="proNo">Non</label>
 
     <br />
-    <br />
+    <br /> -->
+
+    <div>
+      <label>Tu es un pro?</label>
+      <br />
+      <mat-radio-group [formControl]="pro">
+        <mat-radio-button value="yes">Oui</mat-radio-button>
+        <mat-radio-button value="no">Non</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
     <p>
       Un petit mot sur ce que tu recherches ou proposes et qui sera affiché sur
       ton profil?
     </p>
-    <textarea
+
+    <mat-form-field class="bioBuddy" appearance="fill">
+      <mat-label
+        >Un petit mot sur ce que tu recherches ou proposes et qui sera affiché
+        sur ton profil?t</mat-label
+      >
+      <textarea
+        formControlName="bio"
+        matInput
+        placeholder=""
+        cols="30"
+        rows="10"
+      ></textarea>
+    </mat-form-field>
+
+    <!-- <textarea
       name="bio"
       id="bioInput"
       formControlName="bio"
       cols="30"
       rows="10"
-    ></textarea>
+    ></textarea> -->
     <br />
     <br />
-    <input
+    <!-- <input
       *ngIf="displayCreationMode"
       type="submit"
       (click)="onSubmitProfileForm()"
@@ -160,6 +294,23 @@
       type="submit"
       (click)="onSubmitModifProfileForm()"
       value="Enregistrer les modifications"
-    />
+    /> -->
+    <button
+      mat-raised-button
+      *ngIf="displayCreationMode"
+      type="submit"
+      (click)="onSubmitProfileForm()"
+    >
+      Inscription !
+    </button>
+
+    <button
+      mat-raised-button
+      *ngIf="!displayCreationMode"
+      type="submit"
+      (click)="onSubmitModifProfileForm()"
+    >
+      Enregistrer les modifications
+    </button>
   </form>
 </div>
