@@ -9,9 +9,10 @@
     background-color: $darkThemeColor ;
     // margin-top: 100px;
     position: absolute;
-    // display:flex;
+    display:flex;
     margin-left: 1.5vw;
     margin-right: 1.5vw;
+    
 
 
 @include media-min(desktop-up){

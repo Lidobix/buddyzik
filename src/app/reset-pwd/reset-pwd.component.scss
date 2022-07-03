@@ -1,0 +1,19 @@
+@import "../../styles/configs/variables";
+@import "../../styles/configs/_mixins.scss";
+*{
+    display: flex;
+    text-align: center;
+    color:$whiteTextColor;
+    flex-direction: column;
+}
+
+
+.resetPasswordContent{
+    margin-top:$headerHeight;
+padding: 20px;
+
+}
+
+button{
+    margin-top: 10px;
+color:$darkThemeColor}

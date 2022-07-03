@@ -78,6 +78,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     PortalModule,
     BrowserAnimationsModule,
     MatGridListModule,
+    MatFormFieldModule,
   ],
 
   providers: [

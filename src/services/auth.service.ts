@@ -93,6 +93,7 @@ export class AuthService implements OnInit {
 
   authUser(form: FormGroup, route: string): void {
     if (!form.valid) {
+      console.log(form);
       alert('Formulaire non valide!');
     } else {
       try {

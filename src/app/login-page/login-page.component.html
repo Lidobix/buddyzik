@@ -1,10 +1,61 @@
-<div>
+<!-- <div>
   <h2>CONNEXION</h2>
   <form [formGroup]="userLoginForm">
     <label for="mailAddress">mailAddress</label>
     <br />
-    <br />
-    <input type="text" id="mailInput" formControlName="mailAddress" />
+    <br /> -->
+<div class="back">
+  <div class="loginFormContent">
+    <form action="" (ngSubmit)="submit()">
+      <div class="container">
+        <strong>CONNEXION</strong>
+        <mat-form-field appearance="fill">
+          <mat-label>email</mat-label>
+          <input
+            matInput
+            placeholder="pat@example.com"
+            [formControl]="mailAddress"
+            required
+          />
+          <mat-error *ngIf="mailAddress.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <button mat-raised-button type="submit" (click)="submit()">
+          ENOYER
+        </button>
+        <br />
+        <strong>OU</strong>
+        <br />
+        <button mat-raised-button type="button" (click)="goToInscription()">
+          INSCRIVEZ VOUS!
+        </button>
+        <br />
+        <br />
+        <a routerLink="/lostpassword"> Mot de passe perdu ?</a>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- <input type="text" id="mailInput" formControlName="mailAddress" />
     <br />
     <br />
     <label for="password">Mot de passe</label>
@@ -23,8 +74,6 @@
     <br />
     <br />
     <button type="button" (click)="goToInscription()">Inscrivez vous!</button>
-    <!-- <button type="button" (click)="requestResetPassword()">
-      Mot de passe perdu
-    </button> -->
+
   </form>
-</div>
+</div> -->

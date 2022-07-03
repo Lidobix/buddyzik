@@ -1,4 +1,4 @@
-<div>
+<div class="resetPasswordContent">
   <h2>MOT DE PASSE PERDU</h2>
   <form [formGroup]="resetPasswordForm">
     <label for="mailAddress"
@@ -6,12 +6,20 @@
       vous envoyer un mail contenant un lien à suivre pour réinitialiser votre
       mot de passe.</label
     >
-    <br />
-    <br />
-    <input type="text" id="mailInput" formControlName="mailAddress" />
-    <br />
-    <br />
 
-    <button type="submit" (click)="onSubmitResetForm()">Réinitialiser</button>
+    <mat-form-field appearance="fill">
+      <mat-label>email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="mailAddress"
+        required
+      />
+      <mat-error *ngIf="mailAddress.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" (click)="onSubmitResetForm()">
+      Réinitialiser
+    </button>
   </form>
 </div>
