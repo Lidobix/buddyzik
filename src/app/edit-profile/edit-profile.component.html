@@ -1,179 +1,186 @@
 <!-- <app-header></app-header> -->
 <div class="form-card">
-  <div class="editFormContent"></div>
-  <h2 *ngIf="displayCreationMode">CREATION DU PROFIL</h2>
-  <h2 *ngIf="!displayCreationMode">EDITION DU PROFIL</h2>
+  <div class="editFormContent">
+    <h2 *ngIf="displayCreationMode">CREATION DU PROFIL</h2>
+    <h2 *ngIf="!displayCreationMode">EDITION DU PROFIL</h2>
 
-  <form [formGroup]="userProfileForm">
-    <!-- <label for="login">Pseudo</label>
+    <form [formGroup]="userProfileForm">
+      <!-- <label for="login">Pseudo</label>
     <input type="text" id="loginInput" formControlName="login" /> -->
-    <p>Quel musicien es-tu?</p>
+      <div class="container">
+        <p>Quel musicien es-tu?</p>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Instrument</mat-label>
-      <mat-select [formControl]="instrument">
-        <mat-option
-          *ngFor="let instrument of instrumentsList"
-          [value]="instrument"
-          >{{ instrument }}</mat-option
+        <mat-form-field appearance="fill">
+          <mat-label>Instrument</mat-label>
+          <mat-select [formControl]="instrument">
+            <mat-option
+              *ngFor="let instrument of instrumentsList"
+              [value]="instrument"
+              >{{ instrument }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Style</mat-label>
+          <mat-select [formControl]="style">
+            <mat-option *ngFor="let style of stylesList" [value]="style">{{
+              style
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Nom de ton groupe</mat-label>
+          <input matInput [formControl]="group" />
+        </mat-form-field>
+
+        <label>Tu chantes?</label>
+
+        <div class="radioModule">
+          <mat-radio-group [formControl]="singer">
+            <mat-radio-button value="yes">Evidemment</mat-radio-button>
+            <mat-radio-button value="no">Non</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div>
+          <label>Tu es un pro?</label>
+          <div class="radioModule">
+            <mat-radio-group [formControl]="pro">
+              <mat-radio-button value="yes">Oui</mat-radio-button>
+              <mat-radio-button value="no">Non</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <mat-form-field class="bioBuddy" appearance="fill">
+          <mat-label
+            >Un petit mot sur ce que tu recherches ou proposes et qui sera
+            affiché sur ton profil? (200 caract. max)</mat-label
+          >
+          <textarea
+            formControlName="bio"
+            matInput
+            placeholder=""
+            cols="30"
+            rows="10"
+          ></textarea>
+        </mat-form-field>
+
+        <p>Qui es-tu?</p>
+
+        <!-- <label>Genre:</label> -->
+        <!-- <br /> -->
+        <div class="radioModule">
+          <mat-radio-group [formControl]="gender">
+            <mat-radio-button value="Homme">Homme</mat-radio-button>
+            <mat-radio-button value="Femme">Femme</mat-radio-button>
+            <mat-radio-button value="Autre">Autre</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Pseudo</mat-label>
+          <input matInput [formControl]="login" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Prénom</mat-label>
+          <input matInput [formControl]="firstName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Nom</mat-label>
+          <input matInput [formControl]="lastName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Date de naissance</mat-label>
+          <input matInput [formControl]="birthDate" type="date" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Ville</mat-label>
+          <input matInput [formControl]="location" />
+        </mat-form-field>
+
+        <div>
+          <button mat-raised-button (click)="fileInput.click()">
+            <span>Image...</span>
+            <input
+              #fileInput
+              type="file"
+              (change)="selectFile($event)"
+              style="display: none"
+            />
+          </button>
+          <div><img [src]="previewProfilePic" alt="" /></div>
+        </div>
+        <mat-form-field appearance="fill">
+          <mat-label>email</mat-label>
+          <input
+            matInput
+            placeholder="pat@example.com"
+            [formControl]="mailAddress"
+            required
+          />
+          <mat-error *ngIf="mailAddress.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="!displayCreationMode">
+          <mat-label>nouveau password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="passwordModif"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          *ngIf="displayCreationMode"
+          type="submit"
+          (click)="onSubmitProfileForm()"
         >
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Style</mat-label>
-      <mat-select [formControl]="style">
-        <mat-option *ngFor="let style of stylesList" [value]="style">{{
-          style
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Nom de ton groupe</mat-label>
-      <input matInput [formControl]="group" />
-    </mat-form-field>
+          Inscription !
+        </button>
 
-    <div>
-      <label>Tu chantes?</label>
-      <br />
-      <mat-radio-group [formControl]="singer">
-        <mat-radio-button value="yes">Evidemment</mat-radio-button>
-        <mat-radio-button value="no">Non</mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <div>
-      <label>Tu es un pro?</label>
-      <br />
-      <mat-radio-group [formControl]="pro">
-        <mat-radio-button value="yes">Oui</mat-radio-button>
-        <mat-radio-button value="no">Non</mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <mat-form-field class="bioBuddy" appearance="fill">
-      <mat-label
-        >Un petit mot sur ce que tu recherches ou proposes et qui sera affiché
-        sur ton profil? (200 caract. max)</mat-label
-      >
-      <textarea
-        formControlName="bio"
-        matInput
-        placeholder=""
-        cols="30"
-        rows="10"
-      ></textarea>
-    </mat-form-field>
-
-    <p>Qui es-tu?</p>
-    <div>
-      <!-- <label>Genre:</label> -->
-      <!-- <br /> -->
-      <mat-radio-group [formControl]="gender">
-        <mat-radio-button value="Homme">Homme</mat-radio-button>
-        <mat-radio-button value="Femme">Femme</mat-radio-button>
-        <mat-radio-button value="Autre">Autre</mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Pseudo</mat-label>
-      <input matInput [formControl]="login" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Prénom</mat-label>
-      <input matInput [formControl]="firstName" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Nom</mat-label>
-      <input matInput [formControl]="lastName" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Date de naissance</mat-label>
-      <input matInput [formControl]="birthDate" type="date" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Ville</mat-label>
-      <input matInput [formControl]="location" />
-    </mat-form-field>
-
-    <div>
-      <button mat-raised-button (click)="fileInput.click()">
-        <span>Image...</span>
-        <input
-          #fileInput
-          type="file"
-          (change)="selectFile($event)"
-          style="display: none"
-        />
-      </button>
-      <div><img [src]="previewProfilePic" alt="" /></div>
-    </div>
-    <mat-form-field appearance="fill">
-      <mat-label>email</mat-label>
-      <input
-        matInput
-        placeholder="pat@example.com"
-        [formControl]="mailAddress"
-        required
-      />
-      <mat-error *ngIf="mailAddress.invalid">{{ getErrorMessage() }}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>password</mat-label>
-      <input
-        matInput
-        [type]="hide ? 'password' : 'text'"
-        [formControl]="password"
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hide = !hide"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
-      >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" *ngIf="!displayCreationMode">
-      <mat-label>nouveau password</mat-label>
-      <input
-        matInput
-        [type]="hide ? 'password' : 'text'"
-        [formControl]="passwordModif"
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hide = !hide"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
-      >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-      </button>
-    </mat-form-field>
-
-    <button
-      mat-raised-button
-      *ngIf="displayCreationMode"
-      type="submit"
-      (click)="onSubmitProfileForm()"
-    >
-      Inscription !
-    </button>
-
-    <button
-      mat-raised-button
-      *ngIf="!displayCreationMode"
-      type="submit"
-      (click)="onSubmitModifProfileForm()"
-    >
-      Enregistrer les modifications
-    </button>
-  </form>
+        <button
+          mat-raised-button
+          *ngIf="!displayCreationMode"
+          type="submit"
+          (click)="onSubmitModifProfileForm()"
+        >
+          Enregistrer les modifications
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

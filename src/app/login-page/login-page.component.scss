@@ -3,46 +3,24 @@
 @import "../../styles/configs/_mixins.scss";
 
 form{
-    // border : 1px solid black;
-    // text-align: center;
-    // width: fit-content;
-    // padding: 15px;
-    // box-shadow: 2px 2px ;
-    // display: flex;
     padding: 15px;
-// flex-direction: column;
-// *{
-//     flex-basis: 100%;
-// }
-// position: fixed;
-
 }
 *{
-    // display: flex;
     background-color: $whiteTextColor;
-    // justify-content: center;
-    // flex-direction: column;
 }
 .loginFormContent{
     margin-top: 30vh;
-    // display: flex;
-    // height: 100%;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
     width: 86vw;
     margin-left: 5.5vw;
-    
     height: 44vh;
-   
 }
+
 .back{
     display:flex;
-    
-height:100vh;
-position: absolute;
-width: 97vw;
-background-color:$darkThemeColor;
+    height:100vh;
+    position: absolute;
+    width: 97vw;
+    background-color:$darkThemeColor;
 }
 
 
