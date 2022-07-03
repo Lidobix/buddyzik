@@ -21,26 +21,6 @@
         <button mat-raised-button (click)="onPostRequest()">POST</button>
       </div>
 
-      <!-- <img id="profilePic" [src]="profilePicUrl" /> -->
-
-      <!-- <div class="buddyId">
-        <div class="profilePicContainer">
-          <img [src]="buddy.profilePicture" alt="" />
-        </div>
-        <p>{{ buddy.firstName }} {{ buddy.lastName }}</p>
-        <button mat-raised-button (click)="onPostRequest()">POST</button>
-      </div> -->
-
-      <!-- <div class="buddyBio">
-        <p>Instrument : {{ buddy.instrument }}</p>
-        <p *ngIf="buddy.group">Style : {{ buddy.style }}</p>
-        <p *ngIf="buddy.group">Groupe :{{ buddy.group }}</p>
-        <p *ngIf="!buddy.group">Groupe : Aucun</p>
-        <p *ngIf="buddy.pro">Professionnel</p>
-        <p *ngIf="!buddy.pro">Amateur - Loisir</p>
-        <p *ngIf="!buddy.singer">Chanteur : Non</p>
-        <p *ngIf="buddy.singer">Chanteur : Oui</p>
-      </div> -->
       <div class="buddyMusicPhone">
         <p>{{ buddy.instrument }}</p>
         <p>{{ buddy.style }}</p>
@@ -51,15 +31,15 @@
         <p *ngIf="buddy.group">Groupe :{{ buddy.group }} /</p>
       </div>
       <div class="buddyMusicDesktop">
-        <p>Instru : {{ buddy.instrument }} /</p>
-        <p>Style : {{ buddy.style }} /</p>
+        <p>Instru : {{ buddy.instrument }}</p>
+        <p>Style : {{ buddy.style }}</p>
         <!-- <p *ngIf="buddy.group">Style : {{ buddy.style }}</p> -->
-        <p *ngIf="buddy.group">Groupe :{{ buddy.group }} /</p>
-        <p *ngIf="!buddy.group">Groupe : Aucun /</p>
-        <p *ngIf="buddy.pro">Professionnel /</p>
-        <p *ngIf="!buddy.pro">Amateur - Loisir /</p>
-        <p *ngIf="!buddy.singer">Chanteur : Non /</p>
-        <p *ngIf="buddy.singer">Chanteur : Oui /</p>
+        <p *ngIf="buddy.group">Groupe :{{ buddy.group }}</p>
+        <p *ngIf="!buddy.group">Groupe : Aucun</p>
+        <p *ngIf="buddy.pro">Professionnel</p>
+        <p *ngIf="!buddy.pro">Amateur - Loisir</p>
+        <p *ngIf="!buddy.singer">Chanteur : Non</p>
+        <p *ngIf="buddy.singer">Chanteur : Oui</p>
       </div>
 
       <div class="buddyBio">

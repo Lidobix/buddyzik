@@ -1,38 +1,23 @@
 
 @import "../../styles/configs/_mixins.scss";
 @import "../../styles/configs/_variables.scss";
-// .visible {
- 
-// }
-
 
 nav{
     display: flex;
-    .standardmenu{
-        display:none;
-        margin-bottom: 10px;
-        @include media-min(desktop-up){
-            position: absolute;
-            display: block;
-            top:20vh;
-        }
-     }   
-    
+    margin-bottom: 0;
     .burgermenu{
         margin-right: 15px;
         flex-basis: 20%;
+        display: block;
         .mat-icon{
             font-size: 40px;
             color: $whiteTextColor;
         }
-        display: block;
-        @include media-min(desktop-up){
-            display: none;
-        }
     }
+}
 
-    margin-bottom: 0;
-
+.displayNav{
+    background-color: red;
 }
 
 .hidden{

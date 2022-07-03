@@ -74,6 +74,13 @@
                     -moz-border-radius: 50%;
                     -ms-border-radius: 50%;
                     -o-border-radius: 50%;
+
+                    @include media-min(desktop-up){
+                    width: 15vh
+                    }
+
+
+
                 }
                 }
         
@@ -82,10 +89,10 @@
                 font-size: 1.7em;
                 font-weight: 700;
                 margin-left:10px;
-                margin:0;
+                
                 
                 @include media-min(desktop-up){
-                    font-size: 5em;
+                    font-size: 3em;
                     font-weight: 700;
                 }
             }
