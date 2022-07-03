@@ -7,12 +7,121 @@
   <form [formGroup]="userProfileForm">
     <!-- <label for="login">Pseudo</label>
     <input type="text" id="loginInput" formControlName="login" /> -->
+    <p>Quel musicien es-tu?</p>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Instrument</mat-label>
+      <mat-select [formControl]="instrument">
+        <mat-option
+          *ngFor="let instrument of instrumentsList"
+          [value]="instrument"
+          >{{ instrument }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Style</mat-label>
+      <mat-select [formControl]="style">
+        <mat-option *ngFor="let style of stylesList" [value]="style">{{
+          style
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Nom de ton groupe</mat-label>
+      <input matInput [formControl]="group" />
+    </mat-form-field>
+
+    <div>
+      <label>Tu chantes?</label>
+      <br />
+      <mat-radio-group [formControl]="singer">
+        <mat-radio-button value="yes">Evidemment</mat-radio-button>
+        <mat-radio-button value="no">Non</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div>
+      <label>Tu es un pro?</label>
+      <br />
+      <mat-radio-group [formControl]="pro">
+        <mat-radio-button value="yes">Oui</mat-radio-button>
+        <mat-radio-button value="no">Non</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <mat-form-field class="bioBuddy" appearance="fill">
+      <mat-label
+        >Un petit mot sur ce que tu recherches ou proposes et qui sera affiché
+        sur ton profil? (200 caract. max)</mat-label
+      >
+      <textarea
+        formControlName="bio"
+        matInput
+        placeholder=""
+        cols="30"
+        rows="10"
+      ></textarea>
+    </mat-form-field>
+
+    <p>Qui es-tu?</p>
+    <div>
+      <!-- <label>Genre:</label> -->
+      <!-- <br /> -->
+      <mat-radio-group [formControl]="gender">
+        <mat-radio-button value="Homme">Homme</mat-radio-button>
+        <mat-radio-button value="Femme">Femme</mat-radio-button>
+        <mat-radio-button value="Autre">Autre</mat-radio-button>
+      </mat-radio-group>
+    </div>
 
     <mat-form-field appearance="fill">
       <mat-label>Pseudo</mat-label>
       <input matInput [formControl]="login" />
     </mat-form-field>
 
+    <mat-form-field appearance="fill">
+      <mat-label>Prénom</mat-label>
+      <input matInput [formControl]="firstName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nom</mat-label>
+      <input matInput [formControl]="lastName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date de naissance</mat-label>
+      <input matInput [formControl]="birthDate" type="date" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Ville</mat-label>
+      <input matInput [formControl]="location" />
+    </mat-form-field>
+
+    <div>
+      <button mat-raised-button (click)="fileInput.click()">
+        <span>Image...</span>
+        <input
+          #fileInput
+          type="file"
+          (change)="selectFile($event)"
+          style="display: none"
+        />
+      </button>
+      <div><img [src]="previewProfilePic" alt="" /></div>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>email</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        [formControl]="mailAddress"
+        required
+      />
+      <mat-error *ngIf="mailAddress.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>password</mat-label>
       <input
@@ -48,253 +157,7 @@
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
     </mat-form-field>
-    <!-- //////////////////////////////////////////////////////////////////// -->
 
-    <!-- <label *ngIf="!displayCreationMode" for="passwordModif"
-      >Nouveau mot de passe</label
-    >
-    <input
-      *ngIf="!displayCreationMode"
-      type="text"
-      id="passwordModifInput"
-      formControlName="passwordModif"
-    /> -->
-    <!-- //////////////////////////////////////////////////////////////////// -->
-    <mat-form-field appearance="fill">
-      <mat-label>email</mat-label>
-      <input
-        matInput
-        placeholder="pat@example.com"
-        [formControl]="mailAddress"
-        required
-      />
-      <mat-error *ngIf="mailAddress.invalid">{{ getErrorMessage() }}</mat-error>
-    </mat-form-field>
-    <!-- //////////////////////////////////////////////////////////////////// -->
-    <mat-form-field appearance="fill">
-      <mat-label>Prénom</mat-label>
-      <input matInput [formControl]="firstName" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Nom</mat-label>
-      <input matInput [formControl]="lastName" />
-    </mat-form-field>
-
-    <!-- <label for="birthDate">Date de naissance</label>
-    <input type="date" id="birthDateInput" formControlName="birthDate" /><br /> -->
-
-    <mat-form-field appearance="fill">
-      <mat-label>Date de naissance</mat-label>
-      <input matInput [formControl]="birthDate" type="date" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Ville</mat-label>
-      <input matInput [formControl]="location" />
-    </mat-form-field>
-
-    <!-- <div *ngIf="displayCreationMode">
-      <p>Photo de profil:</p>
-      <input
-        type="file"
-        formControlName="profilePicture"
-        (change)="selectFile($event)"
-      />
-      <img [src]="previewProfilePic" alt="" />
-    </div> -->
-    <div>
-      <button mat-raised-button (click)="fileInput.click()">
-        <span>Image...</span>
-        <input
-          #fileInput
-          type="file"
-          (change)="selectFile($event)"
-          style="display: none"
-        />
-      </button>
-      <div><img [src]="previewProfilePic" alt="" /></div>
-    </div>
-    <div>
-      <label>Genre:</label>
-      <br />
-      <mat-radio-group [formControl]="gender">
-        <mat-radio-button value="Homme">Homme</mat-radio-button>
-        <mat-radio-button value="Femme">Femme</mat-radio-button>
-        <mat-radio-button value="Autre">Autre</mat-radio-button>
-      </mat-radio-group>
-    </div>
-    <!-- 
-    <p>Genre:</p>
-    <input
-      id="genderMaleInput"
-      type="radio"
-      name="gender"
-      formControlName="gender"
-      value="Homme"
-      checked
-    />
-    <label for="genderMale">Homme</label>
-    <input
-      id="genderFemaleInput"
-      type="radio"
-      name="gender"
-      formControlName="gender"
-      value="Femme"
-    />
-    <label for="genderFemale">Femme</label>
-    <input
-      id="genderOtherInput"
-      type="radio"
-      name="gender"
-      formControlName="gender"
-      value="Autre"
-    />
-    <label for="genderOther">Autre</label> -->
-
-    <br />
-    <br />
-    <p>Dis nous en plus....</p>
-
-    <!-- <label for="instrument">Instrument de prédilection :</label>
-    <select formControlName="instrument" id="instrumentSelect">
-      <option value="">Choix...</option>
-      <option *ngFor="let instrument of instrumentsList" [value]="instrument">
-        {{ instrument }}
-      </option>
-    </select> -->
-
-    <mat-form-field appearance="fill">
-      <mat-label>Instrument</mat-label>
-      <mat-select>
-        <mat-option
-          *ngFor="let instrument of instrumentsList"
-          [value]="instrument"
-          >{{ instrument }}</mat-option
-        >
-        <!-- <mat-option value="two">Second option</mat-option> -->
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Style</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let style of stylesList" [value]="style">{{
-          style
-        }}</mat-option>
-        <!-- <mat-option value="two">Second option</mat-option> -->
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Nom de ton groupe</mat-label>
-      <input matInput [formControl]="group" />
-    </mat-form-field>
-    <!-- <p>Tu chantes?</p> -->
-    <!-- <input
-      id="singerYesInput"
-      type="radio"
-      name="singer"
-      formControlName="singer"
-      value="yes"
-    />
-    <label for="singerYes">Oui!</label>
-    <input
-      id="singerNoInput"
-      type="radio"
-      name="singer"
-      formControlName="singer"
-      value="no"
-    />
-    <label for="singerNo">Non</label> -->
-
-    <div>
-      <label>Tu chantes?</label>
-      <br />
-      <mat-radio-group [formControl]="singer">
-        <mat-radio-button value="yes">Evidemment</mat-radio-button>
-        <mat-radio-button value="no">Non</mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <!-- <input
-      id="singerMaybeInput"
-      type="radio"
-      name="singer"
-      formControlName="singer"
-      value="Maybe"
-    />
-    <label for="singerMaybe">Si il le faut</label> -->
-    <!-- <br />
-    <br />
-    <p>Tu es un pro?</p>
-    <input
-      id="proYesInput"
-      type="radio"
-      name="pro"
-      formControlName="pro"
-      value="yes"
-    />
-    <label for="proYes">Oui</label>
-    <input
-      id="proNoInput"
-      type="radio"
-      name="pro"
-      formControlName="pro"
-      value="no"
-    />
-    <label for="proNo">Non</label>
-
-    <br />
-    <br /> -->
-
-    <div>
-      <label>Tu es un pro?</label>
-      <br />
-      <mat-radio-group [formControl]="pro">
-        <mat-radio-button value="yes">Oui</mat-radio-button>
-        <mat-radio-button value="no">Non</mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <p>
-      Un petit mot sur ce que tu recherches ou proposes et qui sera affiché sur
-      ton profil?
-    </p>
-
-    <mat-form-field class="bioBuddy" appearance="fill">
-      <mat-label
-        >Un petit mot sur ce que tu recherches ou proposes et qui sera affiché
-        sur ton profil?t</mat-label
-      >
-      <textarea
-        formControlName="bio"
-        matInput
-        placeholder=""
-        cols="30"
-        rows="10"
-      ></textarea>
-    </mat-form-field>
-
-    <!-- <textarea
-      name="bio"
-      id="bioInput"
-      formControlName="bio"
-      cols="30"
-      rows="10"
-    ></textarea> -->
-    <br />
-    <br />
-    <!-- <input
-      *ngIf="displayCreationMode"
-      type="submit"
-      (click)="onSubmitProfileForm()"
-      value="Inscription !"
-    />
-    <input
-      *ngIf="!displayCreationMode"
-      type="submit"
-      (click)="onSubmitModifProfileForm()"
-      value="Enregistrer les modifications"
-    /> -->
     <button
       mat-raised-button
       *ngIf="displayCreationMode"

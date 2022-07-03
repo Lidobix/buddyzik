@@ -2,7 +2,7 @@
 
 import { counter, fetchOne, updateSome, updateUno } from "./manageDatas.js";
 import { checkHash, createToken, hash } from "./security.js";
-
+import cloudinary from "cloudinary";
 // console.log("new profile:", req.body);
 // const myNewInfos = req.body;
 // console.log("newInformations:", myNewInfos);
@@ -79,28 +79,44 @@ async function updateProfile(myNewInfos, headers) {
   myNewInfos.password = hash(myNewInfos.password);
   const newToken = createToken(headers.uuid, myNewInfos.password);
 
+  const toUpdate = {
+    login: myNewInfos.login,
+    password: myNewInfos.password,
+    mailAddress: myNewInfos.mailAddress,
+    firstName: myNewInfos.firstName,
+    lastName: myNewInfos.lastName,
+    birthDate: myNewInfos.birthDate,
+    location: myNewInfos.location,
+    gender: myNewInfos.gender,
+    instrument: myNewInfos.instrument,
+    singer: myNewInfos.singer,
+    pro: myNewInfos.pro,
+    style: myNewInfos.style,
+    group: myNewInfos.group,
+    bio: myNewInfos.bio,
+    token: newToken,
+  };
+
+  if (myNewInfos.profilePicture != null) {
+    await cloudinary.v2.uploader
+      .upload(myNewInfos.profilePicture, {
+        ressource: "image",
+        eager: [{ width: 200, height: 200, crop: "fill", gravity: "face" }],
+      })
+      .then((result) => {
+        toUpdate.profilePicture = result.eager[0].secure_url;
+      })
+      .catch((error) => {
+        console.log("error", JSON.stringify(error, null, 2));
+      });
+  }
+
   await updateUno(
     {
       uuid: headers.uuid,
     },
     {
-      $set: {
-        login: myNewInfos.login,
-        password: myNewInfos.password,
-        mailAddress: myNewInfos.mailAddress,
-        firstName: myNewInfos.firstName,
-        lastName: myNewInfos.lastName,
-        birthDate: myNewInfos.birthDate,
-        location: myNewInfos.location,
-        gender: myNewInfos.gender,
-        instrument: myNewInfos.instrument,
-        singer: myNewInfos.singer,
-        pro: myNewInfos.pro,
-        style: myNewInfos.style,
-        group: myNewInfos.group,
-        bio: myNewInfos.bio,
-        token: newToken,
-      },
+      $set: toUpdate,
     }
   );
 
@@ -116,6 +132,7 @@ async function updateProfile(myNewInfos, headers) {
         "friends.$.pro": myNewInfos.pro,
         "friends.$.style": myNewInfos.style,
         "friends.$.group": myNewInfos.group,
+        "friends.$.profilePicture": myNewInfos.profilePicture,
       },
     }
   );

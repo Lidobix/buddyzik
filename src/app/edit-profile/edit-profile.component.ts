@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/services/auth.service';
 
@@ -23,8 +17,8 @@ import { Buddy } from '../models/buddy-model';
 })
 export class EditProfileComponent implements OnInit {
   // userProfileForm!: FormGroup;
-  previewProfilePic: string =
-    'https://vetref.fr/equipe/lequipe-vetref/nos-veterinaires/service-de-medecine-interne/dr-margot-caria/blank-profile-picture-973460_640/';
+  previewProfilePic!: string;
+
   displayCreationMode!: boolean;
 
   hide = true;
@@ -52,17 +46,16 @@ export class EditProfileComponent implements OnInit {
     ageValidator(this.authService.minimumAge),
   ]);
   location = new FormControl(null, [Validators.required]);
-  gender = new FormControl([null, Validators.required]);
-  style = new FormControl([null, Validators.required]);
+  gender = new FormControl(null, [Validators.required]);
+  style = new FormControl(null, [Validators.required]);
 
-  instrument = new FormControl([null, Validators.required]);
-  singer = new FormControl([null, Validators.required]);
-  pro = new FormControl([null, Validators.required]);
-  bio = new FormControl([null]);
-  group = new FormControl([null]);
-  profilePicture = new FormControl([
-    null,
-    Validators.required,
+  instrument = new FormControl(null, [Validators.required]);
+  singer = new FormControl(null, [Validators.required]);
+  pro = new FormControl(null, [Validators.required]);
+  bio = new FormControl(null, [Validators.maxLength(200)]);
+  group = new FormControl(null);
+  profilePicture = new FormControl(null, [
+    // Validators.required,
     pictureValidator(this.authService.pictureExtension),
   ]);
 
@@ -85,23 +78,6 @@ export class EditProfileComponent implements OnInit {
     group: this.group,
   });
 
-  // controlsFormList: string[] = [
-  //   'login',
-  //   'password',
-  //   'mailAddress',
-  //   'firstName',
-  //   'lastName',
-  //   'birthDate',
-  //   'location',
-  //   'gender',
-  //   'instrument',
-  //   'singer',
-  //   'pro',
-  //   'bio',
-  //   'profilePicture',
-  //   'bannerPicture',
-  // ];
-
   stylesList: string[] = [
     'Rock',
     'Classique',
@@ -110,8 +86,13 @@ export class EditProfileComponent implements OnInit {
     'Musique du monde',
     'Electro',
     'Electro Swing',
+    'DUB',
+    'Reggae',
+    'Drum&Bass',
+    'Indé',
     'Années 80',
     'Disco / Funk',
+    'Autre',
   ];
   instrumentsList: string[] = [
     'Aucun',
@@ -124,19 +105,14 @@ export class EditProfileComponent implements OnInit {
     'Synthé',
     'piano',
     'Flûte traversière',
+    'Platines',
   ];
 
   newuser!: object;
   myDatas!: Buddy;
 
-  // genericPattern: string = '^[^<].*[^>]$';
-  // passwordPattern: string =
-  //   '^[^<>](?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).*[^<>]$';
-
   constructor(
-    private router: Router,
     private authService: AuthService,
-    private formBuilder: FormBuilder,
     private buddyService: BuddyService,
     private imageservice: ImageService,
     private displayingElementsService: DisplayingElementsService
@@ -148,95 +124,7 @@ export class EditProfileComponent implements OnInit {
         this.displayCreationMode = updateClassCrea;
       }
     );
-    // console.log('displayCreationMode : ', this.displayCreationMode);
-    // this.userProfileForm = this.formBuilder.group({
-    //   login: [
-    //     null,
-    //     {
-    //       validators: [
-    //         // Validators.required, Validators.minLength(3)
-    //       ],
-    //     },
-    //   ],
-    //   password: [
-    //     '',
-    //     {
-    //       validators: [
-    //         Validators.required,
-    //         // Validators.pattern(this.authService.passwordPattern),
-    //       ],
-    //     },
-    //   ],
-    //   passwordModif: [
-    //     '',
-    //     // {
-    //     //   validators: [Validators.pattern(this.authService.passwordPattern)],
-    //     // },
-    //   ],
-    //   mailAddress: [
-    //     '',
-    //     {
-    //       validators: [
-    //         // Validators.required, Validators.email
-    //       ],
-    //     },
-    //   ],
-    //   firstName: [
-    //     null,
-    //     {
-    //       validators: [
-    //         // Validators.required
-    //       ],
-    //     },
-    //   ],
-    //   lastName: [
-    //     null,
-    //     {
-    //       validators: [
-    //         // Validators.required
-    //       ],
-    //     },
-    //   ],
-    //   birthDate: [
-    //     '',
-    //     {
-    //       validators: [
-    //         // Validators.required,
-    //         // ageValidator(this.authService.minimumAge),
-    //       ],
-    //     },
-    //   ],
-    //   location: [
-    //     null,
-    //     {
-    //       validators: [
-    //         // Validators.required
-    //       ],
-    //     },
-    //   ],
-    //   gender: [
-    //     null,
-    //     // Validators.required
-    //   ],
-    //   instrument: [
-    //     null,
-    //     //  Validators.required
-    //   ],
-    //   singer: [
-    //     null,
-    //     // Validators.required
-    //   ],
-    //   pro: [
-    //     null,
-    //     //  Validators.required
-    //   ],
-    //   bio: [null],
-    //   profilePicture: [
-    //     null,
-    //     pictureValidator(this.authService.pictureExtension),
-    //   ],
-    //   bannerPicture: [null],
-    // });
+
     console.log('this.displayCreationMode : ', this.displayCreationMode);
     if (!this.displayCreationMode) {
       console.log('on remplit le formulaire');
@@ -295,10 +183,16 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmitModifProfileForm(): void {
+    console.log('update des données');
     if (this.userProfileForm.value.password === '') {
       delete this.userProfileForm.value.password;
     }
 
+    console.log(this.userProfileForm.value.profilePicture);
+    if (this.profilePicture != null) {
+      this.userProfileForm.value.profilePicture = this.previewProfilePic;
+    }
+    console.log(this.userProfileForm.value.profilePicture);
     console.log('modification du formulaire: ', this.userProfileForm);
 
     this.authService.updatehUser(this.userProfileForm, '/updateprofile');
