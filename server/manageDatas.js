@@ -7,7 +7,7 @@ const collection = mongoClient
   .collection(process.env.DB_COL_USER);
 
 export async function fetchOne(query, projection) {
-  console.log("fetchOne on va chercher les infos....");
+  // console.log("fetchOne on va chercher les infos....");
   try {
     await mongoClient.connect();
     return new Promise((resolve, reject) => {
@@ -20,7 +20,7 @@ export async function fetchOne(query, projection) {
   }
 }
 export async function fetchSome(query, projection) {
-  console.log("fetchSome, on va chercher les infos....");
+  // console.log("fetchSome, on va chercher les infos....");
   try {
     await mongoClient.connect();
     return new Promise((resolve, reject) => {
@@ -37,7 +37,7 @@ export async function fetchSome(query, projection) {
 }
 
 export async function updateUno(query, update) {
-  console.log("ça va promettre un updateUno....");
+  // console.log("ça va promettre un updateUno....");
   try {
     await mongoClient.connect();
     return new Promise((resolve, reject) => {
@@ -51,7 +51,7 @@ export async function updateUno(query, update) {
 }
 
 export async function updateSome(query, update) {
-  console.log("ça va promettre un updateSome....");
+  // console.log("ça va promettre un updateSome....");
   try {
     await mongoClient.connect();
     return new Promise((resolve, reject) => {
@@ -65,7 +65,7 @@ export async function updateSome(query, update) {
 }
 
 export async function insertUno(document) {
-  console.log("ça va promettre un insertUno....");
+  // console.log("ça va promettre un insertUno....");
   try {
     await mongoClient.connect();
     return new Promise((resolve, reject) => {
@@ -78,7 +78,7 @@ export async function insertUno(document) {
   }
 }
 export async function counter(query) {
-  console.log("ça va promettre un insertUno....");
+  // console.log("ça va promettre un insertUno....");
   try {
     await mongoClient.connect();
     return new Promise((resolve, reject) => {

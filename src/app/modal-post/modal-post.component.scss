@@ -102,6 +102,15 @@ flex-direction: column;
             margin-right:1vw;
             width:90vw;
             resize: none;
+
+            @include media-min(desktop-up){
+                width:74vw;
+               
+            }
+        
+
+
+
         }
 
         .action{

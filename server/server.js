@@ -156,8 +156,6 @@ app.get("/mailtest", (req, res, next) => {
 
 app.post("/login", (req, res) => {
   console.log("dans le middleware login");
-  // main();
-  // registerMail("pipoflutepouet@gmail.com", "LLLUUUUUDOOOO");
 
   loginProcess(req.body).then((response) => {
     res.status(response.status).json(response.content);
@@ -531,8 +529,8 @@ app.post("/uploadpost", (req, res, next) => {
 ///////////////////////////////////////
 
 app.post("/downloadposts", (req, res, next) => {
-  console.log("dans le middleware FETCHpost");
-  console.log("req.body", req.body);
+  // console.log("dans le middleware FETCHpost");
+  // console.log("req.body", req.body);
 
   if (authToken(req.headers.token, req.headers.uuid)) {
     downloadPostsProcess(req.body.target).then((response) => {

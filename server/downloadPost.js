@@ -1,7 +1,7 @@
 import { fetchOne, fetchSome } from "./manageDatas.js";
 
 export async function downloadPostsProcess(buddy) {
-  console.log("download de post requis");
+  // console.log("download de post requis");
 
   // On sort le tableau de post du buddy affiché
   try {

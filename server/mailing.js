@@ -1,4 +1,5 @@
 import SibApiV3Sdk from "sib-api-v3-typescript";
+import nodemailer from "nodemailer";
 import "dotenv/config";
 
 export function registerMail(recipient, firstName) {
@@ -11,7 +12,7 @@ export function registerMail(recipient, firstName) {
       "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour {{params.name}} !</p></ br><p>Merci pour votre inscription, nous sommes heureux de vous compter dans notre bande ! </p></ br><p>Bonne découverte! A bientôt!</p></body></html>",
   };
 
-  sendMail(params);
+  sendMail(params).catch(console.error);
 }
 
 export function lostPasswordMail(recipient, password) {
@@ -24,7 +25,7 @@ export function lostPasswordMail(recipient, password) {
       "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour,</p></ br><p>Voici votre nouveau mot de passe: {{params.password}}</p></ br><p>A bientôt!</p></body></html>",
   };
 
-  sendMail(params);
+  sendMail(params).catch(console.error);
 }
 export function invitationMail(contacts) {
   const params = {
@@ -37,7 +38,7 @@ export function invitationMail(contacts) {
       "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour {{params.name}} !</p></ br><p>{{params.hostFirstName}} {{params.hostLastName}} vous a envoyé une demande d'invitaion, retrouvez le dans votre espace amiitié</p></ br><p>A bientôt!</p></body></html>",
   };
 
-  sendMail(params);
+  sendMail(params).catch(console.error);
 }
 
 export function recommendationMail(contacts) {
@@ -51,12 +52,10 @@ export function recommendationMail(contacts) {
       "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour {{params.name}} !</p></ br><p>{{params.recommenderFirstName}} {{params.recommenderLastName}} vous a recommandé auprès de ses amis!</p></ br><p>A bientôt!</p></body></html>",
   };
 
-  sendMail(params);
+  sendMail(params).catch(console.error);
 }
 
-export function sendMail(params) {
-  console.log("on va envoyer un mail params = ", params);
-
+async function sendMail(params) {
   let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
   let apiKey = apiInstance.authentications["apiKey"];
@@ -73,17 +72,12 @@ export function sendMail(params) {
     email: "buddyzik.contact@gmail.com",
   };
   sendSmtpEmail.to = [{ email: params.recipient, name: params.name }];
-  // sendSmtpEmail.cc = [{ email: "example2@example2.com", name: "Janice Doe" }];
-  // sendSmtpEmail.bcc = [{ name: "John Doe", email: "example@example.com" }];
-  // sendSmtpEmail.replyTo = { email: "replyto@domain.com", name: "John Doe" };
+
   sendSmtpEmail.headers = { "Some-Custom-Name": "unique-id-1234" };
 
   apiInstance.sendTransacEmail(sendSmtpEmail).then(
     function (data) {
       console.log("mail envoyé");
-      console.log(
-        "API called successfully. Returned data: " + JSON.stringify(data)
-      );
     },
     function (error) {
       console.error(error);
