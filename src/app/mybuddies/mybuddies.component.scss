@@ -26,14 +26,16 @@
         display: flex;
         align-items: center;
         flex-direction: row;
-        @include media-min(desktop-up){
+        @include media-min(tablet-down){
             // position: fixed;
+            margin-top: 12vh;
+        }
+        @include media-min(desktop-up){
+            // padding:0;
+            position:fixed;
+            margin-top: 0vh;
             width:79vw;
             }
-            @include media-min(tablet-down){
-                // position: fixed;
-                margin-top: 12vh;
-                }
                 @include media-max(tablet-down){
                     // flex-direction: row;
                     // width:100%;
