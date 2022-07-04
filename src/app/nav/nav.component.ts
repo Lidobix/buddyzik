@@ -24,7 +24,6 @@ export class NavComponent implements OnInit {
   displayModif!: boolean;
 
   logout(): void {
-    console.log('deconnexion requise');
     this.authService.logout();
   }
 
@@ -36,9 +35,7 @@ export class NavComponent implements OnInit {
   testmail(): void {
     this.http
       .get<any>(this.serverService.serverUrl + '/mailtest')
-      .subscribe((retour) => {
-        console.log(retour);
-      });
+      .subscribe((retour) => {});
   }
   goToMyProfile(): void {
     this.router.navigateByUrl('/blankprofile');

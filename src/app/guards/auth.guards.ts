@@ -23,14 +23,12 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     await this.authService.getAuth();
-    console.log('dans le canactivate, token:', this.authService.isLogged);
 
     if (this.authService.isLogged) {
       this.displayingElementsService.setDisplayNav(true);
       this.displayingElementsService.setDisplayCreation(false);
       return true;
     } else {
-      console.log('go to /auth/login');
       this.displayingElementsService.setDisplayNav(false);
       this.router.navigateByUrl('/auth/login');
       return false;

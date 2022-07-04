@@ -19,27 +19,16 @@ export class MybuddiesComponent implements OnInit {
   constructor(
     private buddyService: BuddyService,
     private authService: AuthService
-  ) {
-    // this.updateMyBuddies = setInterval(() => {
-    //   this.getMyBuddies();
-    // }, 3000);
-  }
+  ) {}
 
   getMe(): any {}
 
   getMyBuddies(): any {
-    console.log('recherche de mybuddies...');
-    console.log('uuid...', localStorage.getItem('uuid'));
-    console.log('token...', localStorage.getItem('token'));
-
     this.buddyService.getMyBuddies().subscribe((buddies) => {
-      // console.log("dans l'observable, buddies =  ", buddies);
       this.myBuddies = buddies;
-      console.log("dans l'observable ", this.myBuddies);
     });
   }
   ngOnInit() {
-    // this.connectedUser = this.buddyService.connectedUser;
     this.connectedUser = this.buddyService.getBuddyByID(
       this.authService.getMyId()
     );

@@ -120,9 +120,7 @@ export class EditProfileComponent implements OnInit {
       }
     );
 
-    console.log('this.displayCreationMode : ', this.displayCreationMode);
     if (!this.displayCreationMode) {
-      console.log('on remplit le formulaire');
       this.formFilling();
     }
   }
