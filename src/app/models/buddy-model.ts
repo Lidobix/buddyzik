@@ -1,25 +1,3 @@
-// export interface Buddy {
-//   uuId: string;
-//   login: string;
-//   firstName: string;
-//   lastName: string;
-//   gender: string;
-//   birthDate: Date;
-//   location: string;
-//   profilePicture: string;
-//   bannerPicture: string;
-//   bio: string;
-//   role: string;
-//   online: boolean;
-//   instrument: string;
-//   singer: string;
-//   // group: string;
-//   professionnal: string;
-//   status: string;
-//   deletable: boolean;
-//   addable: boolean;
-//   recommendable: boolean;
-// }
 export class Buddy {
   constructor(
     public uuid: string,
@@ -41,9 +19,6 @@ export class Buddy {
     public status: string,
     public style: string,
     public group: string,
-    public deletable: boolean //     public config: { //   addable: boolean; //   acceptable: boolean; //   rejectable: boolean; //   recommendable: boolean;
-  ) //   deletable: boolean;
-  //   status: string;
-  // }
-  {}
+    public deletable: boolean
+  ) {}
 }

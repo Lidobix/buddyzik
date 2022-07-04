@@ -5,9 +5,7 @@ export async function invitationRecoUpdateDataBase(
   recommended,
   projection
 ) {
-  // await mongoClient.connect();
   try {
-    // On récupère ma carte:
     const buddyToAdd = await fetchOne(
       { uuid: recommender },
       {
@@ -16,7 +14,6 @@ export async function invitationRecoUpdateDataBase(
     );
 
     buddyToAdd.status = "pending";
-    console.log("buddyToAdd : ", buddyToAdd);
 
     await updateUno(
       { uuid: recommended },
@@ -36,13 +33,5 @@ export async function invitationRecoUpdateDataBase(
     );
   } catch (error) {
     console.log(error);
-  } finally {
-    // await mongoClient.close();
   }
 }
-
-// export function invitationRecommendProcess(recommender, recommended) {
-//   invitationRecoUpdateDataBase(recommender, recommended);
-// }
-
-// On récupère l'invité et on le colle dans la liste d'amis de l'inviteur

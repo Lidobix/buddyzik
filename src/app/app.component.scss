@@ -1,13 +1,11 @@
 @import "../styles/configs/_mixins.scss";
 @import "../styles/configs/_variables.scss";
 
-*{
-    // display: flex;
-}
+
 .displayZone{
     width:$widthDisplayZone;
     background-color: $darkThemeColor ;
-    // margin-top: 100px;
+    
     position: absolute;
     display:flex;
     margin-left: 1.5vw;
@@ -16,7 +14,7 @@
 
 
 @include media-min(desktop-up){
-    // margin-top: 200px;
+    
     width:80%;
     margin-left: 10%;
     margin-right: 10%;

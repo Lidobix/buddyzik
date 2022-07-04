@@ -10,13 +10,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./searchbuddy.component.scss'],
 })
 export class SearchbuddyComponent implements OnInit {
-  // addButton: boolean = true;
-  // recommendButton: boolean = false;
-  // deleteButton: boolean = false;
   allBuddies!: Buddy[];
   user!: Buddy;
   connectedUser!: Observable<Buddy>;
-  // unknownBuddies: boolean = true;
 
   constructor(
     private buddyService: BuddyService,
@@ -29,11 +25,8 @@ export class SearchbuddyComponent implements OnInit {
     setTimeout(() => {
       this.getAllBuddies();
     }, 500);
-    console.log('invitation détectée');
   }
   onDeletion(deletion: boolean) {
-    console.log('suppression détectée', deletion);
-
     if (deletion) {
       setTimeout(() => {
         this.getAllBuddies();
@@ -51,7 +44,6 @@ export class SearchbuddyComponent implements OnInit {
 
     this.buddyService.getAllBuddies().subscribe((buddies) => {
       this.allBuddies = buddies;
-      console.log("dans l'observable de tous les buddies ", this.allBuddies);
     });
   }
 }

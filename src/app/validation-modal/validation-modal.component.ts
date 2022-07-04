@@ -7,11 +7,9 @@ import { DisplayingElementsService } from 'src/services/displaying-elements.serv
 })
 export class ValidationModalComponent implements OnInit {
   @Output() validation = new EventEmitter<boolean>();
-  // userValidation!: boolean;
+
   displayModal!: boolean;
   constructor(private displayingElementsService: DisplayingElementsService) {}
   ngOnInit(): void {}
-  onValidation() {
-    // this.validation.emit(true);
-  }
+  onValidation() {}
 }

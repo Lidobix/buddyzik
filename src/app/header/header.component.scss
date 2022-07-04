@@ -5,7 +5,7 @@
     font-display: block;
     src: url('./../../assets/fonts/Rubik_Puddles/RubikPuddles-Regular.ttf') format('truetype');
   }
-//   *{border:1px solid black}
+
 header{
     border-bottom: 1px solid black;
     position: fixed;
@@ -25,24 +25,24 @@ header{
 
     }
     @include media-max(tablet-down){
-        // flex-direction: row;
-        // width:100%;
+        
+        
         height:21vh;
-        // justify-content: center;
+        
 
     }
     @include media-max(phone-down){
-        // flex-direction: row;
-        // width:100%;
+        
+        
         height:11vh;
-        // justify-content: center;
+        
 
     }
     @include media-min(tablet-down){
-        // flex-direction: row;
-        // width:100%;
+        
+        
         height:20vh;
-        // justify-content: center;
+        
 
     }
     

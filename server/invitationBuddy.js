@@ -1,4 +1,4 @@
-import { fetchOne, fetchSome, updateUno } from "./manageDatas.js";
+import { fetchOne, updateUno } from "./manageDatas.js";
 
 export async function invitationUpdateDataBase(
   uuid1,
@@ -26,7 +26,5 @@ export async function invitationUpdateDataBase(
     );
   } catch (error) {
     console.log(error);
-  } finally {
-    // await mongoClient.close();
   }
 }

@@ -2,13 +2,6 @@ import { fetchOne, updateSome } from "./manageDatas.js";
 
 async function deletionRecommendationDataBase(uuid1, uuid2) {
   try {
-    // await mongoClient.connect();
-
-    // supprimer les recommandations
-    // checker si le buddy supprimé est dans la mliste de recommandés
-
-    // Il faut le retirer de tous les amis chez qui il est en statut recommandé et uniquement par moi
-
     await fetchOne(
       { uuid: uuid1 },
       { $pull: { recommends: uuid2, recommendedBy: uuid2 } }
@@ -18,7 +11,6 @@ async function deletionRecommendationDataBase(uuid1, uuid2) {
       { $pull: { recommends: uuid1, recommendedBy: uuid1 } }
     );
 
-    // - si il est recommendé par moi uniquement: on supprime sa présence dans chaque ami.
     await updateSome(
       {},
       {
@@ -35,20 +27,16 @@ async function deletionRecommendationDataBase(uuid1, uuid2) {
       }
     )
       .then(
-        // Ensuite je supprime ma recommandation de chez tous mes amis qui ont mon recommandé en ami:
         updateSome(
           {
-            $and: [
-              {},
-              { "friends.uuid": uuid2 },
-              // { "friends.status": "confirmed" },
-            ],
+            $and: [{}, { "friends.uuid": uuid2 }],
           },
           {
             $pull: { "friends.$.recommendedBy": uuid1 },
           }
         )
-      ) // je supprime chez tous les gens qui m'ont en ami ma recommandation
+      )
+
       .then(
         updateSome(
           { $and: [{}, { "friends.uuid": uuid1 }] },
@@ -64,16 +52,8 @@ async function deletionRecommendationDataBase(uuid1, uuid2) {
   }
 }
 
-//   const deleteReco = deletionRecommendationDataBase(
-//     req.headers.uuid,
-//     req.body.buddyTarget
-//   );
-
 async function deletionUpdateDataBase(uuid1, uuid2) {
   try {
-    // await mongoClient.connect();
-
-    // on supprime cet ami de ma liste et moi de la sienne:
     updateSome(
       { uuid: { $in: [uuid1, uuid2] } },
       {
@@ -85,36 +65,13 @@ async function deletionUpdateDataBase(uuid1, uuid2) {
         },
       }
     );
-  } catch (error) {
-  } finally {
-    // await mongoClient.close();
-  }
+  } catch (error) {}
 }
 
-//   const updateHostDB = deletionUpdateDataBase(
-//     req.headers.uuid,
-//     req.body.buddyTarget
-//   );
-
-// res.json("Votre suppression a bien été effectuée!!");
-
-// On fetche les 2 buddy
-
-// on les supprime de la liste d'amis respiectives
-
 export async function deletionBuddyProcess(uuid1, uuid2) {
-  // const deleteReco = await deletionRecommendationDataBase(
-  console.log("suppression en cours");
   try {
-    await deletionRecommendationDataBase(
-      uuid1,
-      uuid2
-      //   req.headers.uuid,
-      //   req.body.buddyTarget
-    );
+    await deletionRecommendationDataBase(uuid1, uuid2);
 
-    // const updateHostDB = await deletionUpdateDataBase(
-    // await deletionUpdateDataBase(req.headers.uuid, req.body.buddyTarget);
     await deletionUpdateDataBase(uuid1, uuid2);
   } catch (error) {
     console.log(err);

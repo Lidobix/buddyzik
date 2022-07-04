@@ -37,21 +37,7 @@ const characterGenerator = (choice) => {
   return caractere;
 };
 
-// const checkCode = (codeATester) => {
-//   if (allCodes.length === 0) {
-//     return true;
-//   } else {
-//     for (let a = 0; a < allCodes.length; a++) {
-//       if (allCodes[a] === codeATester) {
-//         return false;
-//       }
-//     }
-//     return true;
-//   }
-// };
-
 export function passwordGenerator() {
-  //   while (compteur < nbCodes.value) {
   const code = [""];
 
   for (let i = 0; i < 13; i++) {
@@ -59,6 +45,6 @@ export function passwordGenerator() {
     code.push(characterGenerator(choice));
   }
   const newPassword = code.join("");
-  console.log(newPassword);
+
   return newPassword;
 }

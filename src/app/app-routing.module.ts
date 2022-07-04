@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { HomepageComponent } from './homepage/homepage.component';
 
 import { MybuddiesComponent } from './mybuddies/mybuddies.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
@@ -22,12 +21,10 @@ const routes: Routes = [
   {
     path: 'lostpassword',
     component: ResetPwdComponent,
-    // canActivate: [AuthGuard],
   },
   {
     path: 'auth/login',
     component: LoginPageComponent,
-    // canActivate: [AuthGuard],
   },
   {
     path: 'registration',
@@ -44,11 +41,7 @@ const routes: Routes = [
     component: ProfilePageComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'home',
-    component: HomepageComponent,
-    canActivate: [AuthGuard],
-  },
+
   {
     path: 'mybuddies',
     component: MybuddiesComponent,

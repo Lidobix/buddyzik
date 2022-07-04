@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
-import { BuddyService } from 'src/services/buddy.service';
 import { HttpClient } from '@angular/common/http';
 import { DisplayingElementsService } from 'src/services/displaying-elements.service';
-import { ProfileService } from 'src/services/profile.service';
 import { ServerService } from 'src/services/server.service';
 import { Buddy } from '../models/buddy-model';
 
@@ -17,10 +15,7 @@ export class NavComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private buddyService: BuddyService,
     private serverService: ServerService,
-    private profileService: ProfileService,
-
     private http: HttpClient,
     private displayingElementsService: DisplayingElementsService
   ) {}
@@ -37,12 +32,6 @@ export class NavComponent implements OnInit {
     this.displayingElementsService.displayingNav.subscribe((updateClassNav) => {
       this.displayNav = updateClassNav;
     });
-    // this.displayingElementsService.displayingModifProfileButton.subscribe(
-    //   (updateClassModif) => {
-    //     this.displayModif = updateClassModif;
-    //   }
-    // );
-    // this.buddyService.getMe();
   }
   testmail(): void {
     this.http
@@ -52,44 +41,25 @@ export class NavComponent implements OnInit {
       });
   }
   goToMyProfile(): void {
-    // this.displayingElementsService.setDisplayModif(true);
-    // this.profileService.goToProfile(this.authService.getMyId());
     this.router.navigateByUrl('/blankprofile');
   }
 
   goToMyBuddysList(): void {
-    // this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/mybuddies');
   }
   goToAllBuddysList(): void {
-    // this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/searchbuddy');
   }
   goToMessaging(): void {
-    // this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/messaging');
   }
   goToTchat(): void {
-    // this.displayingElementsService.setDisplayModif(false);
     this.router.navigateByUrl('/tchat');
   }
 
   goToEditProfile(): void {
     this.displayingElementsService.setDisplayCreation(false);
-    // this.displayingElementsService.setDisplayModif(false);
+
     this.router.navigateByUrl('/edition');
   }
-
-  // getMe(): any {
-  //   const myId = localStorage.getItem('id');
-
-  //   // console.log('dans homepage , on va fetcher moi)');
-  //   // this.buddyService
-  //   //   .getBuddyByID(localStorage.getItem('id'))
-  //   //   .subscribe((me) => {
-  //   //     // console.log("dans l'observable, buddies =  ", buddies);
-  //   //     this.user = me;
-  //   //     console.log("dans l'observable me = ", me);
-  //   //   });
-  // }
 }

@@ -4,15 +4,12 @@ import "dotenv/config";
 import { v4 as uuidv4 } from "uuid";
 import cloudinary from "cloudinary";
 import { registerMail } from "./mailing.js";
-// const newUser = req.body;
-// console.log(newUser);
+
 export async function registrationProcess(newUser) {
   try {
-    // On checke si le mail n'est pas déjà existant dans la base:
     const testPresence = await fetchOne({
       mailAddress: newUser.mailAddress.toLowerCase(),
     });
-    // console.log("resultat de la recherche: ", result);
 
     if (testPresence === null) {
       const newBuddy = {
@@ -43,8 +40,6 @@ export async function registrationProcess(newUser) {
         recommends: [],
       };
 
-      // console.log("thumb = ", thumb);
-
       await cloudinary.v2.uploader
         .upload(newUser.profilePicture, {
           ressource: "image",
@@ -52,7 +47,6 @@ export async function registrationProcess(newUser) {
         })
         .then((result) => {
           newBuddy.profilePicture = result.eager[0].secure_url;
-          // console.log("newBuddy.profilePicture", newBuddy.profilePicture);
         })
         .catch((error) => {
           console.log("error", JSON.stringify(error, null, 2));
@@ -60,22 +54,14 @@ export async function registrationProcess(newUser) {
 
       const newToken = createToken(newBuddy.uuid, newBuddy.password).toString();
       newBuddy.token = newToken;
-      console.log(
-        "mail à envoyer à : ",
-        newBuddy.mailAddress,
-        newBuddy.firstName
-      );
-      // registerMail(newBuddy.mailAddress, newBuddy.firstName);
+
+      registerMail(newBuddy.mailAddress, newBuddy.firstName);
 
       await insertUno(newBuddy);
-      // On lui attribue un jeton
-      console.log(
-        "j'efface les données confidentielles avant d'envoyer au client"
-      );
+
       delete newBuddy.password;
       delete newBuddy.mailAddress;
       delete newBuddy.token;
-      // console.log("nouveau buddy : ", newBuddy);
 
       return {
         status: 200,
@@ -95,8 +81,6 @@ export async function registrationProcess(newUser) {
           message: "Données incorrectes, impossible de vous inscrire!",
         },
       };
-
-      // console.log("result:", result);
     }
   } catch (error) {
     console.log("Pas d'utilisateur trouvé", error);

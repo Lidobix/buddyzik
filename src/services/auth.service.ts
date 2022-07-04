@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { Observable, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { Buddy } from 'src/app/models/buddy-model';
 moment().format();
-
-// import { BuddyService } from './buddy.service';
 
 import { DisplayingElementsService } from './displaying-elements.service';
 import { ProfileService } from './profile.service';
@@ -51,19 +49,15 @@ export class AuthService implements OnInit {
     private profileService: ProfileService
   ) {}
 
-  // newUser!: Buddy;
-  ngOnInit(): void {
-    console.log('redémarrage AuthService');
-  }
+  ngOnInit(): void {}
   logout(): void {
     this.displayingElementsService.setDisplayNav(false);
-    // this.displayingElementsService.setDisplayModif(false);
+
     localStorage.clear();
     this.router.navigateByUrl('/auth/login');
   }
 
   getMyToken(): any {
-    // console.log('fetch du token');
     this.myToken = localStorage.getItem('token');
     if (this.myToken != null && this.myToken != undefined) {
       return this.myToken;
@@ -73,11 +67,9 @@ export class AuthService implements OnInit {
     }
   }
   getMyId(): any {
-    // console.log('fetch du uuid');
     this.myID = localStorage.getItem('uuid');
-    // console.log(this.myID);
+
     if (this.myID != null && this.myID != undefined) {
-      // console.log(this.myID);
       return this.myID;
     } else {
       alert("Problème d'identification, vous allez être déconnecté");
@@ -93,7 +85,6 @@ export class AuthService implements OnInit {
 
   authUser(form: FormGroup, route: string): void {
     if (!form.valid) {
-      console.log(form);
       alert('Formulaire non valide!');
     } else {
       try {
@@ -102,14 +93,9 @@ export class AuthService implements OnInit {
           .post<any>(this.serverService.serverUrl + route, form.value)
           .subscribe((authentication) => {
             if (authentication.success === true) {
-              alert(authentication.message);
-
               localStorage.setItem('token', authentication.token);
               localStorage.setItem('uuid', authentication.user.uuid);
-
-              // this.buddyService.userIdBuilder(authentication.user);
               this.profileService.goToProfile(authentication.user.uuid);
-              // this.router.navigateByUrl('/home');
             } else {
               alert(authentication.message);
             }
@@ -125,14 +111,11 @@ export class AuthService implements OnInit {
       alert('Formulaire non valide!');
     } else {
       try {
-        console.log('soumission du formulaire...');
         this.http
 
           .post<any>(this.serverService.serverUrl + route, form.value)
           .subscribe((res) => {
-            console.log(res);
             alert(res.message);
-
             if (res.token != undefined) {
               localStorage.setItem('token', res.token);
             }

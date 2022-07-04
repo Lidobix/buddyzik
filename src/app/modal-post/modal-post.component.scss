@@ -1,25 +1,17 @@
 @import "../../styles/configs/_mixins.scss";
 @import "../../styles/configs/_variables.scss";
-*{
-    // margin:0;
-    // padding:0;
-    // border:1px solid black;
-    // border: 1px solid black;
-}
+
 
 .modal{
-    // top:10%;
+   
     border: 1px solid black;
-    // padding: 20px;
+ 
     position: fixed;
-    // display:flex;
-    // flex-direction: column;
-    // width:$widthDisplayZone;
+ 
     margin-left: 0.9vw;
-    // margin-right: 1.5vw;
+  
     width: 95vw;
-    // margin-top:0;
-    // margin-left: auto;
+
     background-color: $whiteTextColor;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
     border-radius: 10px;
@@ -30,9 +22,9 @@
     -o-border-radius: 10px;
 
     @include media-min(desktop-up){
-        // width:54vw;
+        
         width: 77.5vw;
-        // margin-left:50%;
+        
     }
 
 .contentModalPost{
@@ -44,10 +36,6 @@ width: 93vw;
 
     display: flex;
 flex-direction: column;
-@include media-min(desktop-up){
-    // width:54vw;
-    // margin-left:50%;
-}
 
 
     .fileInput{
@@ -55,7 +43,7 @@ flex-direction: column;
     }
 
     .previewContainer{
-        // text-align: center;
+   
         img{    
             border: 1px solid black;
             max-height: 300px;
@@ -65,9 +53,12 @@ flex-direction: column;
                 max-width: 100%;
                 max-height: 300px;
             }
-            @include media-min (tablet-down){
+            @include media-max(desktop-up){
+                
                 max-width: 100%;
-                max-height: 80px;}
+                max-height: 80px;
+            }
+
                 @include media-max(tablet-down){
                     max-width: 100%;
                     max-height: 80px;
@@ -87,18 +78,16 @@ flex-direction: column;
     }
 
     form{
-        // margin-left: 10px;
-        // margin-right: 11px;
         width:100%;
         label {
             display: block;
         }
         input  {
             display: block;
-            // width:100%
+         
         }
         textarea{
-            // margin-left:2.5vw;
+      
             margin-right:1vw;
             width:90vw;
             resize: none;
@@ -107,20 +96,15 @@ flex-direction: column;
                 width:74vw;
                
             }
-        
-
-
+ 
 
         }
 
         .action{
             display: flex;
-            // margin-top: 10px;
             justify-content: flex-start;
 
         .button{
-            // margin-right:7px;
-            // margin-top:5px;
             height:fit-content;
             }
         }

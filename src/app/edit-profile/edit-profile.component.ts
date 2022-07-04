@@ -16,7 +16,6 @@ import { Buddy } from '../models/buddy-model';
   styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
-  // userProfileForm!: FormGroup;
   previewProfilePic!: string;
 
   displayCreationMode!: boolean;
@@ -55,7 +54,6 @@ export class EditProfileComponent implements OnInit {
   bio = new FormControl(null, [Validators.maxLength(200)]);
   group = new FormControl(null);
   profilePicture = new FormControl(null, [
-    // Validators.required,
     pictureValidator(this.authService.pictureExtension),
   ]);
 
@@ -108,9 +106,6 @@ export class EditProfileComponent implements OnInit {
     'Platines',
   ];
 
-  newuser!: object;
-  myDatas!: Buddy;
-
   constructor(
     private authService: AuthService,
     private buddyService: BuddyService,
@@ -140,36 +135,27 @@ export class EditProfileComponent implements OnInit {
     return this.mailAddress.hasError('email') ? 'Not a valid email' : '';
   }
   formFilling(): void {
-    this.buddyService
-      // .getBuddyByID(this.authService.getMyId())
-      .getMyInformations()
-      .subscribe((value) => {
-        console.log('je suis : ', value);
-
-        this.userProfileForm.controls['login'].setValue(value['login']);
-
-        this.userProfileForm.controls['mailAddress'].setValue(
-          value['mailAddress']
-        );
-        this.userProfileForm.controls['firstName'].setValue(value['firstName']);
-        this.userProfileForm.controls['lastName'].setValue(value['lastName']);
-        this.userProfileForm.controls['birthDate'].setValue(value['birthDate']);
-        this.userProfileForm.controls['location'].setValue(value['location']);
-        this.userProfileForm.controls['gender'].setValue(value['gender']);
-        this.userProfileForm.controls['instrument'].setValue(
-          value['instrument']
-        );
-        this.userProfileForm.controls['singer'].setValue(value['singer']);
-        this.userProfileForm.controls['style'].setValue(value['style']);
-        this.userProfileForm.controls['pro'].setValue(value['pro']);
-        this.userProfileForm.controls['bio'].setValue(value['bio']);
-        this.userProfileForm.controls['group'].setValue(value['group']);
-      });
+    this.buddyService.getMyInformations().subscribe((value) => {
+      this.userProfileForm.controls['login'].setValue(value['login']);
+      this.userProfileForm.controls['mailAddress'].setValue(
+        value['mailAddress']
+      );
+      this.userProfileForm.controls['firstName'].setValue(value['firstName']);
+      this.userProfileForm.controls['lastName'].setValue(value['lastName']);
+      this.userProfileForm.controls['birthDate'].setValue(value['birthDate']);
+      this.userProfileForm.controls['location'].setValue(value['location']);
+      this.userProfileForm.controls['gender'].setValue(value['gender']);
+      this.userProfileForm.controls['instrument'].setValue(value['instrument']);
+      this.userProfileForm.controls['singer'].setValue(value['singer']);
+      this.userProfileForm.controls['style'].setValue(value['style']);
+      this.userProfileForm.controls['pro'].setValue(value['pro']);
+      this.userProfileForm.controls['bio'].setValue(value['bio']);
+      this.userProfileForm.controls['group'].setValue(value['group']);
+    });
   }
 
   selectFile(event: any): void {
     const file = event.target.files[0];
-
     this.imageservice.getBase64(file).subscribe((str) => {
       this.previewProfilePic = str;
     });
@@ -177,23 +163,18 @@ export class EditProfileComponent implements OnInit {
 
   onSubmitProfileForm(): void {
     this.userProfileForm.value.profilePicture = this.previewProfilePic;
-    console.log('soumission du formulaire: ', this.userProfileForm);
 
     this.authService.authUser(this.userProfileForm, '/register');
   }
 
   onSubmitModifProfileForm(): void {
-    console.log('update des données');
     if (this.userProfileForm.value.password === '') {
       delete this.userProfileForm.value.password;
     }
 
-    console.log(this.userProfileForm.value.profilePicture);
     if (this.profilePicture != null) {
       this.userProfileForm.value.profilePicture = this.previewProfilePic;
     }
-    console.log(this.userProfileForm.value.profilePicture);
-    console.log('modification du formulaire: ', this.userProfileForm);
 
     this.authService.updatehUser(this.userProfileForm, '/updateprofile');
   }

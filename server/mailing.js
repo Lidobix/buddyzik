@@ -1,5 +1,4 @@
 import SibApiV3Sdk from "sib-api-v3-typescript";
-import nodemailer from "nodemailer";
 import "dotenv/config";
 
 export function registerMail(recipient, firstName) {
@@ -9,7 +8,7 @@ export function registerMail(recipient, firstName) {
     name: firstName,
     subject: "Bienvenue ! :)",
     content:
-      "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour {{params.name}} !</p></ br><p>Merci pour votre inscription, nous sommes heureux de vous compter dans notre bande ! </p></ br><p>Bonne découverte! A bientôt!</p></body></html>",
+      "<html><body><p>Bonjour {{params.name}} !</p></ br><p>Merci pour votre inscription, nous sommes heureux de vous compter dans notre bande ! </p></ br><p>Bonne découverte! A bientôt!</p></body></html>",
   };
 
   sendMail(params).catch(console.error);
@@ -22,7 +21,7 @@ export function lostPasswordMail(recipient, password) {
     subject: "Réinitialisation de votre mot de passe",
     password: password,
     content:
-      "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour,</p></ br><p>Voici votre nouveau mot de passe: {{params.password}}</p></ br><p>A bientôt!</p></body></html>",
+      "<html><body><p>Bonjour,</p></ br><p>Voici votre nouveau mot de passe: {{params.password}}</p></ br><p>A bientôt!</p></body></html>",
   };
 
   sendMail(params).catch(console.error);
@@ -35,7 +34,7 @@ export function invitationMail(contacts) {
     hostFirstName: contacts[0].firstName,
     hostLastName: contacts[0].lastName,
     content:
-      "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour {{params.name}} !</p></ br><p>{{params.hostFirstName}} {{params.hostLastName}} vous a envoyé une demande d'invitaion, retrouvez le dans votre espace amiitié</p></ br><p>A bientôt!</p></body></html>",
+      "<html><body><p>Bonjour {{params.name}} !</p></ br><p>{{params.hostFirstName}} {{params.hostLastName}} vous a envoyé une demande d'invitaion, retrouvez le dans votre espace amiitié</p></ br><p>A bientôt!</p></body></html>",
   };
 
   sendMail(params).catch(console.error);
@@ -49,7 +48,7 @@ export function recommendationMail(contacts) {
     recommenderFirstName: contacts[0].firstName,
     recommenderLastName: contacts[0].lastName,
     content:
-      "<html><style>h1{color:red;}</style><body><h1>Buddyzik</h1><p>Bonjour {{params.name}} !</p></ br><p>{{params.recommenderFirstName}} {{params.recommenderLastName}} vous a recommandé auprès de ses amis!</p></ br><p>A bientôt!</p></body></html>",
+      "<html><body><p>Bonjour {{params.name}} !</p></ br><p>{{params.recommenderFirstName}} {{params.recommenderLastName}} vous a recommandé auprès de ses amis!</p></ br><p>A bientôt!</p></body></html>",
   };
 
   sendMail(params).catch(console.error);

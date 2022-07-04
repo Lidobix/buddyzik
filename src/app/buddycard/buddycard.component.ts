@@ -23,14 +23,10 @@ export class BuddycardComponent implements OnInit {
   ) {}
 
   inviteBuddy() {
-    console.log('this.buddy = ', this.buddy);
-
     this.buddyService.updateBuddy(this.buddy.uuid, '/invitation').subscribe();
     this.invited.emit(true);
-    // this.buddy.status = 'invited';
   }
   inviteBuddyFromReco() {
-    console.log('this.buddy = ', this.buddy);
     this.buddyService
       .updateBuddy(this.buddy.uuid, '/invitationfromreco')
       .subscribe();
@@ -38,24 +34,19 @@ export class BuddycardComponent implements OnInit {
     this.buddy.status = 'invited';
   }
   goToBuddyProfile() {
-    console.log('aller voir ', this.buddy.firstName);
     this.profileService.goToProfile(this.buddy.uuid);
   }
   deleteBuddy() {
-    console.log('deletion');
     this.buddy.status = 'deletion';
     this.buddyService.updateBuddy(this.buddy.uuid, '/deletion').subscribe();
     this.rejectionBuddy.emit(true);
   }
 
   confirmBuddy() {
-    console.log('this.buddy = ', this.buddy);
     this.buddyService.updateBuddy(this.buddy.uuid, '/confirmation').subscribe();
     this.buddy.status = 'confirmed';
   }
   recommendBuddy() {
-    console.log('this.buddy = ', this.buddy);
-
     this.buddyService
       .updateBuddy(this.buddy.uuid, '/recommendation')
       .subscribe();

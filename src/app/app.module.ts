@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AuthInterceptorInterceptor } from './auth-interceptor.interceptor';
-import { HomepageComponent } from './homepage/homepage.component';
 import { MybuddiesComponent } from './mybuddies/mybuddies.component';
 import { BuddycardComponent } from './buddycard/buddycard.component';
 import { SearchbuddyComponent } from './searchbuddy/searchbuddy.component';
@@ -25,7 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { SpinnerInterceptor } from './spinner.interceptor';
 
 import { EmptyToMyProfileComponent } from './empty-to-my-profile/empty-to-my-profile.component';
 import { ModalPostComponent } from './modal-post/modal-post.component';
@@ -49,7 +47,6 @@ import { MatSelectModule } from '@angular/material/select';
     HeaderComponent,
     ProfilePageComponent,
     EditProfileComponent,
-    HomepageComponent,
     MybuddiesComponent,
     BuddycardComponent,
     SearchbuddyComponent,

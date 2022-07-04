@@ -8,7 +8,6 @@ export class ImageService {
   constructor() {}
 
   getBase64(file: Blob): Observable<string> {
-    console.log('dans image service, file = ', file);
     return new Observable<string>((sub) => {
       const reader = new FileReader();
 

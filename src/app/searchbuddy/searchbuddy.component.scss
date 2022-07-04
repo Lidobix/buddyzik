@@ -18,35 +18,35 @@
         color:$whiteTextColor;
         width: 97vw;
         line-height:$heightTitlePage;
-        // position: fixed;
+        
         z-index: 2;
         display: flex;
         align-items: center;
         flex-direction: row;
         
         @include media-min(tablet-down){
-            // position: fixed;
+            
             margin-top: 12vh;
         }
         @include media-min(desktop-up){
-            // padding:0;
+            
             position:fixed;
             margin-top: 0vh;
             width:79vw;
             }
                 @include media-max(tablet-down){
-                    // flex-direction: row;
-                    // width:100%;
+                    
+                    
                     margin-top: 13vh;
-                    // justify-content: center;
+                    
             
                 }
                 
                 @include media-max(phone-down){
-                    // flex-direction: row;
-                    // width:100%;
+            
+            
                     margin-top:1.5vh;
-                    // justify-content: center;
+            
                 }
 
         .profilePicContainer{
@@ -66,7 +66,7 @@
                 width:9vw;
                 @include media-min(desktop-up){
                     margin-top:1vh;
-                    // padding:0;
+            
                     width:10vh;
                     }
         }
@@ -89,36 +89,36 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        // flex-wrap: wrap;
-        // justify-content: space-around;
-        // width: 70%;
+
+
+
         margin-top: calc($heightTitlePage + 3vh) ;
         
         @include media-min(desktop-up){
             margin-top:12vh;
             width:79vw;
-            // margin-left: 2vw;
+    
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
          }
          @include media-min(tablet-down){
-            // position: fixed;
-            // margin-top: 12vh;
+            
+            
             }
             @include media-max(tablet-down){
-                // flex-direction: row;
-                // width:100%;
+                
+                
                 margin-top: 0;
-                // justify-content: center;
+                
         
             }
             
             @include media-max(phone-down){
-                // flex-direction: row;
-                // width:100%;
+                
+                
                 margin-top:0;
-                // justify-content: center;
+                
             }
     }
 }

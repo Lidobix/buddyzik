@@ -5,17 +5,14 @@ import { resetPasswordProcess } from "./auth-reset.js";
 import { fetchOne, fetchSome } from "./manageDatas.js";
 import { invitationUpdateDataBase } from "./invitationBuddy.js";
 import { invitationRecoUpdateDataBase } from "./invitationBuddyReco.js";
-import { invitationMail, recommendationMail, registerMail } from "./mailing.js";
+import { invitationMail, recommendationMail } from "./mailing.js";
 import cors from "cors";
-import { authToken, createToken, hash, checkHash } from "../server/security.js";
+import { authToken } from "../server/security.js";
 import { MongoClient } from "mongodb";
 import path from "path";
-// import cookieParser from "cookie-parser";
-// import expressSession from "express-session";
-// import sessionFileStore from "session-file-store";
 
 import "dotenv/config";
-// import { dirname } from "path";
+
 import { fileURLToPath } from "url";
 import { recommendationUpdateDataBase } from "./recommendationBuddy.js";
 import { uploadPostProcess } from "./uploadPost.js";
@@ -24,7 +21,6 @@ import { confirmationProcess } from "./confirmationInvitaionBuddy.js";
 import { loginProcess } from "./login.js";
 import { registrationProcess } from "./registrationBuddy.js";
 import { updateProfileProcess } from "./updateProfile.js";
-// import { main } from "./newmailing.js";
 import { downloadPostsProcess } from "./downloadPost.js";
 const app = express();
 app.use(cors());
@@ -32,9 +28,6 @@ app.use(cors());
 const filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(filename);
 
-/////////////////////////////////////////////////
-////////////////// POUR LA PROD //////////////////
-/////////////////////////////////////////////////
 app.use(express.static(path.join(__dirname, "/../dist/buddyzik")));
 
 app.use(
@@ -49,44 +42,6 @@ app.use(
     path.join(__dirname, "..", "dist", "buddyzik", "assets", "fonts")
   )
 );
-console.log(path.join(__dirname, "..", "dist", "buddyzik", "assets", "images"));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
-// });
-
-///////////////////////////////////////////////////
-///////////////// POUR LE DEV /////////////////////
-///////////////////////////////////////////////////
-// console.log(path.join(__dirname, "..", "src", "assets", "images"));
-// app.use(express.static(path.join(__dirname, "/../src/app/assets")));
-
-// app.use(
-//   "/images",
-//   express.static(path.join(__dirname, "..", "src", "assets", "images"))
-// );
-
-///////////////////////////////////////////////////
-///////////////////////////////////////////////////
-///////////////////////////////////////////////////
-
-// app.use(cookieParser());
-
-// const ExpressSessionFileStore = sessionFileStore(expressSession);
-// const fileStore = new ExpressSessionFileStore({
-//   path: "./sessions",
-//   ttl: 3600,
-//   retries: 10,
-//   secret: "Mon super secret!",
-// });
-
-// app.use(
-//   expressSession({
-//     store: fileStore,
-//     secret: "mon secret de session",
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
 
 const mongoClient = new MongoClient(process.env.DB_URL);
 const collection = mongoClient
@@ -111,43 +66,20 @@ const projectionBuddyCard = {
   pro: 1,
   bio: 1,
 };
-// await mongoClient.connect();
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-
-// const distDir = __dirname + "/dist";
-// app.use(express.static(distDir));
-// app.use(bodyParser.json());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
-// console.log(path.join(__dirname, "src"));
-// app.get("/favicon.ico", express.static(path.join(__dirname, "src")));
 app.get("/favicon.ico", (req, res) => {
-  // Use actual relative path to your .ico file here
   console.log("path : ", __dirname, "../favicon.ico");
-  res
-    // .header("Access-Control-Allow-Origin' 'http://localhost:3100' always;")
-    .sendFile(path.resolve(__dirname, "../favicon.ico"));
+  res.sendFile(path.resolve(__dirname, "../favicon.ico"));
 });
 
 /////////////////////////////////////////////////////////
 ////////////////////// CHECK TOKEN //////////////////////
 /////////////////////////////////////////////////////////
 app.get("/auth", (req, res, next) => {
-  console.log("dans le middleware auth");
-
-  console.log("authToken: ", authToken(req.headers.token));
-
   res.status(200).json(authToken(req.headers.token));
-});
-app.get("/mailtest", (req, res, next) => {
-  console.log("dans le middleware auth");
-
-  // console.log("authToken: ", authToken(req.headers.token));
-  // main();
-  // registerMail("pipoflutepouet@gmail.com", "LLLUUUUUDOOOO");
 });
 
 /////////////////////////////////////////////////////////
@@ -155,8 +87,6 @@ app.get("/mailtest", (req, res, next) => {
 /////////////////////////////////////////////////////////
 
 app.post("/login", (req, res) => {
-  console.log("dans le middleware login");
-
   loginProcess(req.body).then((response) => {
     res.status(response.status).json(response.content);
   });
@@ -175,11 +105,6 @@ app.post("/register", (req, res) => {
 ////////////////////////////////////////////////////////////////////////
 
 app.post("/updateprofile", (req, res, next) => {
-  // console.log("dans le middleware updateprofile");
-  // console.log("new profile:", req.body);
-  // const myNewInfos = req.body;
-  // console.log("newInformations:", myNewInfos);
-  // const auth = await authToken(req.headers.token, req.headers.uuid)
   if (authToken(req.headers.token)) {
     updateProfileProcess(req.body, req.headers).then((response) => {
       console.log("response = ", response);
@@ -194,12 +119,9 @@ app.post("/updateprofile", (req, res, next) => {
 ////////////////////// FETCH INFOS POUR MODIF PROFIL//////////////////////
 ///////////////////////////////////////////////////////////////////////////
 app.get("/myinformations", (req, res, next) => {
-  console.log("dans le middleware myinformations");
   if (authToken(req.headers.token, req.headers.uuid)) {
     async function fetchMyInformations() {
       try {
-        // await mongoClient.connect();
-
         projectionBuddyCard.birthDate = 1;
         projectionBuddyCard.mailAddress = 1;
         projectionBuddyCard.location = 1;
@@ -231,14 +153,13 @@ app.get("/myinformations", (req, res, next) => {
 /////////////////////////////////////////////////////////
 app.post("/buddybyid", (req, res, next) => {
   if (authToken(req.headers.token, req.headers.uuid)) {
-    // console.log("req.body.buddyTarget : ", req.body.buddyTarget);
     async function sendBuddy(buddyTarget) {
       try {
         const buddyToSend = await fetchOne(
           { uuid: buddyTarget },
           { projection: projectionBuddyCard }
         );
-        // console.log("buddyToSend = ", buddyToSend);
+
         res.status(200).json(buddyToSend);
       } catch (error) {
         console.log(error);
@@ -253,18 +174,10 @@ app.post("/buddybyid", (req, res, next) => {
 //////////////////////////////// ALL BUDDIES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 app.get("/allbuddies", (req, res, next) => {
-  console.log("dans le middleware allbuddies");
-  // console.log("reqbody", req.body);
-  // console.log("reqheaders", req.headers);
-
   if (authToken(req.headers.token, req.headers.uuid)) {
-    console.log("token authentifié");
     async function fetchAllBuddies() {
       try {
         await mongoClient.connect();
-
-        //https://www.mongodb.com/docs/manual/reference/operator/query/nin/
-        // On créé le tableau de uuid d'amis à exclure
         const buddiesToExclude = await collection
           .find(
             {
@@ -278,7 +191,6 @@ app.get("/allbuddies", (req, res, next) => {
           )
           .toArray();
 
-        console.log("buddy à exclure: ", buddiesToExclude);
         const allBuddies = await collection
           .find(
             {
@@ -293,22 +205,12 @@ app.get("/allbuddies", (req, res, next) => {
           )
           .toArray();
 
-        // for (let each of allBuddies) {
-        //   each.addable = true;
-        // }
-        // console.log("les gens: ", allBuddies);
-
         if (allBuddies === null) {
         } else {
-          console.log("allBuddies", allBuddies);
           res.status(200).json(allBuddies);
-          // console.log("result:", result);
         }
       } catch (error) {
         console.log("Pas d'utilisateur trouvé", error);
-      } finally {
-        // Ensures that the client will close when you finish/error
-        // await mongoClient.close();
       }
     }
 
@@ -322,14 +224,11 @@ app.get("/allbuddies", (req, res, next) => {
 //////////////////////////////// MY BUDDIES ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 app.get("/fetchmybuddies", (req, res) => {
-  console.log("dans le middleware fetchmybuddies");
-  // console.log("req.headers.token = ", req.headers.token);
-
   if (authToken(req.headers.token, req.headers.uuid)) {
     async function fetchMyBuddies() {
       try {
         await mongoClient.connect();
-        /// Extraction de ma liste d'amis:
+
         const result = await collection
           .find(
             { uuid: req.headers.uuid },
@@ -338,20 +237,12 @@ app.get("/fetchmybuddies", (req, res) => {
             }
           )
           .toArray();
-        // console.log("buddies: ", result);
-        // console.log("buddies[0]: ", result[0]);
-        // console.log("buddies[0].friends: ", result[0].friends);
 
         const allMyBuddies = result[0].friends;
 
-        console.log("tous les buddies: ", allMyBuddies);
         res.status(200).json(allMyBuddies);
       } catch (error) {
         console.log(error);
-      } finally {
-        console.log("ok");
-        // Ensures that the client will close when you finish/error
-        // await mongoClient.close();
       }
     }
 
@@ -365,10 +256,6 @@ app.get("/fetchmybuddies", (req, res) => {
 ///////////////////////////// INVITATION RECO /////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 app.post("/invitationfromreco", (req, res) => {
-  console.log(
-    "dans le middleware invitation reco, guest = ",
-    req.body.buddyTarget
-  );
   if (authToken(req.headers.token, req.headers.uuid)) {
     invitationRecoUpdateDataBase(
       req.headers.uuid,
@@ -387,8 +274,6 @@ app.post("/invitationfromreco", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 
 app.post("/invitation", (req, res) => {
-  console.log("dans le middleware invitation, guest = ", req.body.buddyTarget);
-
   if (authToken(req.headers.token, req.headers.uuid)) {
     async function invitationProcess() {
       await invitationUpdateDataBase(
@@ -404,7 +289,6 @@ app.post("/invitation", (req, res) => {
         "pending"
       );
 
-      // const contactInformation = await fetchSome(
       return await fetchSome(
         { uuid: { $in: [req.headers.uuid, req.body.buddyTarget] } },
         { projection: { _id: 0, mailAddress: 1, firstName: 1, lastName: 1 } }
@@ -427,11 +311,6 @@ app.post("/invitation", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 
 app.post("/confirmation", (req, res) => {
-  console.log(
-    "dans le middleware confirmation, guest = ",
-    req.body.buddyTarget
-  );
-
   if (authToken(req.headers.token, req.headers.uuid)) {
     confirmationProcess(req.headers.uuid, req.body.buddyTarget);
   } else {
@@ -446,11 +325,7 @@ app.post("/confirmation", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 
 app.post("/deletion", (req, res) => {
-  console.log("dans le middleware deletion, guest = ", req.body.buddyTarget);
-
   if (authToken(req.headers.token, req.headers.uuid)) {
-    // async function deletionBuddyProcess(deleter, deleted)
-
     deletionBuddyProcess(req.headers.uuid, req.body.buddyTarget).then(() => {
       res.json("Votre suppression a bien été effectuée!!");
     });
@@ -459,10 +334,6 @@ app.post("/deletion", (req, res) => {
       "une erreur est survenue, impossible d'effectuer cette action, contactez le service support."
     );
   }
-
-  // On fetche les 2 buddy
-
-  // on les supprime de la liste d'amis respiectives
 });
 
 ///////////////////////////////////////////////////////////////////////////
@@ -470,11 +341,6 @@ app.post("/deletion", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 
 app.post("/recommendation", (req, res) => {
-  console.log(
-    "dans le middleware recommendation, guest à recommander = ",
-    req.body.buddyTarget
-  );
-
   if (authToken(req.headers.token, req.headers.uuid)) {
     async function recommendationProcess() {
       recommendationUpdateDataBase(
@@ -505,11 +371,9 @@ app.post("/recommendation", (req, res) => {
 //////////////////////////////////////////////
 
 app.post("/resetpassword", (req, res, next) => {
-  console.log("dans le middleware reste password");
-
   resetPasswordProcess(req.body.mailAddress).then((response) => {
     console.log("response = ", response);
-    res.status(response.status).json(response.json);
+    res.status(response.status).json(response);
   });
 });
 ///////////////////////////////////////
@@ -517,10 +381,9 @@ app.post("/resetpassword", (req, res, next) => {
 ///////////////////////////////////////
 
 app.post("/uploadpost", (req, res, next) => {
-  console.log("dans le middleware uploadpost");
   if (authToken(req.headers.token, req.headers.uuid)) {
     uploadPostProcess(req.headers, req.body).then((response) => {
-      res.status(response.status).json(response.message);
+      res.status(response.status).json(response);
     });
   }
 });
@@ -529,16 +392,10 @@ app.post("/uploadpost", (req, res, next) => {
 ///////////////////////////////////////
 
 app.post("/downloadposts", (req, res, next) => {
-  // console.log("dans le middleware FETCHpost");
-  // console.log("req.body", req.body);
-
   if (authToken(req.headers.token, req.headers.uuid)) {
     downloadPostsProcess(req.body.target).then((response) => {
       res.status(200).json(response);
     });
-    // downloadPostsProcess(req.headers).then((response) => {
-    //   res.status(response.status).json(response.message);
-    // });
   }
 });
 
@@ -549,10 +406,6 @@ app.post("/downloadposts", (req, res, next) => {
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "../dist/buddyzik/index.html"));
 });
-
-// app.get("/*", (req, res) => {
-//   res.status(404).sendFile("erreur 404");
-// });
 
 /////////////////////////////////////////////////////////
 //////////////////// SERVER EXPRESS /////////////////////

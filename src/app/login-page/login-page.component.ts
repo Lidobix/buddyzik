@@ -40,10 +40,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.userLoginForm);
     this.authService.authUser(this.userLoginForm, '/login');
-    console.log('form envoyé au serveur');
-    this.router.navigateByUrl('/home');
-    console.log('redirection vers home');
   }
 }

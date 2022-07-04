@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { AuthService } from 'src/services/auth.service';
 
 @Component({
@@ -14,26 +9,14 @@ import { AuthService } from 'src/services/auth.service';
   styleUrls: ['./reset-pwd.component.scss'],
 })
 export class ResetPwdComponent implements OnInit {
-  // resetPasswordForm!: FormGroup;
   mailAddress = new FormControl('', [Validators.required, Validators.email]);
 
   resetPasswordForm = new FormGroup({
     mailAddress: this.mailAddress,
   });
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    // this.resetPasswordForm = this.formBuilder.group({
-    //   mailAddress: [
-    //     '',
-    //     { validators: [Validators.required, Validators.email] },
-    //   ],
-    // });
-  }
+  ngOnInit(): void {}
   getErrorMessage() {
     if (this.mailAddress.hasError('required')) {
       return 'You must enter a value';
@@ -43,8 +26,6 @@ export class ResetPwdComponent implements OnInit {
   }
 
   onSubmitResetForm(): void {
-    console.log('confirmation de la demande de reset', this.resetPasswordForm);
-    // this.authService.updatehUser(this.resetPasswordForm, '/resetpassword');
     this.authService.updatehUser(this.resetPasswordForm, '/resetpassword');
   }
 }

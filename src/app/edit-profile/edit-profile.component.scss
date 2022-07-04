@@ -15,34 +15,12 @@ img {
     width:86vw;
     margin-left: 5.5vw;
 
-    @include media-min(desktop-up){
-        // max-width: 100%;
-        // max-height: 300px;
-    }
+  
     @include media-min (tablet-down){
         width:69vw;
-        // max-width: 100%;
-        // width:10%;
-        // max-height: 80px;
-        // margin-top: 22vh;
-    }
-    @include media-max(tablet-down){
-                // max-width: 100%;
-                // max-height: 80px;
-                // margin-top: 23vh;
-            
-                }
-                
-                @include media-max(phone-down){
-                    // max-width: 100%;
-                    // max-height: 400px;
-                    // margin-top:12vh;
-                }
 
-    // display:flex;
-    // height:100vh;
-    // position: absolute;
-    // width: 97vw;
+    }
+
 
     .editFormContent{
         margin-top: 10vh;
@@ -57,26 +35,20 @@ align-items: center;
 text-align: center;
 
 @include media-min(desktop-up){
-    
-    // max-width: 100%;
-    // max-height: 300px;
+
 }
 @include media-min (tablet-down){
-    // max-width: 100%;
-    // width:10%;
-    // max-height: 80px;
+   
     margin-top: 22vh;
 }
 @include media-max(tablet-down){
-            // max-width: 100%;
-            // max-height: 80px;
+           
             margin-top: 23vh;
         
             }
             
             @include media-max(phone-down){
-                // max-width: 100%;
-                // max-height: 400px;
+               
                 margin-top:12vh;
             }
         

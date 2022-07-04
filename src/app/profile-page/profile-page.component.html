@@ -33,7 +33,6 @@
       <div class="buddyMusicDesktop">
         <p><strong>Instru :</strong> {{ buddy.instrument }}</p>
         <p><strong>Style :</strong> {{ buddy.style }}</p>
-        <!-- <p *ngIf="buddy.group">Style : {{ buddy.style }}</p> -->
         <p *ngIf="buddy.group"><strong>Groupe :</strong> {{ buddy.group }}</p>
         <p *ngIf="!buddy.group"><strong>Groupe :</strong> Aucun</p>
         <p *ngIf="buddy.pro">Professionnel</p>
@@ -44,11 +43,9 @@
 
       <div class="buddyBio">
         <p><strong>Son petit mot :</strong> {{ buddy.bio }}</p>
-        <!-- <p *ngIf="buddy.bio != null">{{ buddy.bio }}</p> -->
       </div>
     </div>
 
-    <!-- <div id="postsList" (updatePosts)="onUpdatePosts($event)"> -->
     <div class="postsList">
       <app-post-card
         *ngFor="let post of allPosts"
